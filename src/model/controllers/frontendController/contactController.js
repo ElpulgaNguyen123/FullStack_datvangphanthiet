@@ -13,7 +13,7 @@ let FrContactController = async (req, res, next) => {
             userInfo = user[0];
         }
         // Lấy tất cả sản phẩm và hiển thị ra table
-        res.render('xedapphanthiet/contact/contact', {
+        res.render('datvangphanthiet/contact/contact', {
             title: 'Liên hệ',
             userInfo: userInfo,
             errors: req.flash('Errors'),

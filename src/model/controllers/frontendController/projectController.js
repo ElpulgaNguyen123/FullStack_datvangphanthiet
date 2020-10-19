@@ -2,9 +2,8 @@ var pool = require('../../config/connectDb');
 const { query } = require('express');
 const service = require('../../../services');
 
-let FrAboutController = async (req, res, next) => {
+let FrProjectController = async (req, res, next) => {
     try {
-
         let userInfo = {};
         var queryUser = 'SELECT * FROM user';
         var user = await service.getAllUser(queryUser);
@@ -12,15 +11,19 @@ let FrAboutController = async (req, res, next) => {
             userInfo = user[0];
         }
         // Lấy tất cả sản phẩm và hiển thị ra table
-        res.render('datvangphanthiet/about/about', {
-            title: 'Giới thiệu',
-            userInfo : userInfo,
-            errors: req.flash('Errors'),
-            success: req.flash('Success'),
-        })
+        pool.query('SELECT * FROM user', function (error, results, fields) {
+            if (error) throw error;
+            res.render('datvangphanthiet/projects/project', {
+                title: 'Dự án',
+                userInfo : userInfo,
+                errors: req.flash('Errors'),
+                success: req.flash('Success')
+            })
+        });
+
     } catch (error) {
         console.log(error);
         return res.status(500).send(error);
     }
 }
-module.exports = FrAboutController;
+module.exports = FrProjectController;
