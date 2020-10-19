@@ -1,0 +1,144 @@
+<% extend("../../admin.ejs") %>
+<div class="container-fluid">
+    <!-- start page title -->
+    <div class="row">
+        <div class="col-12">
+            <div class="page-title-box">
+                <div class="page-title-right">
+                    <ol class="breadcrumb m-0">
+                        <li class="breadcrumb-item"><a href="/admin">UTDESIGN</a></li>
+                        <li class="breadcrumb-item active"><%= title %></li>
+                    </ol>
+                </div>
+                <h4 class="page-title"><%= title %></h4>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12 col-lg-12 col-xl-12">
+            <div class="card-box">
+                <h4>Thông tin người dùng</h4>
+                <div class="row">
+                    <div class="col-xs-12 col-md-8">
+                        <form id="user_form" action="/admin/update-user/<%= user.user_id %>" method="post"
+                            enctype="multipart/form-data">
+                            <div class="another-info">
+                                <div class="form-group">
+                                    <label class="font-weight-bold" for="username"> Họ tên </label>
+                                    <input type="text" name="username" id="username"
+                                        class="form-control form-control-normal" value="<%= user.name %>"
+                                        placeholder="Họ tên">
+                                </div>
+                                <div class="form-group">
+                                    <label class="font-weight-bold" for="phone"> Số điện thoại
+                                    </label>
+                                    <input type="text" name="phone" value="<%= user.phone %>" id="profile-phone"
+                                        class="form-control form-control-normal" placeholder="Số điện thoại">
+                                </div>
+                                <div class="form-group">
+                                    <label class="font-weight-bold" for="email"> Email </label>
+                                    <input type="text" name="email" value="<%= user.email %>" id="profile-email"
+                                        class="form-control form-control-normal" placeholder="Email">
+                                </div>
+                                <div class="form-group">
+                                    <label class="font-weight-bold" for="address"> Địa chỉ
+                                    </label>
+                                    <input type="text" name="address" value="<%= user.address %>" id="profile-address"
+                                        class="form-control form-control-normal" placeholder="Địa chỉ">
+                                </div>
+                                <br>
+                                <span>
+                                    <h4> <strong>Mạng xã hội</strong></h4>
+                                </span>
+                                <hr>
+                                <div class="form-group">
+                                    <label class="font-weight-bold" for="profile-facebook"> Facebook
+                                    </label>
+                                    <input type="text" name="profile_facebook" value="<%= user.facebook %>"
+                                        id="profile_facebook" class="form-control form-control-normal"
+                                        placeholder="Link facebook">
+                                </div>
+                                <div class="form-group">
+                                    <label class="font-weight-bold" for="profile-instagram">
+                                        Instagram
+                                    </label>
+                                    <input type="text" name="profile_instagram" value="<%= user.instagram %>"
+                                        id="profile_instagram" class="form-control form-control-normal"
+                                        placeholder="Link instagramỉ">
+                                </div>
+                            </div>
+                    </div>
+                    <div class="col-xs-12 col-md-4">
+                        <div class="profile-image text-md-center">
+                            <div class="avatar-change">
+                                <img id="image-avatar-preview" src="" alt="">
+                            </div>
+                            <% if(user.avatar != '' && user.avatar != null){ %>
+                            <img id="image-avatar-info" class="sp_img_main"
+                                src="/public/uploads/auth/<%= user.avatar %>" alt="<%= user.name %>">
+                            <input type="hidden" name="auth_old_image" value="<%= user.avatar %>">
+                            <button id="trigger_button" class="btn btn-out-dotted btn-grd-primary mt-4">Chọn
+                                hình ảnh...</button>
+                            <% }else{ %>
+                            <img id="image-avatar-info" class="sp_img_main" src="/admin/images/example.png"
+                                alt="<%= user.name %>">
+                            <input type="hidden" name="auth_old_image" value="<%= user.avatar %>">
+
+                            <button id="trigger_button" class="btn btn-out-dotted btn-grd-primary mt-4">Chọn
+                                hình ảnh...</button>
+                            <% } %>
+                            <input type="file" name="user_image" id="user_image">
+                            <!-- Preview avatar change change -->
+                        </div>
+                    </div>
+                </div>
+                </form>
+                <button type="submit" class="btn hor-grd btn-grd-primary" data-type="danger" data-from="top"
+                    data-id="<%= user.user_id %>" data-align="right" id="checkinfo-change" data-dismiss="modal"> Lưu
+                    lại</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // click event to upload image ======================== start
+    $("#trigger_button").click(function (e) {
+        e.preventDefault()
+        $("#user_image").trigger('click');
+    });
+    $('#user_image').hide();
+    function getBrandAvatarUpdate() {
+        $('#user_image').bind('change', function () {
+
+            let fileData = $(this)[0].files[0];
+            let math = ["image/png", "image/jpg", "image/jpeg", "image/webp"];
+            let limit = 1048576;  // 1 mb 
+            // hàm inArray là dùng để check dữ liệu coi có trùng hay không.
+            if ($.inArray(fileData.type, math) === -1) {
+                notify('Kiểu ảnh không hợp lệ, chỉ chấp nhận kiểu jpg hoặc png', 'danger');
+                $(this).val(null);
+                return false;
+            }
+            if (fileData.size > limit) {
+                notify('Dung lượng ảnh quá lớn', 'danger');
+                $(this).val(null);
+                return false;
+            }
+            // kiểm tra xem trình duyệt có hỗ trợ file reader hay không
+            if (typeof (FileReader) != 'undefine') {
+                var fileReader = new FileReader();
+                // hình ảnh preview sau khi chọn file;
+                $('#image-avatar-info').hide();
+                var image_preview = $('#image-avatar-preview');
+                fileReader.onload = function (element) {
+                    image_preview.attr('src', element.target.result);
+                    image_preview.css('display', 'block');
+                }
+                fileReader.readAsDataURL(fileData);
+            }
+        })
+    }
+    getBrandAvatarUpdate();
+        // click event to upload image ======================== end
+</script>

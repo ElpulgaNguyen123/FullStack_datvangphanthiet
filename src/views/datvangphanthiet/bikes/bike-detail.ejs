@@ -1,0 +1,195 @@
+<% extend("../../xedapphanthiet") %>
+<section class="breacrumb_bg">
+  <div class="container">
+    <div class="row">
+      <div class="col-xs-12 col-md-12 text-center">
+        <span class=big-title> <%= bike.name %> </span>
+        <nav class="breadcrumb">
+          <a class="breadcrumb-item" href="/">Trang chủ</a>
+          <span class="breadcrumb-item active">Xe đạp</span>
+        </nav>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- shopping start -->
+<section id="bike-details" class="bike mt-4 page-relative">
+  <div class="container bg-white">
+    <div class="soph_cate_ adsolute_sec shadows_sec mb-4">
+      <div class="row">
+        <div class="col-sm-12 col-md-6">
+          <div class="product-details owl-carousel owl-theme">
+            <% if(imagearr.length > 0){ %>
+            <% for (var i = 0; i < imagearr.length ; i++ ) { %>
+            <div class="item">
+              <img src="/public/uploads/products/<%= images[imagearr[i]] %>" alt="Card image cap">
+            </div>
+            <% } %>
+            <% }else{ %>
+            <div class="col-xs-12 col-sm-12 col-md-12">
+              <div class="alert alert-info" role="alert">
+                Chưa có hình ảnh !
+              </div>
+            </div>
+            <% } %>
+          </div>
+        </div>
+        <div class="col-sm-12 col-md-6">
+          <div class="right-content mt-5">
+            <h1 class="bike-title entry-title ut_bold">
+              <%= bike.name %></h1>
+            <p class="line-clamp"><%= bike.short_description %></p>
+            <div class="sku">Sku : <span class="badge badge-info mb-4"><%= bike.sku %></span></div>
+            <div class="soph-box d-flex mb-3">
+              <div class="price ut_bold text-secondary"><%= bike.price %> <sup>đ</sup> </div>
+            </div>
+            <table class="table">
+              <tbody>
+                <% if(idtype01Arrs.length > 0){ %>
+                <% idtype01Arrs.forEach((idtype01Arr) => { %>
+                <tr>
+                  <td> <strong><%= idtype01Arr.attribute_name %></strong></td>
+                  <td><%= idtype01Arr.name %></td>
+                </tr>
+                <% }) %>
+                <% }else{ %>
+                <% }%>
+                <% if(idtype02Arrs.length > 0){ %>
+                <% idtype02Arrs.forEach((idtype02Arr) => { %>
+                <tr>
+                  <td> <strong><%= idtype02Arr.attribute_name %></strong></td>
+                  <td>
+                    <ul>
+                      <li> <%= idtype02Arr.name %> </li>
+                    </ul>
+                  </td>
+                </tr>
+                <% }) %>
+                <% }else{ %>
+                <% }%>
+              </tbody>
+            </table>
+            <div class="list-details">
+              <li> <Strong> Số lượng : </Strong> 25 </li>
+              <li> <Strong> Kích thước : </Strong> 1m x 2m </li>
+            </div>
+            <a href="tel:0352184372" class="btn btn-primary call-btn bg-main mt-4"> Gọi tư vấn : <strong> 0984 983
+                322
+              </strong></a>
+          </div>
+        </div>
+      </div>
+      <div class="row mt-5">
+        <div class="col-sm-12 col-md-8">
+          <div class="des_">
+            <ul class="nav nav-tabs" id="myTab" rosle="tablist">
+              <li class="nav-item">
+                <a class="nav-link active" id="home-tab" data-toggle="tab" href="#mota" role="tab" aria-controls="home"
+                  aria-selected="true">Mô tả</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" id="profile-tab" data-toggle="tab" href="#binhluan" role="tab"
+                  aria-controls="profile" aria-selected="false">Bình Luận</a>
+              </li>
+            </ul>
+            <div class="tab-content" id="myTabContent">
+              <div class="tab-pane fade show active in" id="mota" role="tabpanel" aria-labelledby="home-tab">
+                <div class="ba-text-fpt">
+                  <%- bike.description %>
+                </div>
+              </div>
+              <div class="tab-pane fade" id="binhluan" role="tabpanel" aria-labelledby="profile-tab">...</div>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-12 col-md-4">
+          <div class="sidebar-right">
+            <div class="sidebar-widget">
+              <h4 class="text_P text-main ut_bold"> TIN TỨC NỔI BẬT </h4>
+              <div class="relate-list">
+                <ul>
+                  <% blogFeature.forEach((blogfea) => { %>
+                  <li>
+                    <a class="feature_item" href="/blog/<%= blogfea.slug %>.<%= blogfea.id %>"
+                      title="<%= blogfea.title %>">
+                      <div class="left_img">
+                        <img src="/public/uploads/blogs/<%= blogfea.image %>" alt="<%= blogfea.title %>">
+                      </div>
+                      <div class="right_feature">
+                        <h5><%= blogfea.title %></h5>
+                        <div class="news-event__day">
+                          <ul class="d-flex">
+                            <li> <i class="icofont icofont-ui-calendar"></i>
+                              <span>
+                                <%= blogfea.create_at %> </span></li>
+                            <li> <i class="icofont-user-suited"></i> <%= blogfea.author %> </li>
+                          </ul>
+                        </div>
+                      </div>
+                    </a>
+                  </li>
+                  <% }) %>
+                </ul>
+              </div>
+            </div>
+            <div class="sidebar-widget">
+              <h4 class="text_P text-main ut_bold"> KẾT NỐI VỚI CHÚNG TÔI </h4>
+              <div class="facebook-page">
+                <iframe
+                  src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2F1705385099589310&tabs=timeline&width=340&height=500&small_header=false&adapt_container_width=true&hide_cover=false&show_facepile=true&appId"
+                  width="340" height="500" style="border:none;overflow:hidden" scrolling="no" frameborder="0"
+                  allowTransparency="true" allow="encrypted-media"></iframe>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- shopping end -->
+<section>
+  <div class="container bg-white mt-4">
+    <div class="row">
+      <div class="col-xs-12 col-sm-12">
+        <div class="section-title text-left">
+          <h3 class="relate_title text_P text-main ut_bold"> XE ĐẠP CÙNG LOẠI </h3>
+          <a href="products.html" class="link-more"> <span>Xem thêm&nbsp;</span><i
+              class="icofont-long-arrow-right"></i></a>
+        </div>
+      </div>
+      <% relateBikes.forEach((relateBike) => { %>
+      <div class="col-sm-6 col-md-3">
+        <div class="soph__it">
+          <div class="soph__img">
+            <a href="/xe-dap/chi-tiet/<%= bike.slug %>.<%= relateBike.id %>" title="<%= relateBike.name %>">
+              <% if(relateBike.image.length > 0){ %>
+              <img src="/public/uploads/products/<%=JSON.parse(relateBike.image)[0] %>" alt="">
+              <% } else{ %>
+              <img src="/public/xedapphanthiet/images/example.jpg" alt="">
+              <% } %>
+            </a>
+          </div>
+          <div class="soph__ct">
+            <h3 class="soph__tt ut_bold"> <a href="/xe-dap/chi-tiet/<%= bike.slug %>.<%= relateBike.id %>"
+                title="<%= relateBike.name %>"><%= relateBike.name %></a> </h3>
+            <div class="soph-box d-flex">
+              <div class="price ut_bold text-secondary"><%= relateBike.price %> <sup>đ</sup> </div>
+              <% if(bike.quantity > 0) {%>
+              <span class="status text-right"><i class="icofont-cube"></i> còn
+                (<%= bike.quantity %>)
+              </span>
+              <% }else{ %>
+              <span class="status text-right"><i class="icofont-cube"></i> Hết hàng
+              </span>
+              <% } %>
+            </div>
+          </div>
+        </div>
+      </div>
+      <%  }) %>
+    </div>
+  </div>
+</section>

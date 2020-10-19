@@ -1,0 +1,203 @@
+<% extend("../../admin") %>
+<!-- Start Content-->
+<div class="container-fluid">
+    <!-- start page title -->
+    <div class="row">
+        <div class="col-12">
+            <div class="page-title-box">
+                <div class="page-title-right">
+                    <ol class="breadcrumb m-0">
+                        <li class="breadcrumb-item"><a href="/admin">UT ADMIN</a></li>
+                        <li class="breadcrumb-item"><a href="/admin">Bảng Điều Khiển </a></li>
+                        <li class="breadcrumb-item active">Bảng Điều Khiển</li>
+                    </ol>
+                </div>
+                <h4 class="page-title">Bảng điều khiển</h4>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-6 col-xl-3">
+            <div class="card widget-box-three">
+                <div class="card-body">
+                    <div class="float-right mt-2">
+                        <i class="mdi mdi-chart-areaspline display-3 m-0"></i>
+                    </div>
+                    <div class="overflow-hidden">
+                        <p class="text-uppercase font-weight-medium text-truncate mb-2">Slides</p>
+                        <h2 class="mb-0"><span data-plugin="counterup"><%=slideCount %></span> <i class="mdi mdi-arrow-up text-success font-24"></i></h2>
+                        <p class="text-muted mt-2 m-0"><span class="font-weight-medium">Last:</span> 30.4k</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- end col -->
+
+        <div class="col-lg-6 col-xl-3">
+            <div class="card widget-box-three">
+                <div class="card-body">
+                    <div class="float-right mt-2">
+                        <i class="mdi mdi-account-convert display-3 m-0"></i>
+                    </div>
+                    <div class="overflow-hidden">
+                        <p class="text-uppercase font-weight-medium text-truncate mb-2">Blog</p>
+                        <h2 class="mb-0"><span data-plugin="counterup"><%= blogCount %></span> <i class="mdi mdi-arrow-down text-danger font-24"></i></h2>
+                        <p class="text-muted mt-2 m-0"><span class="font-weight-medium">Last:</span> 1250</p>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <!-- end col -->
+
+        <div class="col-lg-6 col-xl-3">
+            <div class="card widget-box-three">
+                <div class="card-body">
+                    <div class="float-right mt-2">
+                        <i class="mdi mdi-layers display-3 m-0"></i>
+                    </div>
+                    <div class="overflow-hidden">
+                        <p class="text-uppercase font-weight-medium text-truncate mb-2">Sản phẩm</p>
+                        <h2 class="mb-0"><span data-plugin="counterup"><%= productCount %></span><i class="mdi mdi-arrow-up text-success font-24"></i></h2>
+                        <p class="text-muted mt-2 m-0"><span class="font-weight-medium">Last:</span> 40.33k</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- end col -->
+
+        <div class="col-lg-6 col-xl-3">
+            <div class="card widget-box-three">
+                <div class="card-body">
+                    <div class="float-right mt-2">
+                        <i class="mdi mdi-av-timer display-3 m-0"></i>
+                    </div>
+                    <div class="overflow-hidden">
+                        <p class="text-uppercase font-weight-medium text-truncate mb-2">Thông tin</p>
+                        <h2 class="mb-0"><span data-plugin="counterup">652</span> <i class="mdi mdi-arrow-down text-danger font-24"></i></h2>
+                        <p class="text-muted mt-2 m-0"><span class="font-weight-medium">Last:</span> 956</p>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <!-- end col -->
+    </div>
+    <!-- end row -->
+    <div class="row">
+        <div class="col-xl-6">
+            <div class="card-box">
+                <h4 class="header-title mb-4">Danh sách sản phẩm mới nhất</h4>
+                <div class="table-rep-plugin">
+                    <div class="table-responsive">
+                        <table class="table table-hover m-0">
+                            <thead>
+                                <tr>
+                                    <th> STT </th>
+                                    <th> Mã Sku </th>
+                                    <th> Tên SP</th>
+                                    <th> Giá</th>
+                                    <th> Hành động </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <% products.forEach(function(product, index){ %>
+                                <tr>
+                                    <td scope="row"><%= index %></th>
+                                        <% if(product.image.length > 0){ %>
+                                    <th>
+                                        <p class="mt-2"> <span
+                                                class="label label-success d-inline-block">Sku:&nbsp;</span><%= product.sku %>
+                                        </p>
+                                        </td>
+                                        <% } else{ %>
+                                    <td>
+                                        <p class="mt-2"><span
+                                                class="label label-success d-inline-block">Sku:&nbsp;</span><%= product.sku %>
+                                        </p>
+                                    </td>
+                                    <% } %>
+                                    <td class="font-weight-bold">
+                                        <p class="text-break"> <%= product.name %> </p>
+                                    </td>
+                                    <td class="price-show"> <span class="product-price">
+                                            <%= product.price %>
+                                        </span> <sup> VNĐ </sup>
+                                    </td>
+                                    <td>
+                                        <div class="btn-group" role="group" aria-label="Basic example">
+                                            <a href="/admin/product/edit-product/<%= product.id %>" type="button"
+                                                class="btn hor-grd" title="Sửa sản phẩm">
+                                                <i class="icofont icofont-edit"></i> </a>
+                                            <a href="/admin/product/delete-product/<%= product.id %>" type="button"
+                                                class="btn hor-grd"> <i
+                                                    class="icofont icofont-ui-delete" title="Xóa sản phẩm"></i>
+                                            </a>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <% }); %>
+                            </tbody>
+                        </table>
+
+                    </div>
+                    <!-- table-responsive -->
+                </div>
+            </div>
+            <!-- end card -->
+        </div>
+        <!-- end col -->
+        <div class="col-xl-6">
+            <div class="card-box">
+                <h4 class="header-title mb-4">Tin tức mới Nhất</h4>
+                <div class="table-rep-plugin">
+                    <div class="table-responsive">
+                        <table class="table table-hover m-0">
+                            <thead>
+                                <tr>
+                                    <th> STT </th>
+                                    <th> Tên bài viết </th>
+                                    <th> hành động </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <% blogs.forEach(function(blog, index){ %>
+                                <tr>
+                                    <th scope="row"><%= index %></th>
+                                    <td class="font-weight-bold two-line">
+                                        <p> <%= blog.title %> </p>
+                                    </td>
+                                    <td>
+                                        <div class="btn-group" role="group" aria-label="Basic example">
+                                            <a href="/admin/blog/edit-blog/<%= blog.id %>"
+                                                class="btn hor-grd" title="Sửa blog">
+                                                <i class="icofont icofont-edit"></i>
+                                            </a>
+                                            <a href="/admin/slide/delete-blog/<%= blog.id %>"
+                                                class="delete-blog-confirm btn hor-grd"
+                                                data-url="/admin/blog/delete-blog/<%= blog.id %>"
+                                                title="Xóa blog" data-target="#blog-delete-modal"
+                                                data-toggle="modal">
+                                                <i class="icofont icofont-ui-delete"></i>
+                                            </a>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <% }); %>
+                            </tbody>
+                        </table>
+    
+                    </div>
+                </div>
+               
+                <!-- table-responsive -->
+            </div>
+            <!-- end card -->
+        </div>
+        <!-- end col -->
+
+    </div>
+    <!-- end row -->
+
+</div>
+<!-- end container-fluid -->

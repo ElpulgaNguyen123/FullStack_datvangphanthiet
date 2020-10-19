@@ -1,0 +1,501 @@
+<% extend("../../admin.ejs") %>
+
+<!-- Start Content-->
+<div class="container-fluid">
+    <!-- start page title -->
+    <div class="row">
+        <div class="col-12">
+            <div class="page-title-box">
+                <div class="page-title-right">
+                    <ol class="breadcrumb m-0">
+                        <li class="breadcrumb-item"><a href="/admin">UTADMIN</a></li>
+                        <li class="breadcrumb-item"><a href="/admin/products">Sản phẩm</a></li>
+                        <li class="breadcrumb-item active"><%= title %></li>
+                    </ol>
+                </div>
+                <h4 class="page-title"><%= title %></h4>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="card-box table-responsive">
+                <h4 class="header-title"><b><%= title %></b></h4>
+                <p class="sub-header">
+                    DataTables has most features enabled by default, so all you need to do to use it with your own tables is to call the construction function: <code>$().DataTable();</code>.
+                </p>
+                <div class="update-avatar-form">
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-12 col-md-12">
+                            <div id="actions" class="row mb-4">
+                                <div class="col-lg-7">
+                                    <div class="control-button d-flex">
+                                        <!-- The fileinput-button span is used to style the file input field as button -->
+                                        <span
+                                            class="btn mr-2 btn-success fileinput-button dz-clickable">
+                                            <i class="glyphicon glyphicon-plus"></i>
+                                            <span><i class="icofont icofont-plus-circle"></i>&nbsp;Thêm
+                                                Ảnh...</span>
+                                        </span>
+                                        <button type="submit" class="btn btn-primary mr-2 start">
+                                            <i class="glyphicon glyphicon-upload"></i>
+                                            <span><i class="icofont icofont-upload"></i>&nbsp;Upload
+                                                tất
+                                                cả</span>
+                                        </button>
+                                        <button type="reset" class="btn btn-warning cancel" disabled>
+                                            <i class="glyphicon glyphicon-ban-circle"></i>
+                                            <span><i class="icofont icofont-ui-remove">&nbsp;</i>Hủy
+                                                tất
+                                                cả</span>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="col-lg-5">
+                                    <!-- The global file processing state -->
+                                    <span class="fileupload-process">
+                                        <div id="total-progress"
+                                            class="progress progress-striped active" role="progressbar"
+                                            aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"
+                                            style="opacity: 0;">
+                                            <div class="progress-bar progress-bar-success"
+                                                style="width: 100%;" data-dz-uploadprogress="">
+                                            </div>
+                                        </div>
+                                    </span>
+                                </div>
+                            </div>
+                            <!-- HTML heavily inspired by http://blueimp.github.io/jQuery-File-Upload/ -->
+                            <div class="table table-striped" class="files" id="previews">
+                                <div class="template file-row d-flex">
+                                    <!-- This is used as the file preview template -->
+                                    <div class="flex-1">
+                                        <span class="preview"><img data-dz-thumbnail /></span>
+                                    </div>
+                                    <div class="flex-1">
+                                        <p class="name" data-dz-name></p>
+                                        <strong class="error text-danger" data-dz-errormessage></strong>
+                                    </div>
+                                    <div class="flex-1">
+                                        <p class="size" data-dz-size></p>
+                                        <div class="progress progress-striped active" role="progressbar"
+                                            aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+                                            <div class="progress-bar progress-bar-success"
+                                                style="width:0%;" data-dz-uploadprogress></div>
+                                        </div>
+                                    </div>
+                                    <div class="flex-3">
+                                        <button class="btn btn-primary start">
+                                            <i class="glyphicon glyphicon-upload"></i>
+                                            <span>Lưu</span>
+                                        </button>
+                                        <button data-dz-remove class="btn btn-warning cancel">
+                                            <i class="glyphicon glyphicon-ban-circle"></i>
+                                            <span>Hủy</span>
+                                        </button>
+                                        <button data-dz-remove class="btn btn-danger delete">
+                                            <i class="glyphicon glyphicon-trash"></i>
+                                            <span>Xóa</span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <script>
+                            function to_slug(str) {
+                                // Chuyển hết sang chữ thường
+                                str = str.toLowerCase();
+                                // xóa dấu
+                                str = str.replace(/(à|á|ạ|ả|ã|â|ầ|ấ|ậ|ẩ|ẫ|ă|ằ|ắ|ặ|ẳ|ẵ)/g, 'a');
+                                str = str.replace(/(è|é|ẹ|ẻ|ẽ|ê|ề|ế|ệ|ể|ễ)/g, 'e');
+                                str = str.replace(/(ì|í|ị|ỉ|ĩ)/g, 'i');
+                                str = str.replace(/(ò|ó|ọ|ỏ|õ|ô|ồ|ố|ộ|ổ|ỗ|ơ|ờ|ớ|ợ|ở|ỡ)/g, 'o');
+                                str = str.replace(/(ù|ú|ụ|ủ|ũ|ư|ừ|ứ|ự|ử|ữ)/g, 'u');
+                                str = str.replace(/(ỳ|ý|ỵ|ỷ|ỹ)/g, 'y');
+                                str = str.replace(/(đ)/g, 'd');
+                                // Xóa ký tự đặc biệt
+                                str = str.replace(/([^0-9a-z-\s])/g, '');
+                                // Xóa khoảng trắng thay bằng ký tự -
+                                str = str.replace(/(\s+)/g, '-');
+                                // xóa phần dự - ở đầu
+                                str = str.replace(/^-+/g, '');
+                                // xóa phần dư - ở cuối
+                                str = str.replace(/-+$/g, '');
+                                // return
+                                document.getElementById('product_slug').value = str;
+                                document.getElementById('product_meta_title').value = str;
+                                document.getElementById('product_meta_keyword').value = str;
+                                document.getElementById('product_meta_description').value = str;
+                                return str;
+                            }
+                        </script>
+                        <div class="col-xs-12 col-sm-12 col-md-12">
+                            <form action="/admin/products/add-product" id="product_form" method="POST"
+                                enctype="multipart/form-data">
+                                <div class="row">
+                                    <div class="form-group">
+                                        <input type="hidden" name="image_path" id="image_path"
+                                            class="form-control" placeholder="Đường dẫn sản phẩm">
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="hidden" name="product_attributes_type02"
+                                            id="product_attributes_type02" class="form-control"
+                                            placeholder="">
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="hidden" name="product_attributes_type01"
+                                            id="product_attributes_type01" class="form-control"
+                                            placeholder="">
+                                    </div>
+                                    <div class="col-xs-12 col-md-12">
+                                        <div class="form-group">
+                                            <label class="font-weight-bold required-form"
+                                                for="product_sku">
+                                                Sku
+                                            </label>
+                                            <input type="text" name="product_sku" id="product_sku"
+                                                class="form-control" placeholder="Sku" required>
+                                            <small> Sku tương tự như mã sản phẩm </small>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="font-weight-bold" for="product_brand">
+                                                Thương
+                                                Hiệu
+                                            </label>
+                                            <select class="form-control custom-select"
+                                                name="product_brand" id="product_brand">
+                                                <option selected>Chọn hãng xe...</option>
+                                                <% brands.forEach(function(brand, index){ %>
+                                                <option value="<%= brand.id %>">
+                                                    <%= brand.name %>
+                                                </option>
+                                                <%})%>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="font-weight-bold" for="product_categories">
+                                                Danh mục
+                                            </label>
+                                            <div class="categogy-border">
+                                                <% categories.forEach(function(category, index){ %>
+                                                <div class="form-check">
+                                                    <input type="radio" name="product_category"
+                                                        id="<%= category.id %>" class="form-check-input"
+                                                        value="<%= category.id %>">
+                                                    <label class="form-check-label"
+                                                        for="<%= category.id %>"><%= category.category_name %></label>
+                                                </div>
+                                                <%})%>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="font-weight-bold required-form"
+                                                for="product_name"> Tên Sản
+                                                Phẩm
+                                            </label>
+                                            <input type="text" name="product_name" id="product_name"
+                                                class="form-control" onkeyup="to_slug($(this).val())"
+                                                placeholder="Tên sản phẩm" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="font-weight-bold" for="product_slug">
+                                                Đường dẫn slug
+                                            </label>
+                                            <input type="text" name="product_slug" id="product_slug"
+                                                class="form-control" placeholder="Tên sản phẩm"
+                                                required>
+                                            <small> Slug, đường dẫn tối ưu SEO </small>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="font-weight-bold required-form"
+                                                for="product_price"> Giá sản
+                                                phẩm
+                                            </label>
+                                            <input type="text" name="product_price" "
+                                                        id=" product_price"
+                                                class="form-control price-format"
+                                                placeholder="giá sản phẩm" required>
+                                            <script>
+                                                $('.price-format').simpleMoneyFormat('.');
+                                            </script>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="font-weight-bold" for="product_quantity"> Số
+                                                lượng </label>
+                                            <input type="text" name="product_quantity"
+                                                id="product_quantity" class="form-control"
+                                                placeholder="Số lượng">
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="font-weight-bold" for="propduct_description">
+                                                Mô tả
+                                            </label>
+                                            <textarea id="summernote" id="propduct_description"
+                                                name="propduct_description"></textarea>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="font-weight-bold" for="short_description">
+                                                Mô tả ngắn </label>
+                                            <input type="text" name="short_description"
+                                                id="short_description" class="form-control"
+                                                placeholder="Mô tả ngắn">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12 mt-4">
+                                        <h4 class="sub-title"> Dữ liệu sản phẩm </h4>
+                                        <ul class="nav nav-tabs md-tabs tabs-left b-none"
+                                            role="tablist">
+                                            <li class="nav-item">
+                                                <a class="nav-link active" data-toggle="tab"
+                                                    href="#seotab" role="tab"> <strong>Seo
+                                                        website</strong></a>
+                                                <div class="slide"></div>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a class="nav-link" data-toggle="tab"
+                                                    href="#techinfotab" role="tab">
+                                                    <strong>Thuộc tính kỹ
+                                                        thuật</strong> </a>
+                                                <div class="slide"></div>
+                                            </li>
+                                        </ul>
+                                        <!-- Tab panes -->
+                                        <div class="tab-content tabs-left-content card-block">
+                                            <div class="tab-pane active" id="seotab" role="tabpanel">
+                                                <div class="form-group">
+                                                    <label class="font-weight-bold"
+                                                        for="product_meta_title">
+                                                        Meta title </label>
+                                                    <input disabled type="text"
+                                                        name="product_meta_title"
+                                                        id="product_meta_title" class="form-control"
+                                                        placeholder="Thẻ meta-title">
+                                                    <small class="text-muted"> Thẻ meta title
+                                                        dùng để
+                                                        tối ưu hóa SEO
+                                                    </small>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="font-weight-bold"
+                                                        for="product_meta_keyword">
+                                                        Thẻ Meta keyswords </label>
+                                                    <input disabled type="text"
+                                                        name="product_meta_keyword"
+                                                        id="product_meta_keyword" class="form-control"
+                                                        placeholder="Thẻ meta keywords">
+                                                    <small class="text-muted"> Thẻ meta keywords
+                                                        dùng để
+                                                        tối ưu hóa
+                                                        SEO
+                                                    </small>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="font-weight-bold"
+                                                        for="product_meta_description">
+                                                        Thẻ Meta description </label>
+                                                    <input disabled type="text"
+                                                        name="product_meta_description"
+                                                        id="product_meta_description"
+                                                        class="form-control"
+                                                        placeholder="Thẻ meta keywords">
+                                                    <small class="text-muted"> Thẻ meta
+                                                        description dùng
+                                                        để tối ưu
+                                                        hóa SEO
+                                                    </small>
+                                                </div>
+                                            </div>
+                                            <div class="tab-pane" id="techinfotab" role="tabpanel">
+                                                <div class="form-group row">
+                                                    <label class="col-sm-2 col-form-label">Thuộc
+                                                        tính</label>
+                                                    <div class="col-sm-8">
+                                                        <select name="select_attribute"
+                                                            id="select_attribute" class="form-control">
+                                                            <option value="0" disabled> Chọn
+                                                                thêm thuộc
+                                                                tính
+                                                            </option>
+                                                            <% attributes.forEach(function(attribute, index){ %>
+                                                            <option id="op_<%=attribute.id%>"
+                                                                value="<%= attribute.id %>">
+                                                                <%= attribute.attribute_name %>
+                                                            </option>
+                                                            <%})%>
+                                                        </select>
+                                                    </div>
+                                                    <div class="col-sm-2">
+                                                        <button type="button" id="add_more_attribute"
+                                                            class="btn hor-grd btn-grd-primary"><i
+                                                                class="icofont icofont-plus-circle"></i>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                                <div class="attribute_product">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <button type="submit" id="dropzoneSubmit"
+                                    class="btn hor-grd btn-grd-success mt-4">
+                                    <span><i class="icofont icofont-save"></i></span>
+                                    Lưu sản phẩm
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+
+    var ProductAttrArr = [];
+    var id_attribues = [];
+
+    var type01 = function (id, name) {
+        return `
+        <div class="form-group row" id=attr_${id} data-id="${id}">
+        <label class="font-weight-bold col-sm-3" for="product_meta_description">
+            ${name}
+        </label>
+        <input type="text" name="product_${id}" class="form-control col-sm-7"
+            placeholder="${name}">
+            <div class="col-sm-2">
+                <button class="minus-button btn btn-danger btn-outline-danger float-right"><i
+                        class="icofont icofont-minus-circle"></i>
+                </button>
+        </div>
+    </div>
+    `
+    }
+    var type02 = function (id, name) {
+        return `
+        <div class="form-group row" id=attr_${id} data-id="${id}">
+            <label class="col-sm-12 col-form-label attribute-label mb-3"> ${name} 
+                <div class="minus-button btn btn-danger btn-outline-danger float-right"><i
+                        class="icofont icofont-minus-circle"></i>
+                </div>
+            </label>
+            <div class="attribute_list_${id} col-sm-12">
+            </div>
+        </div>
+    `
+    }
+    var type02_attributes = function (id, name) {
+        return `
+        <div class="form-check">
+            <input type="checkbox"
+                class="checks form-check-input" onclick="getValue()"  value="${id}" id="${id}" checked>
+            <label class="form-check-label"
+                for="${id}">${name}</label>
+        </div>
+    `
+    }
+    function getValue() {
+        var checks = $('.checks');
+        var str = '';
+        for (i = 0; i < checks.length; i++) {
+            if (checks[i].checked === true) {
+                str += `${checks[i].value},`;
+            }
+        }
+        $('#product_attributes_type02').val(str);
+        var value = $('#product_attributes_type02').val();
+    }
+    // A $( document ).ready() block.
+    $(document).ready(function () {
+
+        //end validate product form
+
+        // start ajax, hàm gửi thông tin thuộc tính lên cho server.
+        function getAttributeServer(id) {
+            $.ajax({
+                url: '/admin/product/add-product-attribute/' + id,
+                type: 'POST',
+                cache: false,
+                contentType: 'application/json',
+                dataType: 'json',
+                processData: false, // Set giá trị này là false nếu bạn không muốn dữ liệu được truyền vào thiết lập data sẽ được xử lý và biến thành một query kiểu chuỗi.
+                data: JSON.stringify({ id: id }),
+                success: function (result) {
+                    // nếu loại sản phẩm là danh sách thì cho vào danh sách
+                    if (result.type == 2) {
+                        var attributes = result.attributes;
+                        $('.attribute_product').append(type02(result.attribute_id, result.attribute_name));
+                        var list_attributes = $(`.attribute_list_${result.id}`);
+                        for (var index = 0; index < attributes.length; index++) {
+                            list_attributes.append(type02_attributes(attributes[index].id, attributes[index].name));
+                        }
+                        // thêm id thuộc tính vào mảng html
+                        ProductAttrArr.push(`attr_${result.attribute_id}`);
+                        getValue();
+
+                    } else {
+                        // nếu loại danh sách là text thì cho vào loại text.
+                        var attributes = result.attributes;
+                        $('.attribute_product').append(type01(attributes[0].id, attributes[0].attribute_name));
+                        var formcontrolAttribute = $('#product_attributes_type01').val();
+                        // thêm id thuộc tính vào mảng html
+                        ProductAttrArr.push(`attr_${result.attribute_id}`);
+                        // trường hợp input đã có dữ liệu
+                        if (formcontrolAttribute.length > 0) {
+                            id_attribues = JSON.parse(formcontrolAttribute);
+                            id_attribues.push(attributes[0].id);
+                            $('#product_attributes_type01').val(JSON.stringify(id_attribues));
+                        } else {
+                            // trường hợp input chưa có dữ liệu
+                            id_attribues.push(attributes[0].id);
+                            $('#product_attributes_type01').val(JSON.stringify(id_attribues));
+                        }
+                    }
+                },
+                error: function (error) {
+                    notify(error, 'danger');
+                }
+            })
+        }
+        // end ajax ==================
+        // start send attribute id ==================
+        // lấy thông tin của id thuộc tính và gửi lên server.
+        $('#add_more_attribute').on('click', function (e) {
+            e.preventDefault();
+            var options = $('#select_attribute option');
+            var valueSelect = $('#select_attribute').val();
+            if (!valueSelect) {
+                return false;
+            }
+            $("#select_attribute option:selected").attr('disabled', true);
+            // đưa id thuộc tính lên cho server
+            getAttributeServer(valueSelect);
+        });
+        // end send attribute id ======================
+
+        // start remove attribute id ==================
+        // xóa id thuộc tính khi không muốn thêm nữa.
+        $(document).on("click", ".minus-button", function () {
+            var parent = $(this).parent().parent();
+            var parentId = parent.attr('id');
+            var idParentSelect = parent.attr('data-id');
+            $("#select_attribute option[value=" + idParentSelect + "]").attr('disabled', false);
+            $(`#${parentId}`).remove();
+            // cập nhật lại danh sách dữ liệu loại 2(type 2);
+            getValue();
+            // xóa id của attribute trước khi đưa lên server.
+            var index = id_attribues.indexOf(parseInt(idParentSelect));
+            if (index != -1) {
+                id_attribues.splice(index, 1);
+                $('#product_attributes_type01').val(JSON.stringify(id_attribues));
+            }
+        })
+        // end remove attribute id ==================
+    });
+    // end off document of ready ===========================
+</script>
+© 2020 GitHub, Inc.

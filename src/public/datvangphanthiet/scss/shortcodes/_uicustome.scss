@@ -1,0 +1,35 @@
+// bagde
+.pd-badge {
+    padding: 20px 10px;
+}
+// typho
+.text-small-thin {
+    font-size: 15px;
+    font-weight: 500;
+}
+
+// background
+.bg-yellow {
+background: var(--warning);
+}
+
+.no-padding {
+    padding: 0px;
+}
+.padding-desk {
+    padding: 30px 100px;
+    ul {
+        margin-top: 0;
+        color: black;
+        font-size: 15px;
+        line-height: 30px;
+        padding-left: 15px;
+    }
+}
+
+.line-clamp {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    overflow: hidden;
+}
