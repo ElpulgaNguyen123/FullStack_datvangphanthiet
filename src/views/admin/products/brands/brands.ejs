@@ -23,13 +23,13 @@
                     các sản phẩm.</span>
                 <% if(errors != ""){%>
                 <% errors.forEach((item) => {%>
-                <script>toastr.error('<%- item %>', 'Gặp lỗi!')</script>
+                <script>toastr.error('<%- item %>', 'Gặp lỗi !')</script>
                 <%})%>
                 <%}%>
                 <% if(success != ""){%>
                 <% success.forEach((item) => {%>
                 <script>
-                    toastr.success('<%- item %>', 'Thành công')
+                    toastr.success('<%- item %>', 'Thành công !')
                 </script>
                 <%})%>
                 <%}%>

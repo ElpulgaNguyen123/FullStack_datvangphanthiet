@@ -3,22 +3,21 @@
 const FrhomeController = require('./homeController');
 const FrAboutController = require('./aboutController');
 const FrProjectController = require('./projectController');
-const FrTermControler = require('./termController');
+const FrTermController = require('./termController');
 const {FrContactController,
-    FrSendmailController} = require('./contactController');
+       FrSendmailController} = require('./contactController');
 const {FrBlogController,
-    FrBlogDetailController} = require('./blogController');
-    const {FrBikeController,
-        FrBikeDetailController,
+       FrBlogDetailController} = require('./blogController');
+
+
+const {FrProductController,
+    FrProductDetailController,
         getAllBikeCategory,
         getAllBikeBrand,
         searchData,
         getAllBikeDesc,
-        getPageLoad} = require('./bikeController');
+        getPageLoad} = require('./productController');
 
-
-        
-        
 
 module.exports = {
     FrhomeController,
@@ -30,15 +29,14 @@ module.exports = {
     FrBlogController,
     FrBlogDetailController,
 
-    FrBikeController,
-    FrBikeDetailController,
+    FrProductController,
+    FrProductDetailController,
     getAllBikeCategory,
     getAllBikeBrand,
     searchData,
     getAllBikeDesc,
     getPageLoad,
-
     FrProjectController,
     
-    FrTermControler
+    FrTermController
 }

@@ -4,7 +4,6 @@ const service = require('../../../services');
 
 let FrAboutController = async (req, res, next) => {
     try {
-
         let userInfo = {};
         var queryUser = 'SELECT * FROM user';
         var user = await service.getAllUser(queryUser);

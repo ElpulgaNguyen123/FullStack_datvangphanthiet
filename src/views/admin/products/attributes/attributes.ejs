@@ -24,16 +24,16 @@
                     các sản phẩm.</p>
                 <% if(errors != ""){%>
                 <% errors.forEach((item) => {%>
-                <div class="alert alert-danger" role="alert">
-                    <strong class="alert-link"><%- item %></strong>.
-                </div>
+                <script>
+                    toastr.error('<%- item %>', 'Lỗi !')
+                </script>
                 <%})%>
                 <%}%>
-                            <% if(success != ""){%>
+                 <% if(success != ""){%>
                 <% success.forEach((item) => {%>
-                <div class="alert alert-success" role="alert">
-                    <strong class="alert-link"><%- item %></strong>.
-                </div>
+                <script>
+                    toastr.success('<%- item %>', 'Thành công !')
+                </script>
                 <%})%>
                 <%}%>
                 <form id="attribute_form" action="/admin/attribute/add-attribute" method="POST">

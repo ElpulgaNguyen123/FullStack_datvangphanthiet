@@ -20,16 +20,16 @@
             <div class="card-box">
                 <% if(errors != ""){%>
                 <% errors.forEach((item) => {%>
-                <div class="alert alert-danger" role="alert">
-                    <strong class="alert-link"><%- item %></strong>.
-                </div>
+                <script>
+                    toastr.error('<%- item %>', 'Lỗi !')
+                </script>
                 <%})%>
                 <%}%>
                 <% if(success != ""){%>
                 <% success.forEach((item) => {%>
-                <div class="alert alert-success" role="alert">
-                    <strong class="alert-link"><%- item %></strong>.
-                </div>
+                <script>
+                    toastr.success('<%- item %>', 'Thành công !')
+                </script>
                 <%})%>
                 <%}%>
                

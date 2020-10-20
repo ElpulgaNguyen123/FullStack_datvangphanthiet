@@ -120,7 +120,7 @@
                         </a>
                         <a href="#">
                             <div class="inbox-item">
-                                <div class="inbox-item-img"><img src="/public/admin/assets/images/users/avatar-5.jpg" class="rounded-circle" alt=""></div>
+                                <div class="inbox-item-img"><img src="/public/uploads/auth/<%= user.avatar %>" class="rounded-circle" alt=""></div>
                                 <p class="inbox-item-author">Shahedk</p>
                                 <p class="inbox-item-text text-truncate">Hey! there I'm available...</p>
 
@@ -137,7 +137,7 @@
         </li>
         <li class="dropdown notification-list">
             <a class="nav-link dropdown-toggle nav-user mr-0 waves-effect" data-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
-                <img src="/public/admin/assets/images/users/avatar-1.jpg" alt="user-image" class="rounded-circle">
+                <img src="/public/uploads/auth/<%= user.avatar %>" alt="user-image" class="rounded-circle">
                 <span class="d-none d-sm-inline-block ml-1">Alex M.</span>
             </a>
             <div class="dropdown-menu dropdown-menu-right profile-dropdown ">
@@ -146,25 +146,21 @@
                     <h6 class="text-overflow m-0">Welcome !</h6>
                 </div>
                 <!-- item-->
-                <a href="javascript:void(0);" class="dropdown-item notify-item">
+                <a href="#profile-modal" data-toggle="modal" data-target="#profile-modal" data-animation="superscaled" class="dropdown-item notify-item">
                     <i class="mdi mdi-account-outline"></i>
-                    <span>Profile</span>
+                    <span>Thông tin</span>
                 </a>
                 <!-- item-->
                 <a href="javascript:void(0);" class="dropdown-item notify-item">
                     <i class="mdi mdi-settings-outline"></i>
-                    <span>Settings</span>
+                    <span>Cài đặt</span>
                 </a>
                 <!-- item-->
-                <a href="javascript:void(0);" class="dropdown-item notify-item">
-                    <i class="mdi mdi-lock-outline"></i>
-                    <span>Lock Screen</span>
-                </a>
                 <div class="dropdown-divider"></div>
                 <!-- item-->
-                <a href="javascript:void(0);" class="dropdown-item notify-item">
+                <a href="/admin/logout" class="dropdown-item notify-item">
                     <i class="mdi mdi-logout-variant"></i>
-                    <span>Logout</span>
+                    <span>Đăng xuất</span>
                 </a>
             </div>
         </li>
