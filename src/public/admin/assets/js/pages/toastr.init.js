@@ -16,7 +16,7 @@ $(function () {
         "hideEasing": "linear",
         "showMethod": "fadeIn",
         "hideMethod": "fadeOut"
-      }
+    }
 
     // var k,
     //     f = -1,

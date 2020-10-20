@@ -3,7 +3,7 @@ var app = require('../../../config/app');
 var service = require('../../../../services');
 var multer = require('multer');
 var { uuid } = require('uuidv4');
-var { Transuccess, saveSuccess, deleteSuccess } = require('../../../../../lang/vi');
+var { Transuccess, Tranerrors, deleteSuccess } = require('../../../../../lang/vi');
 var sharp = require('sharp');
 var fs = require('fs');
 var fsExtras = require('fs-extra');
@@ -53,7 +53,7 @@ let addSlide = (req, res, next) => {
             if (req.file) {
                 // resize image before uploads.
                 sharp(`${req.file.destination}/${req.file.filename}`)
-                    .resize(1920, 625)
+                    .resize(1920, 900)
                     .toFile(`${req.file.destination}/${req.file.filename}-${generatecode}.webp`, (err, info) => {
                         fs.unlinkSync(req.file.path);
                     });
@@ -69,7 +69,11 @@ let addSlide = (req, res, next) => {
                     filename]
             ];
             pool.query(queryNew, [slideValues], function (error, results, fields) {
-                if (error) throw error;
+                if (error) {
+                    arrayError.push(Tranerrors.createError('slide'));
+                    req.flash('Errors', arrayError);
+                    res.redirect('/admin/slides');
+                }
                 successArr.push(Transuccess.createSuccess('Slide'));
                 req.flash('Success', successArr);
                 res.redirect('/admin/slides');
@@ -91,7 +95,11 @@ let getEditSlide = async (req, res, next) => {
         var query = `SELECT * FROM slide WHERE id = ?`;
         // Lấy tất cả sản phẩm và hiển thị ra table
         await pool.query(query, slide_id, function (error, rows, fields) {
-            if (error) throw error;
+            if (error) {
+                arrayError.push(error);
+                req.flash('Errors', arrayError);
+                res.redirect('/admin/slides');
+            }
             res.render('admin/website/sliders/edit-slider', {
                 slide: rows[0],
                 user: req.user,
@@ -115,7 +123,7 @@ let postEditSlide = (req, res, next) => {
             if (req.file) {
                 // resize image before uploads.
                 sharp(`${req.file.destination}/${req.file.filename}`)
-                .resize(1920, 625)
+                    .resize(1920, 625)
                     .toFile(`${req.file.destination}/${req.file.filename}-${generatecode}.webp`, async (err, info) => {
                         fs.unlinkSync(req.file.path);
                         if (req.body.slide_old_image) {
@@ -144,7 +152,11 @@ let postEditSlide = (req, res, next) => {
                 req.params.id
             ];
             await pool.query(queryUpdate, slideValues, function (error, results, fields) {
-                if (error) throw error;
+                if (error) {
+                    arrayError.push(Tranerrors.editError('slide'));
+                    req.flash('Errors', arrayError);
+                    res.redirect('/admin/slides');
+                }
                 successArr.push(Transuccess.saveSuccess('Slide'));
                 req.flash('Success', successArr);
                 res.redirect('/admin/slides');
@@ -171,7 +183,11 @@ let postDeleteSlide = async (req, res, next) => {
         slide
         WHERE id = ${slide_id}`;
         pool.query(querydeleteSlide, async function (error, results, fields) {
-            if (error) throw error;
+            if (error) {
+                arrayError.push(Tranerrors.deleteError('slide'));
+                req.flash('Errors', arrayError);
+                res.redirect('/admin/slides');
+            }
             if (Image_delete != null || Image_delete != '') {
                 await fsExtras.remove(`${app.directory_slides}/${Image_delete}`);
             }

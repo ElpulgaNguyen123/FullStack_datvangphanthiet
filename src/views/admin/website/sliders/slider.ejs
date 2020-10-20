@@ -20,16 +20,14 @@
                 <h5 class="mb-5"> <strong>Thêm <%= title %></strong> </h5>
                 <% if(errors != ""){%>
                 <% errors.forEach((item) => {%>
-                <div class="alert alert-danger" role="alert">
-                    <strong class="alert-link"><%- item %></strong>.
-                </div>
+                <script>toastr.error('<%- item %>', 'Gặp lỗi !')</script>
                 <%})%>
                 <%}%>
                 <% if(success != ""){%>
                 <% success.forEach((item) => {%>
-                <div class="alert alert-success" role="alert">
-                    <strong class="alert-link"><%- item %></strong>.
-                </div>
+                    <script>
+                        toastr.success('<%- item %>', 'Thành công !')
+                    </script>
                 <%})%>
                 <%}%>
                 <form action="/admin/slide/add-slide" id="slide_form" method="POST" enctype="multipart/form-data">

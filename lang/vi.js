@@ -11,14 +11,19 @@ let tranvalidation_resetPassword = {
   password_incorrect: "Mật khẩu bao gồm số và chữ viết hoa và phải hơn 6 số !",
   password_confirm_incorrect: "Mật khẩu nhập lại phải giống với mật khẩu bên trên !",
 }
+
+
 let TranProductSuccess = {
   createNewSuccess: 'Thêm mới sản phẩm thành công !',
   deleteProducts: 'Xóa sản phẩm thành công !',
   editSuccess: 'Sửa sản phẩm thành công !',
 }
+
 let TranAuthSuccess = {
   createNewAccountsuccess: 'Tạo tài khoản thành công !, vui lòng đăng nhập email để xác nhận !',
 }
+
+
 let Tranerrors = {
   user_created_errors: 'Đăng ký lỗi !',
   user_email_inuse: 'Email này đã được sử dụng, vui lòng kiểm tra nếu chưa kích hoạt',
@@ -30,7 +35,20 @@ let Tranerrors = {
   Login_success: 'Đăng nhập thành công !',
   hasErrors: 'Có lỗi xảy ra',
   emailinvalid: 'Email này không tồn tại, vui lòng nhập lại !',
-  userinvalid: 'Tài khoản này không tồn tại'
+  userinvalid: 'Tài khoản này không tồn tại',
+
+  createError: function (text) {
+    return `Thêm ${text} không thành công !`;
+  },
+  saveError: function (text) {
+    return `Lưu ${text} không thành công !`;
+  },
+  deleteError: function (text) {
+    return `Xóa ${text} không thành công !`;
+  },
+  editError: function (text) {
+    return `Chỉnh sửa ${text} không thành công !`;
+  },
 
 }
 let Transuccess = {
@@ -45,6 +63,7 @@ let Transuccess = {
   reset_passwordsendsuccess: 'Email reset password đã được gửi, vui lòng đến email để reset password',
   reset_passwordsuccess: 'Đổi mật khẩu thành công !',
   userinfoNotChange: 'Không có sự thay đổi nào !',
+
   createSuccess: function (text) {
     return `Thêm ${text} thành công !`;
   },
@@ -53,11 +72,14 @@ let Transuccess = {
   },
   deleteSuccess: function (text) {
     return `Xóa ${text} thành công !`;
+  },
+  editSuccess: function (text) {
+    return `Chỉnh sửa ${text} thành công !`;
   }
 }
 let tranMail = {
   subject: "Xe Đạp Phương Đông : Xác nhận tài khoản !",
-  sendmailSubject : 'Gửi xe đạp Phương Đông',
+  sendmailSubject: 'Gửi xe đạp Phương Đông',
   template: (linkverify) => {
     return `<h2> Bạn nhận được email này và đã đăng ký tài khoản trên ứng dụng Funny chat. </h2>
         <h3> Vui lòng click vào liên kết bên dưới để kích hoạt tài khoản. </h3>
@@ -261,15 +283,15 @@ let tranMail = {
         </tr>
     </table>`
   },
-  sendmailInfo:(user) => {
-  return `<ul class="list-group">
+  sendmailInfo: (user) => {
+    return `<ul class="list-group">
       <li class="list-group-item"><strong>Họ tên : </strong> ${user.name}</li>
       <li class="list-group-item"><strong>Điện thoại : </strong> ${user.phone}</li>
       <li class="list-group-item"><strong>Email : </strong>${user.email}</li>
       <li class="list-group-item"><strong>Nội dung : </strong>${user.content}</li>
     </ul>`
-},
-send_success: 'Gửi mail thành công. chúng tôi sẽ phản hồi ngay !',
+  },
+  send_success: 'Gửi mail thành công. chúng tôi sẽ phản hồi ngay !',
   send_failed: "Có lỗi, vui lòng liên hệ vơi bộ phận hỗ trợ để được giúp đỡ !"
 }
 
