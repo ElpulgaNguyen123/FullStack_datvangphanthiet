@@ -28,7 +28,7 @@
                 <%}%>
                     <% if(success != ""){%>
                 <% success.forEach((item) => {%>
-                <script>toastr.error('<%- item %>', 'Thành công !')</script>
+                <script>toastr.success('<%- item %>')</script>
                 <%})%>
                 <%}%>
                   <!-- start product images -->
@@ -419,7 +419,6 @@
                     Lưu lại
                 </button>
             </form>
-
         </div>
         <!-- end add product info -->
     </div>

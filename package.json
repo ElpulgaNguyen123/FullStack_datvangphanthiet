@@ -6,7 +6,7 @@
   },
   "private": true,
   "scripts": {
-    "webpack":"webpack",
+    "webpack": "webpack",
     "start": "nodemon --exec babel-node app.js",
     "server": "babel-node pm2 start app.js --name xedapphanthietoptimize --watch"
   },

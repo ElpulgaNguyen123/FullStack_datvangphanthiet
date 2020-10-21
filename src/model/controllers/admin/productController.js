@@ -8,6 +8,7 @@ var sharp = require('sharp');
 var fs = require('fs');
 var fsExtras = require('fs-extra');
 const { json, query } = require('express');
+const { throws } = require('assert');
 
 var storage = multer.diskStorage({
     destination: function (req, file, cb) {
@@ -364,10 +365,7 @@ let addProductImage = (req, res, next) => {
         try {
             //thực hiện báo về cho protend;
             if (req.files) {
-                console.log('Danh sách sản phẩm')
-                console.log(req.files);
                 req.files.map(async (file) => {
-                    // đường dẫn lưu ảnh
                     try {
                         await sharp(file.path).resize(500, 300).toBuffer(function (err, buffer) {
                             fs.writeFile(file.path, buffer, function (e) {
@@ -715,7 +713,6 @@ let editProductPost = (req, res, next) => {
                     console.log('Không có sự thay đổi nào !');
                 }
             }
-
             var queryUpdate = `UPDATE product
             SET  
             sku = ?, 
@@ -752,8 +749,8 @@ let editProductPost = (req, res, next) => {
                 var Obj2 = JSON.parse(req.body.image_path);
                 var count = Object.keys(Obj).length;
                 var array = [];
-                for (x in Obj2) {
-                    Obj[`${count - 1}`] = Obj2[x];
+                for (var x in Obj2) {
+                    Obj[`${count}`] = Obj2[x];
                     array.push(Obj2[x]);
                 }
                 for (var index = 0; index <= array.length - 1; index++) {
@@ -761,6 +758,8 @@ let editProductPost = (req, res, next) => {
                     count++;
                 }
                 productItem[6] = JSON.stringify(Obj);
+                console.log('danh sách hình ảnh được up lên');
+                console.log(productItem[6]);
             } else {
                 productItem[6] = imageLink[0].image;
             }
@@ -776,18 +775,20 @@ let editProductPost = (req, res, next) => {
             productItem[12] = 1;
             productItem[13] = req.body.product_quantity;
             productItem[14] = req.params.id;
+           
 
             await pool.query(queryUpdate, productItem, function (error, results, fields) {
                 if (error) throw error;
                 successArr.push(Transuccess.createSuccess(' Chỉnh sửa sản phẩm thành công '));
                 req.flash('Success', successArr);
-                //return res.redirect('/admin/products');
+                return res.redirect('/admin/product/edit-product/' + + req.params.id);
             });
 
         } catch (error) {
-            arrayError.push('Có lỗi xảy ra');
-            req.flash('errors', arrayError);
-            //res.redirect('/admin/products');
+            throw error;
+            // arrayError.push('Có lỗi xảy ra');
+            // req.flash('errors', arrayError);
+            // res.redirect('/admin/product/edit-product/' + req.params.id);
         }
     })
 }
@@ -810,7 +811,7 @@ let editProductImage = (req, res, next) => {
         } catch (error) {
             arrayError.push('Có lỗi xảy ra');
             req.flash('errors', arrayError);
-            res.redirect('/admin/products');
+            res.redirect('/admin/products/edit-product');
         }
         // Everything went fine.
     })
