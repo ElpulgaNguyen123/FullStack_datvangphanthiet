@@ -336,15 +336,18 @@ $(document).ready(function () {
                     myDropzone.processQueue();
                     var imgPathArrr = [];
                     if (myDropzone.files != "") {
+                        console.log(myDropzone.files)
                         for (var index = 0; index < myDropzone.files.length; index++) {
                             imgPathArrr.push(myDropzone.files[index].upload.filename);
                         }
                         var ImageJson = Object.assign({}, imgPathArrr);
                         // thiết lập dữ liệu cho input bên frontend để truyền lên server
                         $('#image_path').val(JSON.stringify(ImageJson));
+                    }else {
+                        alert('Không có sự thay đổi nào');
                     }
-                    $('#product-edit-form').submit();
-                    $('.start').click();
+                    //$('#product-edit-form').submit();
+                    //$('.start').click();
                 }
             });
         });

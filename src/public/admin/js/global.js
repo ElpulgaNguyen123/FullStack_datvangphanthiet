@@ -321,35 +321,29 @@ $(document).ready(function () {
                 },
                 invalidHandler: function (event, validator) {
                     var errors = validator.numberOfInvalids();
-                    /*Here you will get your errors
-                        if (errors) {
-                          var message = errors == 1
-                                ? 'You missed 1 field. It has been highlighted'
-                                : 'You missed ' + errors + ' fields. They have been highlighted';
-                          $("div.error span").html(message);
-                          $("div.error").show();
-                    } else {
-                      $("div.error").hide();
-                    }*/
                     alert("Vui lòng Validate " + errors);
                 },
                 submitHandler: function (element) {
                     myDropzone.processQueue();
                     var imgPathArrr = [];
                     if (myDropzone.files != "") {
+                        console.log(myDropzone.files)
                         for (var index = 0; index < myDropzone.files.length; index++) {
                             imgPathArrr.push(myDropzone.files[index].upload.filename);
                         }
                         var ImageJson = Object.assign({}, imgPathArrr);
                         // thiết lập dữ liệu cho input bên frontend để truyền lên server
                         $('#image_path').val(JSON.stringify(ImageJson));
+                        console.log(ImageJson);
+                    }
+                    else{
+                        alert('Không có sự thay đổi nào')
                     }
                     $('#product-edit-form').submit();
                     $('.start').click();
                 }
             });
         });
-
 
         // thực hiện update hoặc thêm hình ảnh.
         $('#save-button-product-image').on('click', function (param) {

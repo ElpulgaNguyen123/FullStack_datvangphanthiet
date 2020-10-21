@@ -359,9 +359,13 @@ let addProductPost = (req, res, next) => {
 // Thêm hình ảnh sản phẩm
 let addProductImage = (req, res, next) => {
     productUploadFile(req, res, (error) => {
+        let successArr = [];
+        let arrayError = [];
         try {
             //thực hiện báo về cho protend;
             if (req.files) {
+                console.log('Danh sách sản phẩm')
+                console.log(req.files);
                 req.files.map(async (file) => {
                     // đường dẫn lưu ảnh
                     try {
@@ -376,6 +380,8 @@ let addProductImage = (req, res, next) => {
             }
         } catch (error) {
             console.log(error);
+            req.flash('errors', arrayError);
+            res.redirect('/admin/products');
             return res.status(500).send(error);
         }
     })
@@ -775,13 +781,13 @@ let editProductPost = (req, res, next) => {
                 if (error) throw error;
                 successArr.push(Transuccess.createSuccess(' Chỉnh sửa sản phẩm thành công '));
                 req.flash('Success', successArr);
-                return res.redirect('/admin/products');
+                //return res.redirect('/admin/products');
             });
 
         } catch (error) {
             arrayError.push('Có lỗi xảy ra');
             req.flash('errors', arrayError);
-            res.redirect('/admin/products');
+            //res.redirect('/admin/products');
         }
     })
 }
@@ -898,7 +904,6 @@ let deleteProductImage = async (req, res, next) => {
         res.redirect('/admin/products');
     }
 }
-
 let searchData = async (req, res, next) => {
     let successArr = [];
     try {
@@ -920,8 +925,6 @@ let searchData = async (req, res, next) => {
         res.redirect('/admin/products');
     }
 }
-
-
 let deleteProductController = async (req, res, next) => {
     let successArr = [];
     try {

@@ -551,7 +551,7 @@
                     setTimeout(function () {
                         img.attr('src', `/public/uploads/products/${result.imageSrc}`);
                     }, 2000);
-                    toastr.success('Cập nhật ảnh thành công', 'Thành công !');
+                    console.log('Cập nhật ảnh thành công', 'Thành công !');
                     imageData = null;
                 },
                 error: function (error) {
