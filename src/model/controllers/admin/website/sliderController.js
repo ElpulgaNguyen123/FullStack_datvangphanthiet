@@ -28,6 +28,7 @@ let getAllSlide = async (req, res, next) => {
     try {
         await pool.query('SELECT * FROM slide', function (error, rows, fields) {
             if (error) throw error;
+            console.log(rows)
             res.render('admin/website/sliders/slider', {
                 title: 'Slide',
                 slides: rows,

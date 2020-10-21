@@ -11,7 +11,7 @@
             </div>
         </div>
     </div>
-</section>  
+</section>
 <!-- shopping start -->
 <section id="shopping" class="soph mt-4 page-relative">
     <div class="container">
@@ -122,8 +122,7 @@
                                 <div class="col-6 col-sm-6 col-md-4">
                                     <div class="soph__it">
                                         <div class="soph__img">
-                                            <a href="/xe-dap/<%= bike.slug %>.<%= bike.id %>"
-                                                title="<%= bike.name %>">
+                                            <a href="/xe-dap/<%= bike.slug %>.<%= bike.id %>" title="<%= bike.name %>">
                                                 <% if(bike.image.length > 0){ %>
                                                 <img src="/public/uploads/products/<%=JSON.parse(bike.image)[0] %>"
                                                     alt="">
@@ -227,6 +226,8 @@
                                 setTimeout(function () {
                                     result.products.forEach((value, index) => {
                                         product_table.append(trItem(value, index));
+                                        entry.target.src = entry.target.dataset.src;
+                                        observer.unobserve(entry.target);
                                     });
                                 }, 1500);
                             }
@@ -244,5 +245,8 @@
 
         let observer = new IntersectionObserver(callback);
         observer.observe(footer);
+
+        document.querySelectorAll('img').forEach(img => { observer.observe(img) });
+
     });
 </script>

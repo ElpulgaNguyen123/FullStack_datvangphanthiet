@@ -85,7 +85,7 @@
     </div>
     <!-- end row -->
     <div class="row">
-        <div class="col-xl-6">
+        <div class="col-xl-7">
             <div class="card-box">
                 <h4 class="header-title mb-4">Danh sách sản phẩm mới nhất</h4>
                 <div class="table-rep-plugin">
@@ -94,7 +94,7 @@
                             <thead>
                                 <tr>
                                     <th> STT </th>
-                                    <th> Mã Sku </th>
+                                    <th> Mã SP </th>
                                     <th> Tên SP</th>
                                     <th> Giá</th>
                                     <th> Hành động </th>
@@ -107,13 +107,13 @@
                                         <% if(product.image.length > 0){ %>
                                     <th>
                                         <p class="mt-2"> <span
-                                                class="label label-success d-inline-block">Sku:&nbsp;</span><%= product.sku %>
+                                                class="label label-success d-inline-block">Mã SP:&nbsp;</span><%= product.sku %>
                                         </p>
                                         </td>
                                         <% } else{ %>
                                     <td>
                                         <p class="mt-2"><span
-                                                class="label label-success d-inline-block">Sku:&nbsp;</span><%= product.sku %>
+                                                class="label label-success d-inline-block">Mã SP:&nbsp;</span><%= product.sku %>
                                         </p>
                                     </td>
                                     <% } %>
@@ -147,7 +147,7 @@
             <!-- end card -->
         </div>
         <!-- end col -->
-        <div class="col-xl-6">
+        <div class="col-xl-5">
             <div class="card-box">
                 <h4 class="header-title mb-4">Tin tức mới Nhất</h4>
                 <div class="table-rep-plugin">

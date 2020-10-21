@@ -250,6 +250,7 @@ let addProductAttribute = async (req, res, next) => {
 let addProductPost = (req, res, next) => {
     let productItem = [];
     let successArr = [];
+    let arrayError = [];
     productUploadFile(req, res, async (error) => {
         try {
             productItem[0] = req.body.product_sku;
@@ -364,7 +365,7 @@ let addProductImage = (req, res, next) => {
                 req.files.map(async (file) => {
                     // đường dẫn lưu ảnh
                     try {
-                        await sharp(file.path).resize(850, 850).toBuffer(function (err, buffer) {
+                        await sharp(file.path).resize(500, 300).toBuffer(function (err, buffer) {
                             fs.writeFile(file.path, buffer, function (e) {
                             });
                         });
@@ -381,7 +382,8 @@ let addProductImage = (req, res, next) => {
 }
 // edit product info Get
 let editProductGet = async (req, res, next) => {
-    let successArr = [];
+    var arrayError = [],
+        successArr = [];
     try {
         var product_id = parseInt(req.params.id);
         if (typeof product_id !== "number") {
@@ -492,7 +494,9 @@ let editProductGet = async (req, res, next) => {
                 attributeValueArr: attributeValueArr,
                 images: images,
                 imagearr: imagesArr,
-                user: req.user
+                user: req.user,
+                errors: req.flash('Errors'),
+                success: req.flash('Success'),
             }
             res.render('admin/products/editProduct', option);
         })
@@ -506,6 +510,7 @@ let editProductGet = async (req, res, next) => {
 let editProductPost = (req, res, next) => {
     let productItem = [];
     let successArr = [];
+    let arrayError = [];
     productUploadFile(req, res, async (error) => {
         try {
             var product_id = req.params.id;
@@ -807,12 +812,14 @@ let editProductImage = (req, res, next) => {
 // thực hiện update hình ảnh đã được chọn lên server
 let updateProductImagePost = (req, res, next) => {
     productUpdateFile(req, res, async (error) => {
+        var arrayError = [],
+            successArr = [];
         try {
             if (req.file) {
                 var product_id = req.params.id;
                 var index = req.query.index;
                 await sharp(`${req.file.destination}/${req.file.filename}`)
-                    .resize(850, 850)
+                    .resize(500, 300)
                     .toFile(`${req.file.destination}/${Date.now()}-${req.file.filename}`, (err, info) => {
                         fs.unlinkSync(req.file.path);
                     });
@@ -843,6 +850,7 @@ let updateProductImagePost = (req, res, next) => {
                         imageSrc: filename,
                         idImage: `image_${product_id}_${index}`
                     }
+                    successArr.push('Cập nhật hình ảnh thành công !');
                     return res.status(200).send(result);
                 });
             }

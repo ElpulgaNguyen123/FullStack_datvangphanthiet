@@ -17,19 +17,19 @@
         <div class="col-sm-8">
             <div class="card-box">
                 <% if(errors != ""){%>
-                    <% errors.forEach((item) => {%>
-                    <div class="alert alert-danger" role="alert">
-                        <strong class="alert-link"><%- item %></strong>.
-                    </div>
-                    <%})%>
-                    <%}%>
+                <% errors.forEach((item) => {%>
+                <script>
+                    toastr.error('<%- item %>', 'Lỗi !')
+                </script>
+                <%})%>
+                <%}%>
                     <% if(success != ""){%>
-                    <% success.forEach((item) => {%>
-                    <div class="alert alert-success" role="alert">
-                        <strong class="alert-link"><%- item %></strong>.
-                    </div>
-                    <%})%>
-                    <%}%>
+                <% success.forEach((item) => {%>
+                <script>
+                    toastr.success('<%- item %>', 'Thành công !')
+                </script>
+                <%})%>
+                <%}%>
                     <script>
                         function to_slug(str, id) {
                             // Chuyển hết sang chữ thường
@@ -56,55 +56,55 @@
                         }
                     </script>
                     <div class="card-block p-b-10">
-                        <form id="category-edit-form" action="/admin/category/edit-category/<%= category.id %>" method="POST"
-                            enctype="multipart/form-data">
-                            <div class="row">
-                                <div class="col-xs-12 col-md-12">
-                                    <div class="form-group text-center">
-                                        <div class="image-border">
-                                            <% if(category.image != '' && category.image != null){ %>
-                                            <img class="sp_img_main" src="/public/uploads/categories/<%= category.image %>"
-                                                alt="<%= category.category_name %>">
-                                            <input type="hidden" name="category_old_image" value="<%= category.image %>">
-                                            <% } else{ %>
-                                            <img class="sp_img_main" src="/admin/images/example.png"
-                                                alt="<%= category.category_name %>">
-                                            <% } %>
-                                            <button id="trigger_button" class="btn btn-out-dotted btn-success mt-4">Chọn
-                                                hình ảnh...</button>
-                                            <input type="file" id="category_image" name="category_image" />
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="font-weight-bold col-form-label" for="category_name">
-                                            <%= category.category_name %>
-                                        </label>
-                                        <input type="text" name="category_name" id="category_name"
-                                            onkeyup="to_slug($(this).val(),'category_slug')"
-                                            value="<%= category.category_name %>" class="form-control"
-                                            placeholder="Tên <%= category.category_name %>" required>
-                                        <small class="form-text text-muted"><%= category.category_name %>
-                                            sẽ xuất hiện ở
-                                            trên giao diện website của bạn </small>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="font-weight-bold col-form-label" for="category_slug">
-                                            Slug
-                                        </label>
-                                        <input type="text" name="category_slug" id="category_slug" class="form-control"
-                                            placeholder="Slug" value="<%= category.category_slug %>">
-                                        <small class="form-text text-muted"> Slug là đường dẫn thân thiện và
-                                            ngắn gọn của tên <%= category.category_name %>
-                                        </small>
-                                    </div>
-                                </div>
+                        <form id="category-edit-form" action="/admin/category/edit-category/<%= category.id %>"
+                method="POST"
+                enctype="multipart/form-data">
+                <div class="row">
+                    <div class="col-xs-12 col-md-12">
+                        <div class="form-group text-center">
+                            <div class="image-border">
+                                <% if(category.image != '' && category.image != null){ %>
+                                <img class="sp_img_main" src="/public/uploads/categories/<%= category.image %>"
+                                    alt="<%= category.category_name %>">
+                                <input type="hidden" name="category_old_image" value="<%= category.image %>">
+                                <% } else{ %>
+                                <img class="sp_img_main" src="/admin/images/example.png"
+                                    alt="<%= category.category_name %>">
+                                <% } %>
+                                <button id="trigger_button" class="btn btn-out-dotted btn-success mt-4">Chọn
+                                    hình ảnh...</button>
+                                <input type="file" id="category_image" name="category_image" />
                             </div>
-                            <button type="submit" class="btn btn-success mt-3">Lưu lại</button>
-                        </form>
+                        </div>
+                        <div class="form-group">
+                            <label class="font-weight-bold col-form-label" for="category_name">
+                                <%= category.category_name %>
+                            </label>
+                            <input type="text" name="category_name" id="category_name"
+                                onkeyup="to_slug($(this).val(),'category_slug')" value="<%= category.category_name %>"
+                                class="form-control" placeholder="Tên <%= category.category_name %>" required>
+                            <small class="form-text text-muted"><%= category.category_name %>
+                                sẽ xuất hiện ở
+                                trên giao diện website của bạn </small>
+                        </div>
+                        <div class="form-group">
+                            <label class="font-weight-bold col-form-label" for="category_slug">
+                                Slug
+                            </label>
+                            <input type="text" name="category_slug" id="category_slug" class="form-control"
+                                placeholder="Slug" value="<%= category.category_slug %>">
+                            <small class="form-text text-muted"> Slug là đường dẫn thân thiện và
+                                ngắn gọn của tên <%= category.category_name %>
+                            </small>
+                        </div>
                     </div>
+                </div>
+                <button type="submit" class="btn btn-success mt-3">Lưu lại</button>
+                </form>
             </div>
         </div>
     </div>
+</div>
 </div>
 <script>
     $(document).ready(function () {

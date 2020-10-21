@@ -76,7 +76,6 @@
                     str = str.replace(/(ù|ú|ụ|ủ|ũ|ư|ừ|ứ|ự|ử|ữ)/g, 'u');
                     str = str.replace(/(ỳ|ý|ỵ|ỷ|ỹ)/g, 'y');
                     str = str.replace(/(đ)/g, 'd');
-
                     // Xóa ký tự đặc biệt
                     str = str.replace(/([^0-9a-z-\s])/g, '');
 
@@ -191,12 +190,12 @@
                 },
             }
         });
-
         // click event to upload image ======================== start
         $("#trigger_button").click(function (e) {
             e.preventDefault()
             $("#slide_image").trigger('click');
         });
+
         $('#slide_image').hide();
         function getBrandAvatarUpdate() {
             $('#slide_image').bind('change', function () {
@@ -209,6 +208,7 @@
                     $(this).val(null);
                     return false;
                 }
+
                 if (fileData.size > limit) {
                     notify('Dung lượng ảnh quá lớn', 'danger');
                     $(this).val(null);

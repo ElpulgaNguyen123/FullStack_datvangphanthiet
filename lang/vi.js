@@ -12,7 +12,6 @@ let tranvalidation_resetPassword = {
   password_confirm_incorrect: "Mật khẩu nhập lại phải giống với mật khẩu bên trên !",
 }
 
-
 let TranProductSuccess = {
   createNewSuccess: 'Thêm mới sản phẩm thành công !',
   deleteProducts: 'Xóa sản phẩm thành công !',
@@ -22,7 +21,6 @@ let TranProductSuccess = {
 let TranAuthSuccess = {
   createNewAccountsuccess: 'Tạo tài khoản thành công !, vui lòng đăng nhập email để xác nhận !',
 }
-
 
 let Tranerrors = {
   user_created_errors: 'Đăng ký lỗi !',
