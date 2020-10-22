@@ -87,44 +87,6 @@
                                     ngắn gọn của tên <%= attributes.attribute_name %>
                                 </small>
                             </div>
-                            <div class="form-group col-sm-12">
-                                <label class="font-weight-bold col-form-label row" for="attribute_group_id">
-                                    Nhóm thuộc tính
-                                </label>
-                                <div class="row">
-                                    <select class="form-control custom-select col-md-12 mb-3" name="attribute_group_id"
-                                        id="attribute_group_id">
-                                        <option selected>Nhóm thuộc tính...</option>
-                                        <% attribute_groups.forEach(function(item, index){ %>
-                                        <option value="<%= item.id %>">
-                                            <%= item.attribute_group_name %>
-                                        </option>
-                                        <%})%>
-                                        <script>
-                                            $("#attribute_group_id").val('<%= attributes.attribute_group_id %>');
-                                        </script>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="form-group col-sm-12">
-                                <label class="font-weight-bold col-form-label row" for="attribute_type_id">
-                                    Kiểu dữ liệu
-                                </label>
-                                <div class="row">
-                                    <select class="form-control custom-select col-md-12 mb-3" name="attribute_type_id"
-                                        id="attribute_type_id">
-                                        <option selected disabled>Kiểu dữ liệu ...</option>
-                                        <% attribute_types.forEach(function(item, index){ %>
-                                        <option value="<%= item.id %>">
-                                            <%= item.attribute_type_name %>
-                                        </option>
-                                        <%})%>
-                                        <script>
-                                            $("#attribute_type_id").val('<%= attributes.type %>');
-                                        </script>
-                                    </select>
-                                </div>
-                            </div>
                         </div>
                     </div>
                     <button type="submit" class="btn btn-success mt-3">Lưu lại</button>
@@ -159,7 +121,7 @@
                                             Slug
                                         </label>
                                         <input type="text" name="attribute_slug_value" id="attribute_slug_value"
-                                            class="form-control" placeholder="Slug">
+                                            class="form-control" readonly placeholder="Slug">
                                         <small class="form-text text-muted"> Slug là đường dẫn thân
                                             thiện và
                                             ngắn gọn của tên <%= attributes.attribute_name %> </small>

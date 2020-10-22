@@ -56,8 +56,8 @@ let postAddAttribute = async (req, res, next) => {
         var attributeValues = [
             [req.body.attribute_name,
             req.body.attribute_slug,
-            req.body.attribute_group_id,
-            req.body.attribute_type_id]
+                1,
+                1]
         ];
         pool.query(queryNewAttribute, [attributeValues], function (error, results, fields) {
             if (error) throw error;
@@ -128,13 +128,13 @@ let postEditAttribute = async (req, res, next) => {
         var queryNewAttribute = "INSERT INTO attributes (name, slug, attribute_group_id, type) VALUES ?";
         var queryUpdate = `
         UPDATE attributes
-        SET attribute_name = ?, slug = ?, attribute_group_id = ?, type = ?  
+        SET attribute_name = ?, slug = ?, attribute_group_id = ?, type = ? 
         WHERE id = ?;`
         var attributeValues = [
             req.body.attribute_name.toString(),
             req.body.attribute_slug.toString(),
-            req.body.attribute_group_id,
-            req.body.attribute_type_id,
+            1,
+            1,
             req.params.id
         ];
         await pool.query(queryUpdate, attributeValues, function (error, results, fields) {
@@ -186,7 +186,7 @@ let postDeleteAttribute = async (req, res, next) => {
     } catch (error) {
         arrayError.push('Có lỗi xảy ra');
         req.flash('errors', arrayError);
-        res.redirect('/admin/attribute');
+        res.redirect('/admin/attributes');
     }
 }
 // delete attribute products // end
@@ -207,12 +207,12 @@ let postAddAttributeValue = async (req, res, next) => {
             if (error) throw error;
             successArr.push(Transuccess.createSuccess('thuộc tính'));
             req.flash('Success', successArr);
-            res.redirect('/admin/attribute/edit-attribute/' + req.params.id);
+            res.redirect('/admin/attributes');
         });
     } catch (error) {
         arrayError.push('Có lỗi xảy ra');
         req.flash('errors', arrayError);
-        res.redirect('/admin/attribute');
+        res.redirect('/admin/attributes');
     }
 }
 // add attribute value products // end

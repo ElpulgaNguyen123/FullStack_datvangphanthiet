@@ -213,10 +213,6 @@ $(document).ready(function () {
                         required: true,
                         minlength: 5
                     },
-                    product_price: {
-                        required: true,
-                        number: true
-                    },
                     product_brand: {
                         required: true,
                     },
@@ -232,10 +228,6 @@ $(document).ready(function () {
                     product_sku: {
                         required: "Vui lòng nhập mã sản phẩm",
                         minlength: "Mã sản phẩm phảo có ít nhất 2 ký tự"
-                    },
-                    product_price: {
-                        required: "Vui lòng nhập giá sản phẩm",
-                        number: 'giá sản phẩm phải là số'
                     },
                     product_brand: {
                         required: "Vui lòng chọn hãng sản xuất",
@@ -260,7 +252,7 @@ $(document).ready(function () {
                         $('#image_path').val(JSON.stringify(ImageJson));
                         $('.start').click();
                     }
-                   
+                    $('#product_form').submit();
                 }
             });
         });
@@ -277,10 +269,6 @@ $(document).ready(function () {
                         required: true,
                         minlength: 5
                     },
-                    product_price: {
-                        required: true,
-                        number: true
-                    },
                     product_brand: {
                         required: true,
                     },
@@ -296,10 +284,6 @@ $(document).ready(function () {
                     product_sku: {
                         required: "Vui lòng nhập mã sản phẩm",
                         minlength: "Mã sản phẩm phảo có ít nhất 2 ký tự"
-                    },
-                    product_price: {
-                        required: "Vui lòng nhập giá sản phẩm",
-                        number: 'giá sản phẩm phải là số'
                     },
                     product_brand: {
                         required: "Vui lòng chọn hãng sản xuất",
@@ -333,7 +317,7 @@ $(document).ready(function () {
                         // thiết lập dữ liệu cho input bên frontend để truyền lên server
                         $('#image_path').val(JSON.stringify(ImageJson));
                         $('.start').click();
-                    } 
+                    }
                     $("#product-edit-form").submit();
                 }
             });

@@ -7,8 +7,6 @@ var { Transuccess } = require('../../../../lang/vi');
 var sharp = require('sharp');
 var fs = require('fs');
 var fsExtras = require('fs-extra');
-const { json, query } = require('express');
-const { throws } = require('assert');
 
 var storage = multer.diskStorage({
     destination: function (req, file, cb) {
@@ -280,7 +278,7 @@ let addProductPost = (req, res, next) => {
             productItem[3] = req.body.product_name;
             productItem[4] = req.body.product_slug;
             productItem[5] = req.body.product_price;
-            productItem[6] = `${req.body.image_path}`;
+            productItem[6] = `${req.body.image_path}` || '';
             productItem[7] = req.body.propduct_description;
             productItem[8] = req.body.short_description;
             productItem[9] = req.body.product_meta_title;
@@ -555,6 +553,8 @@ let editProductPost = (req, res, next) => {
             // thêm vào chuỗi query;
 
             // lấy danh sách thuộc tính sản phẩm và id.
+            console.log('danh sách id bị xóa đi sau khi cập nhật từ giao diện người dùng');
+            console.log(req.body.product_attributes_type02)
             if (req.body.product_attributes_type02.length > 0) {
                 // lấy danh sách thuộc tính loại 2 của sản phẩm
                 // lấy danh sách thuộc tính loại 2 client đưa lên.
@@ -604,6 +604,8 @@ let editProductPost = (req, res, next) => {
                 }
                 // nếu có thuộc tính nào bị xóa đi thì đưa vào trường hợp này và xóa đi
                 // nếu trường hợp danh sách id loại 2 bị xóa hết thì duyệt xóa hết.
+                console.log('danh sách id bị xóa đi sau khi cập nhật');
+                console.log(deleteAttribute_arr);
                 if (deleteAttribute_arr.length > 0) {
                     var valuestring = '';
                     for (var index = 0; index < deleteAttribute_arr.length; index++) {
@@ -611,15 +613,16 @@ let editProductPost = (req, res, next) => {
                     }
                     // xóa dấu phẩy ở cuối chuỗi.
                     var str = valuestring.slice(0, -1);
-                    var queryDelete = `DELETE FROM 
-                        prd_attribute 
-                        WHERE product_id = ${product_id}  
-                        AND attribute_value_id IN (${str})`;
-                    await service.queryActionNoParamsreturn(queryDelete);
+                    console.log('Danh sách bị xóa attribute id');
+                    console.log(str);
+                    // var queryDelete = `DELETE FROM 
+                    //     prd_attribute 
+                    //     WHERE product_id = ${product_id}  
+                    //     AND attribute_value_id IN (${str})`;
+                    //await service.queryActionNoParamsreturn(queryDelete);
                 }
             }
             if (req.body.product_attributes_type01.length > 4) {
-
                 var attributefromInput = req.body.product_attributes_type01;
                 var attributeType01 = JSON.parse(attributefromInput);
                 var oldAttribute01_arr = [];
@@ -808,6 +811,7 @@ let editProductPost = (req, res, next) => {
                 req.flash('Success', successArr);
                 return res.redirect('/admin/product/edit-product/' + + req.params.id);
             });
+
         } catch (error) {
             throw error;
             // arrayError.push('Có lỗi xảy ra');
