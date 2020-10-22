@@ -270,146 +270,173 @@
                 </div>
                 <div class="row">
                     <div class="col-sm-12 mt-4">
-                        <h4 class="header-title mb-4"> Dữ liệu sản phẩm </h4>
-                        <ul class="nav nav-tabs" role="tablist">
-                            <li class="nav-item">
-                                <a class="nav-link active" data-toggle="tab" href="#seotab" role="tab"><strong>Seo
-                                        website</strong></a>
-                                <div class="slide"></div>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" data-toggle="tab" href="#techinfotab" role="tab">
-                                    <strong>Thuộc tính kỹ
-                                        thuật</strong> </a>
-                                <div class="slide"></div>
-                            </li>
-                        </ul>
-                        <!-- Tab panes -->
-                        <div class="tab-content">
-                            <div class="tab-pane active" id="seotab" role="tabpanel">
-                                <div class="form-group">
-                                    <label class="font-weight-bold" for="product_meta_title">
-                                        Meta title </label>
-                                    <input disabled type="text" name="product_meta_title" id="product_meta_title"
-                                        value="<%= product.meta_title %>" class="form-control"
-                                        placeholder="Thẻ meta-title">
-                                    <small class="text-muted"> Thẻ meta title
-                                        dùng để
-                                        tối ưu hóa SEO
-                                    </small>
-                                </div>
-                                <div class="form-group">
-                                    <label class="font-weight-bold" for="product_meta_keyword">
-                                        Thẻ Meta keyswords </label>
-                                    <input disabled type="text" name="product_meta_keyword" id="product_meta_keyword"
-                                        value="<%= product.meta_keywords %>" class="form-control"
-                                        placeholder="Thẻ meta keywords">
-                                    <small class="text-muted"> Thẻ meta keywords
-                                        dùng để
-                                        tối ưu hóa
-                                        SEO
-                                    </small>
-                                </div>
-                                <div class="form-group">
-                                    <label class="font-weight-bold" for="product_meta_description">
-                                        Thẻ Meta description </label>
-                                    <input disabled type="text" name="product_meta_description"
-                                        id="product_meta_description" value="<%= product.meta_description %>"
-                                        class="form-control" placeholder="Thẻ meta keywords">
-                                    <small class="text-muted"> Thẻ meta
-                                        description dùng
-                                        để tối ưu
-                                        hóa SEO
-                                    </small>
-                                </div>
+                        <div class="card card-border card-teal">
+                            <div class="card-header border-teal bg-transparent">
+                                <h3 class="card-title text-teal mb-4">Dữ liệu sản phẩm</h3>
                             </div>
-                            <div class="tab-pane" id="techinfotab" role="tabpanel">
-                                <div class="form-group row">
-                                    <label class="col-sm-2 col-form-label">Thuộc
-                                        tính</label>
-                                    <div class="col-sm-8">
-                                        <select name="select_attribute" id="select_attribute" class="form-control">
-                                            <option value="0" disabled> Chọn
-                                                thêm thuộc
-                                                tính
-                                            </option>
-                                            <% attributes.forEach(function(attribute, index){ %>
-                                            <option id="op_<%=attribute.id%>" value="<%= attribute.id %>">
-                                                <%= attribute.attribute_name %>
-                                            </option>
-                                            <%})%>
-                                        </select>
+                            <div class="card-box no-border">
+                                <ul class="nav nav-tabs" role="tablist">
+                                    <li class="nav-item">
+                                        <a class="nav-link active" data-toggle="tab" href="#seotab"
+                                            role="tab"><strong>Seo
+                                                website</strong></a>
+                                        <div class="slide"></div>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" data-toggle="tab" href="#techinfotab" role="tab">
+                                            <strong>Thuộc tính sản phẩm</strong> </a>
+                                        <div class="slide"></div>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" data-toggle="tab" href="#describe-details-tab" role="tab">
+                                            <strong>Mô tả chi tiết</strong> </a>
+                                        <div class="slide"></div>
+                                    </li>
+                                </ul>
+                                <!-- Tab panes -->
+                                <div class="tab-content">
+                                    <div class="tab-pane active" id="seotab" role="tabpanel">
+                                        <div class="form-group">
+                                            <label class="font-weight-bold" for="product_meta_title">
+                                                Meta title </label>
+                                            <input disabled type="text" name="product_meta_title"
+                                                id="product_meta_title" value="<%= product.meta_title %>"
+                                                class="form-control" placeholder="Thẻ meta-title">
+                                            <small class="text-muted"> Thẻ meta title
+                                                dùng để
+                                                tối ưu hóa SEO
+                                            </small>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="font-weight-bold" for="product_meta_keyword">
+                                                Thẻ Meta keyswords </label>
+                                            <input disabled type="text" name="product_meta_keyword"
+                                                id="product_meta_keyword" value="<%= product.meta_keywords %>"
+                                                class="form-control" placeholder="Thẻ meta keywords">
+                                            <small class="text-muted"> Thẻ meta keywords
+                                                dùng để
+                                                tối ưu hóa
+                                                SEO
+                                            </small>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="font-weight-bold" for="product_meta_description">
+                                                Thẻ Meta description </label>
+                                            <input disabled type="text" name="product_meta_description"
+                                                id="product_meta_description" value="<%= product.meta_description %>"
+                                                class="form-control" placeholder="Thẻ meta keywords">
+                                            <small class="text-muted"> Thẻ meta
+                                                description dùng
+                                                để tối ưu
+                                                hóa SEO
+                                            </small>
+                                        </div>
                                     </div>
-                                    <div class="col-sm-2">
-                                        <button type="button" id="add_more_attribute"
-                                            class="btn hor-grd btn-grd-primary"><i
-                                                class="icofont icofont-plus-circle"></i>
-                                        </button>
-                                    </div>
-                                </div>
-                                <script>
-                                    function getValue() {
-                                        var checks = $('.checks');
-                                        var str = '';
-                                        for (i = 0; i < checks.length; i++) {
-                                            if (checks[i].checked === true) {
-                                                str += `${checks[i].value},`;
+                                    <div class="tab-pane" id="techinfotab" role="tabpanel">
+                                        <div class="form-group row">
+                                            <label class="col-sm-2 col-form-label">Thuộc
+                                                tính</label>
+                                            <div class="col-sm-8">
+                                                <select name="select_attribute" id="select_attribute"
+                                                    class="form-control">
+                                                    <option value="0" disabled> Chọn
+                                                        thêm thuộc
+                                                        tính
+                                                    </option>
+                                                    <% attributes.forEach(function(attribute, index){ %>
+                                                    <option id="op_<%=attribute.id%>" value="<%= attribute.id %>">
+                                                        <%= attribute.attribute_name %>
+                                                    </option>
+                                                    <%})%>
+                                                </select>
+                                            </div>
+                                            <div class="col-sm-2">
+                                                <button type="button" id="add_more_attribute"
+                                                    class="btn btn-teal waves-light waves-effect"><i
+                                                        class="ti-plus"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                        <script>
+                                            function getValue() {
+                                                var checks = $('.checks');
+                                                var str = '';
+                                                for (i = 0; i < checks.length; i++) {
+                                                    if (checks[i].checked === true) {
+                                                        str += `${checks[i].value},`;
+                                                    }
+                                                }
+                                                $('#product_attributes_type02').val(str);
+                                                var value = $('#product_attributes_type02').val();
                                             }
-                                        }
-                                        $('#product_attributes_type02').val(str);
-                                        var value = $('#product_attributes_type02').val();
-                                        console.log('Danh sách dữ liệu của loại dữ liệu');
-                                        console.log(value);
-                                    }
-                                </script>
-                                <div class="attribute_product">
-                                    <% attributeValueArr.forEach(function(attributeValueAr, index){ %>
-                                    <div class="form-group row" id="attr_<%= attributeValueAr[0].attribute_id %>"
-                                        data-id="<%= attributeValueAr[0].attribute_id %>">
-                                        <label class="col-sm-12 col-form-label attribute-label mb-3">
-                                            <strong>
-                                                <%= attributeValueAr[0].attribute_name  %>
-                                            </strong>
-                                            <div class="minus-button btn btn-danger btn-outline-danger float-right">
-                                                <i class="icofont icofont-minus-circle"></i>
+                                        </script>
+                                        <div class="attribute_product">
+                                            <% attributeValueArr.forEach(function(attributeValueAr, index){ %>
+                                            <div class="form-group row"
+                                                id="attr_<%= attributeValueAr[0].attribute_id %>"
+                                                data-id="<%= attributeValueAr[0].attribute_id %>">
+                                                <label class="col-sm-12 col-form-label attribute-label mb-3">
+                                                    <strong>
+                                                        <%= attributeValueAr[0].attribute_name  %>
+                                                    </strong>
+                                                    <div
+                                                        class="minus-button btn btn-danger btn-outline-danger float-right">
+                                                        <i class="ti-minus"></i>
+                                                    </div>
+                                                </label>
+                                                <% attributeValueAr.forEach(function(attributeValueA, index){ %>
+                                                <div class="attribute_list_<%= attributeValueA.id %> col-sm-12">
+                                                    <div class="form-check">
+                                                        <label class="form-check-label"
+                                                            for="product_attr<%= attributeValueA.id %>"><%= attributeValueA.name %></label>
+                                                        <input type="checkbox" class="checks form-check-input"
+                                                            onclick="getValue()" value="<%= attributeValueA.id %>"
+                                                            id="product_attr<%= attributeValueA.id %>">
+                                                    </div>
+                                                </div>
+                                                <% }) %>
                                             </div>
-                                        </label>
-                                        <% attributeValueAr.forEach(function(attributeValueA, index){ %>
-                                        <div class="attribute_list_<%= attributeValueA.id %> col-sm-12">
-                                            <div class="form-check">
-                                                <label class="form-check-label"
-                                                    for="product_attr<%= attributeValueA.id %>"><%= attributeValueA.name %></label>
-                                                <input type="checkbox" class="checks form-check-input"
-                                                    onclick="getValue()" value="<%= attributeValueA.id %>"
-                                                    id="product_attr<%= attributeValueA.id %>">
+                                            <% }) %>
+                                            <!-- danh sách thuộc tính sản phẩm start -->
+                                            <% attributesValues.forEach(function(attributesValue, index){ %>
+                                            <!-- nếu thuộc tính có type = 2 thì đưa vào if / start -->
+                                            <% if(attributesValue.type == 1){ %>
+                                            <div class="form-group row" id="attr_<%= attributesValue.attribute_id %>"
+                                                data-id="<%= attributesValue.attribute_id %>">
+                                                <label class="font-weight-bold col-sm-3" for="product_meta_description">
+                                                    <strong> <%= attributesValue.attribute_name %>
+                                                    </strong>
+                                                </label>
+                                                <input type="text" value="<%= attributesValue.name %>"
+                                                    name="product_<%= attributesValue.attribute_id %>"
+                                                    class="form-control col-sm-7" placeholder="Nhập giá trị thuộc tính">
+                                                <div class="col-sm-2">
+                                                    <button
+                                                        class="minus-button btn btn-icon waves-effect waves-light btn-danger">
+                                                        <i class="ti-minus"></i>
+                                                    </button>
+                                                </div>
                                             </div>
-                                        </div>
-                                        <% }) %>
-                                    </div>
-                                    <% }) %>
-                                    <!-- danh sách thuộc tính sản phẩm start -->
-                                    <% attributesValues.forEach(function(attributesValue, index){ %>
-                                    <!-- nếu thuộc tính có type = 2 thì đưa vào if / start -->
-                                    <% if(attributesValue.type == 1){ %>
-                                    <div class="form-group row" id="attr_<%= attributesValue.attribute_id %>"
-                                        data-id="<%= attributesValue.attribute_id %>">
-                                        <label class="font-weight-bold col-sm-3" for="product_meta_description">
-                                            <strong> <%= attributesValue.attribute_name %>
-                                            </strong>
-                                        </label>
-                                        <input type="text" value="<%= attributesValue.name %>"
-                                            name="product_<%= attributesValue.attribute_id %>"
-                                            class="form-control col-sm-7" placeholder="Nhập giá trị thuộc tính">
-                                        <div class="col-sm-2">
-                                            <button
-                                                class="minus-button btn btn-danger btn-outline-danger float-right"><i
-                                                    class="icofont icofont-minus-circle"></i>
-                                            </button>
+                                            <% } %>
+                                            <!-- nếu thuộc tính có type = 2 thì đưa vào if / end -->
+                                            <% }) %>
                                         </div>
                                     </div>
-                                    <% } %>
-                                    <!-- nếu thuộc tính có type = 2 thì đưa vào if / end -->
-                                    <% }) %> </div>
+                                    <div class="tab-pane" id="describe-details-tab" role="tabpanel"
+                                        aria-labelledby="#describe-details">
+                                        <textarea class="summernote" id="summernote-detail"
+                                            id="propduct_description_details" name="propduct_description_details">
+                                            <%- product.description_details %> 
+                                        </textarea>
+                                    </div>
+                                    <script>
+                                        $('#summernote-detail').summernote({
+                                            placeholder: 'Chi tiết sản phẩm',
+                                            tabsize: 2,
+                                            height: 300
+                                        });
+                                    </script>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -459,6 +486,8 @@
             idArr.splice(index, 1);
             element.val(JSON.stringify(idArr));
         }
+        console.log('Danh sách thuộc tính');
+        console.log(idArr);
     }
     $(document).ready(function () {
         // ==================================================================
@@ -487,9 +516,9 @@
         <input type="text" name="product_${id}" class="form-control col-sm-7"
             placeholder="${name}">
             <div class="col-sm-2">
-                <button class="minus-button btn btn-danger btn-outline-danger float-right"><i
-                        class="icofont icofont-minus-circle"></i>
-                </button>
+                <button class="minus-button btn btn-icon waves-effect waves-light btn-danger">
+                                                        <i class="ti-minus"></i> 
+                                                    </button>
         </div>
     </div>
     `
@@ -720,6 +749,7 @@
         // start remove attribute id ==================
         $(document).on("click", ".minus-button", function (e) {
             e.preventDefault()
+            alert('Click');
             var parent = $(this).parent().parent();
             var parentId = parent.attr('id');
             var idParentSelect = parent.attr('data-id');

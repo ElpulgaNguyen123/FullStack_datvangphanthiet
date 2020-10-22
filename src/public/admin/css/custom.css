@@ -30,13 +30,6 @@ img#image-avatar-preview {
     height: 100px;
 }
 
-.card {
-    border-radius: 5px;
-    box-shadow: 0 1px 11px 0 rgba(0, 0, 0, 0.12);
-    border: none;
-    margin-bottom: 30px;
-}
-
 .sp_img {
     max-width: 60px;
 }
@@ -526,6 +519,14 @@ ul.result_rows {
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 2;
     overflow: hidden;
+}
+.no-border {
+    border:0px;
+}
+.nav-tabs .nav-item.show .nav-link, .nav-tabs .nav-link.active {
+    color: #26a69a;
+    background-color: #fff;
+    border-color: #dee2e6 #dee2e6 #fff;
 }
 button.buttonload {
     width: 100%;

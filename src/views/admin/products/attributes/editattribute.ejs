@@ -32,7 +32,6 @@
                 </script>
                 <%})%>
                 <%}%>
-               
                  <% if(attributes.type == 1){ %>
                 <h5 class="mb-5"> Chỉnh sửa <%= attributes.attribute_name %> </h5>
                 <% } else{ %>
@@ -114,7 +113,7 @@
                                 <div class="row">
                                     <select class="form-control custom-select col-md-12 mb-3" name="attribute_type_id"
                                         id="attribute_type_id">
-                                        <option selected>Kiểu dữ liệu ...</option>
+                                        <option selected disabled>Kiểu dữ liệu ...</option>
                                         <% attribute_types.forEach(function(item, index){ %>
                                         <option value="<%= item.id %>">
                                             <%= item.attribute_type_name %>

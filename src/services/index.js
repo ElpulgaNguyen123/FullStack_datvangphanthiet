@@ -30,7 +30,9 @@ var { queryAction,
 
         var {getAllEndow} = require('./endowService');
         var {getAllUser} = require('./userService');
-        var {queryActionAttributeDelete} = require('./attributeService');
+        var {queryActionAttributeDelete,
+            addExampleAttribute,
+            queryAllAttribute} = require('./attributeService');
 
 
 module.exports = {
@@ -70,6 +72,10 @@ module.exports = {
     getBlog,
     getAllEndow,
     getAllUser,
+
+
     queryActionAttributeDelete,
+    addExampleAttribute,
+    queryAllAttribute
 
 }

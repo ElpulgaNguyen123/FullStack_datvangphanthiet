@@ -225,12 +225,32 @@ let addProductAttribute = async (req, res, next) => {
         var attributeType = await service.queryAction(queryAttributeType, result.id);
 
         if (attributeType[0].type == 2) {
-            await pool.query(queryattributeValue, result.id, function (error, results, fields) {
-                result.attributes = results;
-                result.attribute_id = results[0].attribute_id;
-                result.attribute_name = results[0].attribute_name;
-                result.type = attributeType[0].type;
-                return res.status(200).send(result);
+            await pool.query(queryattributeValue, result.id, async function (error, results, fields) {
+
+                // trường hợp attribute value chưa có dữ liệu.
+
+                if (!results[0]) {
+                    var queryNewAttributeVal = `
+                    INSERT INTO 
+                    prd_attribute_value(attribute_id, name, slug)
+                    VALUES (${req.params.id},"dữ liệu mẫu","du-lieu-mau")`;
+
+                    await service.addExampleAttribute(queryNewAttributeVal);
+                    let allAttribute = await service.queryAllAttribute(queryattributeValue, result.id);
+
+                    result.attributes = allAttribute;
+                    result.attribute_id = allAttribute[0].attribute_id;
+                    result.attribute_name = allAttribute[0].attribute_name;
+                    result.type = attributeType[0].type;
+                    return res.status(200).send(result);
+
+                }else {
+                    result.attributes = allAttribute;
+                    result.attribute_id = allAttribute[0].attribute_id;
+                    result.attribute_name = allAttribute[0].attribute_name;
+                    result.type = attributeType[0].type;
+                    return res.status(200).send(result);
+                }
             });
         } else {
             await pool.query(queryattribute, result.id, function (error, results, fields) {
@@ -271,6 +291,7 @@ let addProductPost = (req, res, next) => {
             }
             productItem[12] = 1;
             productItem[13] = req.body.product_quantity;
+            productItem[14] = req.body.propduct_description_details;
 
             var queryNewProduct = `
             INSERT INTO 
@@ -288,8 +309,9 @@ let addProductPost = (req, res, next) => {
                 meta_keywords,
                 meta_description,
                 stock,
-                quantity)
-            VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)`;
+                quantity,
+                description_details)
+            VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)`;
 
             // tạo mới sản phẩm
             await service.newProduct(queryNewProduct, productItem);
@@ -701,12 +723,14 @@ let editProductPost = (req, res, next) => {
                         }
                         // xóa ký tự , cuối chuỗi.
                         var strAttrDeleteFormat = valuestringDeleteAttrFformat.slice(0, -1);
-                        var queryDelectIdAttributeVal = `DELETE FROM prd_attribute_value WHERE id IN (${strAttrDeleteFormat})`;
-                        var queryDeleteProductAttr = `DELETE FROM prd_attribute 
-                            WHERE product_id = ${req.params.id} 
-                            AND attribute_value_id IN (${strAttrDeleteFormat})`;
-                        await service.queryActionNoParamsreturn(queryDelectIdAttributeVal);
-                        await service.queryActionNoParamsreturn(queryDeleteProductAttr);
+                        console.log('Danh sách attribute bị xóa');
+                        console.log(strAttrDeleteFormat)
+                        //var queryDelectIdAttributeVal = `DELETE FROM prd_attribute_value WHERE id IN (${strAttrDeleteFormat})`;
+                        // var queryDeleteProductAttr = `DELETE FROM prd_attribute 
+                        //     WHERE product_id = ${req.params.id} 
+                        //     AND attribute_value_id IN (${strAttrDeleteFormat})`;
+                        // await service.queryActionNoParamsreturn(queryDelectIdAttributeVal);
+                        // await service.queryActionNoParamsreturn(queryDeleteProductAttr);
                     }
 
                 } else {
@@ -728,7 +752,8 @@ let editProductPost = (req, res, next) => {
             meta_keywords = ?,
             meta_description = ?,
             stock = ?,
-            quantity = ?
+            quantity = ?,
+            description_details = ?
             WHERE id = ?`;
 
             productItem[0] = req.body.product_sku;
@@ -774,8 +799,8 @@ let editProductPost = (req, res, next) => {
             }
             productItem[12] = 1;
             productItem[13] = req.body.product_quantity;
-            productItem[14] = req.params.id;
-           
+            productItem[14] = req.body.propduct_description_details;
+            productItem[15] = req.params.id;
 
             await pool.query(queryUpdate, productItem, function (error, results, fields) {
                 if (error) throw error;
@@ -783,7 +808,6 @@ let editProductPost = (req, res, next) => {
                 req.flash('Success', successArr);
                 return res.redirect('/admin/product/edit-product/' + + req.params.id);
             });
-
         } catch (error) {
             throw error;
             // arrayError.push('Có lỗi xảy ra');
@@ -813,7 +837,7 @@ let editProductImage = (req, res, next) => {
             req.flash('errors', arrayError);
             res.redirect('/admin/products/edit-product');
         }
-        // Everything went fine.
+        // Everything went fine
     })
 }
 // thực hiện update hình ảnh đã được chọn lên server
@@ -948,12 +972,10 @@ let deleteProductController = async (req, res, next) => {
         if (images[0].image != '') {
             imagesParse = JSON.parse(images[0].image);
             imagesArr = Object.keys(imagesParse);
-
             for (var i = 0; i < imagesArr.length; i++) {
                 await fsExtras.remove(`${app.directory_products}/${imagesParse[imagesArr[i]]}`);
             }
         }
-
         if (productAttributeIds.length > 0) {
             var valuestring = '';
             for (var index = 0; index < productAttributeIds.length; index++) {

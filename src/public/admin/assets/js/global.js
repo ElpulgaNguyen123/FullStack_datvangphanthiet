@@ -334,6 +334,7 @@ $(document).ready(function () {
                         $('#image_path').val(JSON.stringify(ImageJson));
                         $('.start').click();
                     } 
+                    $("#product-edit-form").submit();
                 }
             });
         });
