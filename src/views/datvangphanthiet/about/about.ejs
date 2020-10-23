@@ -6,7 +6,7 @@ breadcrumb -->
     <div class="row">
       <div class="col-12">
         <ol class="breadcrumb mb-0">
-          <li class="breadcrumb-item"><a href="index.html"> <i class="fas fa-home"></i> </a></li>
+          <li class="breadcrumb-item"><a href="/" title="Trang chủ"> <i class="fas fa-home"></i></a></li>
           <li class="breadcrumb-item active"> <i class="fas fa-chevron-right"></i> <span> Giới thiệu </span></li>
         </ol>
       </div>
@@ -24,7 +24,8 @@ about -->
       <div class="col-lg-9">
         <div class="text-center">
           <h1 class="text-primary mb-4">Chúng tôi đang thay đổi ngành bất động sản với sự cầu tiến và đam mê.</h1>
-          <p class="px-sm-5 mb-4 lead font-weight-normal">Chúng tôi cố gắng trở thành cơ quan bất động sản tự quản hàng đầu tại các địa điểm mà chúng tôi bao phủ, cung cấp dịch vụ hoàn toàn cá nhân và tận tâm.</p>
+          <p class="px-sm-5 mb-4 lead font-weight-normal">Chúng tôi cố gắng trở thành cơ quan bất động sản tự quản hàng
+            đầu tại các địa điểm mà chúng tôi bao phủ, cung cấp dịch vụ hoàn toàn cá nhân và tận tâm.</p>
         </div>
       </div>
     </div>
@@ -38,54 +39,19 @@ about -->
       </div>
     </div>
     <div class="row no-gutters mt-4">
+      <% company_features.forEach(function(company_features){ %>
       <div class="col-lg-3 col-sm-6">
         <div class="feature-info h-100">
           <div class="feature-info-icon">
-            <i class="flaticon-like"></i>
+            <%- company_features.icon %>
           </div>
           <div class="feature-info-content">
-            <h6 class="mb-3 feature-info-title">Uy tín trên thị trường</h6>
-            <p class="mb-0">Cơ sở dữ liệu toàn diện về danh sách và thông tin thị trường của chúng tôi cung cấp cái
-              nhìn chính xác nhất về thị trường và giá trị căn nhà của bạn.</p>
+            <h6 class="mb-3 feature-info-title"><%= company_features.title %></h6>
+            <p class="mb-0"><%= company_features.feature_describe %></p>
           </div>
         </div>
       </div>
-      <div class="col-lg-3 col-sm-6">
-        <div class="feature-info h-100">
-          <div class="feature-info-icon">
-            <i class="flaticon-agent"></i>
-          </div>
-          <div class="feature-info-content">
-            <h6 class="mb-3 feature-info-title">Đại lý địa phương tốt nhất</h6>
-            <p class="mb-0">Bạn chỉ mất vài phút để tham gia với những đại lý giỏi nhất, những người đã sẵn sàng giúp
-              bạn Mua hoặc bán.</p>
-          </div>
-        </div>
-      </div>
-      <div class="col-lg-3 col-sm-6">
-        <div class="feature-info h-100">
-          <div class="feature-info-icon">
-            <i class="flaticon-like-1"></i>
-          </div>
-          <div class="feature-info-content">
-            <h6 class="mb-3 feature-info-title">Yên tâm</h6>
-            <p class="mb-0">Hãy đảm bảo rằng đại lý của bạn và nhóm chuyên gia của họ đang xử lý mọi chi tiết trong
-              giao dịch của bạn từ đầu đến cuối.</p>
-          </div>
-        </div>
-      </div>
-      <div class="col-lg-3 col-sm-6">
-        <div class="feature-info h-100">
-          <div class="feature-info-icon">
-            <i class="flaticon-house-1"></i>
-          </div>
-          <div class="feature-info-content">
-            <h6 class="mb-3 feature-info-title">Nhiều sự lưa chọn tốt cho bạn</h6>
-            <p class="mb-0">Khám phá một nơi bạn sẽ thích sống. Chọn từ kho hàng rộng lớn của chúng tôi và chọn ngôi
-              nhà hoặc nơi ở mong muốn của bạn.</p>
-          </div>
-        </div>
-      </div>
+      <% }); %>
     </div>
   </div>
 </section>
@@ -98,11 +64,13 @@ testimonial -->
   <div class="container">
     <div class="row">
       <div class="col-lg-8">
-        <div class="owl-carousel owl-dots-bottom-left" data-nav-dots="true" data-items="1" data-md-items="1" data-sm-items="1" data-xs-items="1" data-xx-items="1" data-space="0">
+        <div class="owl-carousel owl-dots-bottom-left" data-nav-dots="true" data-items="1" data-md-items="1"
+          data-sm-items="1" data-xs-items="1" data-xx-items="1" data-space="0">
           <div class="item">
             <div class="testimonial">
               <div class="testimonial-content">
-                <p><i class="quotes">"</i>Cảm ơn Quốc Tuấn đã bán đất cho chúng tôi. Chúng tôi rất vui mừng với kết quả này, Quốc Tuấn là 1 người chuyên nghiệp và chu đáo</p>
+                <p><i class="quotes">"</i>Cảm ơn Quốc Tuấn đã bán đất cho chúng tôi. Chúng tôi rất vui mừng với kết quả
+                  này, Quốc Tuấn là 1 người chuyên nghiệp và chu đáo</p>
               </div>
               <div class="testimonial-name">
                 <h6 class="text-primary mb-1">Ly Ly Nguyễn</h6>
@@ -113,7 +81,8 @@ testimonial -->
           <div class="item">
             <div class="testimonial">
               <div class="testimonial-content">
-                <p><i class="quotes">"</i>Quốc Tuấn luôn nở một nụ cười và rất nhanh chóng trả lời và hoàn thành công việc.
+                <p><i class="quotes">"</i>Quốc Tuấn luôn nở một nụ cười và rất nhanh chóng trả lời và hoàn thành công
+                  việc.
                   Tôi chắc chắn sẽ gợi ý bạn cho bất kỳ ai mà chúng tôi biết đang bán hoặc muốn mua nhà. Anh ấy là
                   tốt nhất!</p>
               </div>
@@ -188,7 +157,7 @@ counter -->
 <!--=================================
 counter -->
 
-  <!--=================================
+<!--=================================
 Meet our agent -->
 <section class="space-ptb">
   <div class="container">
@@ -196,7 +165,8 @@ Meet our agent -->
       <div class="col-lg-8">
         <div class="section-title text-center">
           <h2>Đội ngũ của chúng tôi</h2>
-          <p>Với đội ngũ có nhiều năm kinh nghiệm, tham gia đầu tư vào các dự án bất động sản, chúng tôi luôn tạo ra những cơ hội và sản phẩm tốt nhất cho khách hàng.</p>
+          <p>Với đội ngũ có nhiều năm kinh nghiệm, tham gia đầu tư vào các dự án bất động sản, chúng tôi luôn tạo ra
+            những cơ hội và sản phẩm tốt nhất cho khách hàng.</p>
         </div>
       </div>
     </div>
