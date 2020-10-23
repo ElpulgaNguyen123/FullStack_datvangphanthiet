@@ -1,50 +1,67 @@
-<style>
-    body {
-      background-color: #00A651;
-      color: #fff;
-      font-size: 100%;
-      font-family: "Roboto", sans-serif;
-      text-align: center;
-    }
-  
-    .button {
-      font-weight: 300;
-      color: #fff;
-      font-size: 1.2em;
-      text-decoration: none;
-      border: 1px solid #efefef;
-      padding: .5em;
-      border-radius: 3px;
-      margin: auto;
-      position: relative;
-      transition: all .3s linear;
-    }
-  
-    .button:hover {
-      background-color: #00A651;
-      color: #fff;
-    }
-  
-    p {
-      font-size: 2em;
-      text-align: center;
-      font-weight: 100;
-    }
-  
-    h1 {
-      text-align: center;
-      font-size: 15em;
-      font-weight: 100;
-    }
-    @media (max-width:768px){
-      *{}
-      .notfound h1{
-        font-size: 8em;
-      } 
-    }
-  </style>
-  <div class="notfound">
-    <h1>404</h1>
-    <p> <strong>Oop ! Không tìm thấy trang bạn cần tìm.  </strong> </p>
-    <a class="button" href="/admin"> Quay lại trang chủ </a>
+<% extend("../../datvangphanthiet") %>
+<!--=================================
+Breadcrumb -->
+<div class="bg-light">
+  <div class="container">
+    <div class="row">
+      <div class="col-12">
+        <ol class="breadcrumb mb-0">
+          <li class="breadcrumb-item"><a href="/"> <i class="fas fa-home"></i> </a></li>
+\          <li class="breadcrumb-item active"> <i class="fas fa-chevron-right"></i> <span> Không tìm thấy </span></li>
+        </ol>
+      </div>
+    </div>
   </div>
+</div>
+<!--=================================
+Breadcrumb -->
+
+<!--=================================
+error -->
+<section class="space-ptb bg-holder">
+  <div class="container">
+    <div class="row justify-content-center align-items-center">
+      <div class="col-md-6">
+        <div class="error-404">
+          <h1>404</h1>
+          <strong>Oops – Không tìm thấy trang bạn đang tìm.</strong>
+          <span>Quay về<a href="/"> Trang chủ </a></span>
+        </div>
+      </div>
+      <div class="col-md-6 text-center mt-5 mt-md-0 position-relative overflow-hidden">
+         <img class="img-fluid house-animation" src="/public/datvangphanthiet/images/error/01.png" alt="">
+         <img class="img-fluid cloud cloud-01" src="/public/datvangphanthiet/images/error/cloud-01.png" alt="">
+         <img class="img-fluid cloud cloud-02" src="/public/datvangphanthiet/images/error/cloud-02.png" alt="">
+         <img class="img-fluid cloud cloud-03" src="/public/datvangphanthiet/images/error/cloud-03.png" alt="">
+         <img class="img-fluid cloud cloud-04" src="/public/datvangphanthiet/images/error/cloud-04.png" alt="">
+         <img class="img-fluid mt-5" src="/public/datvangphanthiet/images/error/02.png" alt="">
+      </div>
+    </div>
+  </div>
+</section>
+<!--=================================
+error -->
+
+<!--=================================
+newsletter -->
+<section class="py-5 bg-primary">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-5">
+        <h3 class="text-white mb-0">Đăng ký nhận bản tin của chúng tôi để nhận những tin tức và ưu đãi mới nhất.</h3>
+      </div>
+      <div class="col-md-7 mt-3 mt-md-0">
+        <div class="newsletter">
+          <form>
+            <div class="form-group mb-0">
+              <input type="email" class="form-control" placeholder="Enter email">
+            </div>
+            <button type="submit" class="btn btn-dark b-radius-left-none">Nhận tin nhắn</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!--=================================
+newsletter -->

@@ -27,4 +27,7 @@ frontendRouter.get('/du-an',controller.FrProjectController);
 
 frontendRouter.get('/dieu-kien-phap-ly',controller.FrTermController);
 
-module.exports = frontendRouter;
+// not founds page
+frontendRouter.use(controller.notFoundController);
+
+module.exports = frontendRouter;    

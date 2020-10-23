@@ -4,19 +4,21 @@ const FrhomeController = require('./homeController');
 const FrAboutController = require('./aboutController');
 const FrProjectController = require('./projectController');
 const FrTermController = require('./termController');
-const {FrContactController,
-       FrSendmailController} = require('./contactController');
-const {FrBlogController,
-       FrBlogDetailController} = require('./blogController');
+const { FrContactController,
+    FrSendmailController } = require('./contactController');
+const { FrBlogController,
+    FrBlogDetailController } = require('./blogController');
 
 
-const {FrProductController,
+const { FrProductController,
     FrProductDetailController,
-        getAllBikeCategory,
-        getAllBikeBrand,
-        searchData,
-        getAllBikeDesc,
-        getPageLoad} = require('./productController');
+    getAllBikeCategory,
+    getAllBikeBrand,
+    searchData,
+    getAllBikeDesc,
+    getPageLoad } = require('./productController');
+
+const {notFoundController } = require('./notFoundController');
 
 
 module.exports = {
@@ -37,6 +39,7 @@ module.exports = {
     getAllBikeDesc,
     getPageLoad,
     FrProjectController,
-    
-    FrTermController
+
+    FrTermController,
+    notFoundController
 }

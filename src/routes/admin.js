@@ -112,6 +112,14 @@ adminRouter.get('/endow/edit-endow/:id', controller.checkloggedIn, controller.ge
 adminRouter.post('/endow/edit-endow/:id', controller.checkloggedIn, controller.postEditEndow);
 // endow / end
 
+// endow / start
+adminRouter.get('/company-features', controller.checkloggedIn, controller.getAllFeatureCompany);
+adminRouter.get('/company-feature/add-company-feature', controller.checkloggedIn, controller.addFeatureCompanyGet);
+adminRouter.post('/company-feature/add-company-feature', controller.checkloggedIn, controller.addFeatureCompanyPost);
+adminRouter.get('/company-feature/edit-company-feature/:id', controller.checkloggedIn, controller.getFeatureCompanyEndow);
+adminRouter.post('/company-feature/edit-company-feature/:id', controller.checkloggedIn, controller.postFeatureCompanyEndow);
+// endow / end
+
 /*=====   Website template / end  ======*/
 adminRouter.use((req, res, next) => {
   res.render('admin/notfound/notfound', {

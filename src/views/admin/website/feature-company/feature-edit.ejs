@@ -1,0 +1,104 @@
+<% extend("../../../admin.ejs") %>
+<div class="container-fluid">
+    <!-- start page title -->
+    <div class="row">
+        <div class="col-12">
+            <div class="page-title-box">
+                <div class="page-title-right">
+                    <ol class="breadcrumb m-0">
+                        <li class="breadcrumb-item"><a href="/admin">UTDESIGN</a></li>
+                        <li class="breadcrumb-item active"><%= title %></li>
+                    </ol>
+                </div>
+                <h4 class="page-title"><%= title %></h4>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="card-box">
+                <h4> <strong> <%= company_feature.title %></strong></h4>
+                <% if(errors != ""){%>
+                <% errors.forEach((item) => {%>
+                    <script>
+                        toastr.error('<%- item %>', 'Lỗi !')
+                    </script>
+                <%})%>
+                <%}%>
+                <% if(success != ""){%>
+                <% success.forEach((item) => {%>
+                    <script>
+                        toastr.success('<%- item %>', 'Thành công !')
+                    </script>
+                <%})%>
+                <%}%>
+                <form id="company_feature_edit_form" action="/admin/company-feature/edit-company-feature/<%= company_feature.id %>" method="POST"
+                enctype="multipart/form-data">
+                <div class="row">
+                    <div class="col-xs-12 col-md-12">
+                        <div class="form-group">
+                            <label class="font-weight-bold col-form-label" for="company_feature_icon">
+                                Icon
+                            </label>
+                            <input type="text" name="company_feature_icon" id="company_feature_icon" class="form-control"
+                                placeholder="<%= company_feature.icon %>"
+                                required> <%- company_feature.icon %> </input>
+                        </div>
+                        <div class="form-group">
+                            <label class="font-weight-bold col-form-label" for="company_feature_title">
+                                Title
+                            </label>
+                            <input type="text" name="company_feature_title" id="company_feature_title" class="form-control"
+                                placeholder="Tên <%= company_feature.title %>"
+                                required></input>
+                        </div>
+                        <div class="form-group">
+                            <label class="font-weight-bold" for="company_feature_describe">
+                                Mô tả ngắn </label>
+                            <textarea type="text" name="company_feature_describe" id="company_feature_describe" class="form-control"
+                                rows="4" placeholder="Mô tả"
+                                required> <%= company_feature.feature_describe %> </textarea>
+                        </div>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-success mt-3">Lưu lại</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+
+        // validate form edit attribute  start=======
+        $("#company_feature_edit_form").validate({
+            rules: {
+                company_feature_icon: {
+                    required: true,
+                },
+                company_feature_title: {
+                    required: true,
+                },
+                company_feature_describe: {
+                    required: true
+                }
+            },
+            messages: {
+                company_feature_icon: {
+                    required: 'Vui lòng không bỏ trống mục icon',
+                },
+                ompany_feature_title: {
+                    required: "Vui lòng nhập tiêu đề lý do",
+                },
+                company_feature_describe: {
+                    required: "Vui lòng nhập mô tả ngắn"
+                },
+            }
+        });
+        // validate form edit attribute end=======
+
+
+    });
+</script>
+</script>
+<%- include("../../modal/attribute-value-delete-modal.ejs") %>

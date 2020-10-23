@@ -19,25 +19,25 @@ var { getAllProduct,
     getPageLoad,
     checkSkuMatch } = require('./productController');
 
-var {getAllAttribute, 
+var { getAllAttribute,
     postAddAttribute,
     getEditAttribute,
     postEditAttribute,
     postDeleteAttribute,
     postAddAttributeValue,
-    postDeleteAttributeValue} = require('./attributesController');
+    postDeleteAttributeValue } = require('./attributesController');
 
-var {getAllBrand,
+var { getAllBrand,
     addBrandImage,
     postEditBrand,
     getEditBrand,
-    postDeleteBrand} = require('./brandController');
+    postDeleteBrand } = require('./brandController');
 
-    var {getAllCategories,
-        addCategory,
-        getEditCategory,
-        postEditCategory,
-        DeleteCategory}= require('./categoriesController');
+var { getAllCategories,
+    addCategory,
+    getEditCategory,
+    postEditCategory,
+    DeleteCategory } = require('./categoriesController');
 
 var { loginController,
     registerController,
@@ -68,7 +68,7 @@ var {
     getEditSlide,
     postEditSlide,
     postDeleteSlide
-,} = require('./website/sliderController');
+    , } = require('./website/sliderController');
 
 // website
 var {
@@ -77,14 +77,21 @@ var {
     addBlogPost,
     getEditBlog,
     postEditBlog,
-    postDeleteBlog} = require('./website/blogController');
+    postDeleteBlog } = require('./website/blogController');
 
-    var {
-        getAllEndow,
-        addEndowGet,
-        addEndowPost,
-        getEditEndow,
-        postEditEndow} = require('./website/endowController');
+var {
+    getAllEndow,
+    addEndowGet,
+    addEndowPost,
+    getEditEndow,
+    postEditEndow } = require('./website/endowController');
+
+var {
+    getAllFeatureCompany,
+    addFeatureCompanyGet,
+    addFeatureCompanyPost,
+    getFeatureCompanyEndow,
+    postFeatureCompanyEndow } = require('./website/featureCompanyController');
 
 
 module.exports = {
@@ -122,7 +129,7 @@ module.exports = {
     postAddAttributeValue,
     postDeleteAttributeValue,
     DeleteCategory,
-    
+
 
     // Brands
     getAllBrand,
@@ -182,5 +189,13 @@ module.exports = {
     addEndowGet,
     addEndowPost,
     getEditEndow,
-    postEditEndow
+    postEditEndow,
+
+
+    // feature company
+    getAllFeatureCompany,
+    addFeatureCompanyGet,
+    addFeatureCompanyPost,
+    getFeatureCompanyEndow,
+    postFeatureCompanyEndow
 }

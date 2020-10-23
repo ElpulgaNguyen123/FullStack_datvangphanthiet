@@ -23,38 +23,35 @@
                         <thead>
                             <tr>
                                 <th> STT </th>
-                                <th> Hình ảnh </th>
+                                <th> Icon </th>
                                 <th> Tiêu đề </th>
                                 <th> Mô tả </th>
                                 <th> hành động </th>
                             </tr>
                         </thead>
                         <tbody>
-                            <% endows.forEach(function(endow, index){ %>
+                            <% company_features.forEach(function(company_feature, index){ %>
                             <tr>
                                 <th scope="row"><%= index %></th>
-                                <% if(endow.image != '' && endow.image != null){ %>
+                                <% if(company_feature.icon != '' || company_feature.icon != null){ %>
                                 <td class="product-image">
-                                    <img class="sp_img-<%= endow.id%>"
-                                        src="/public/uploads/endows/<%= endow.image %>"
-                                        alt="<%= endow.title %>">
+                                    <p><%- company_feature.icon %></p>
                                 </td>
                                 <% } else{ %>
                                 <td class="product-image">
-                                    <img class="sp_img-<%= endow.id%>"
-                                        src="/admin/public/images/example.png" alt="<%= endow.title %>">
+                                    <img src="/admin/public/images/example.png" alt="<%= company_feature.title %>">
                                 </td>
-                                <% } %>
+                                <% }  %>
                                 <td class="font-weight-bold">
-                                    <p> <%= endow.title %> </p>
+                                    <p> <%= company_feature.title %> </p>
                                 </td>
                                 <td class="font-weight-bold">
-                                    <p> <%= endow.description %> </p>
+                                    <p> <%= company_feature.feature_describe %> </p>
                                 </td>
                                 <td>
                                     <div class="btn-group" role="group" aria-label="Basic example">
-                                        <a href="/admin/endow/edit-endow/<%= endow.id %>"
-                                            class="btn hor-grd btn-grd-warning" title="Sửa Ưu đãi">
+                                        <a href="/admin/company-feature/edit-company-feature/<%= company_feature.id %>"
+                                            class="btn hor-grd btn-grd-warning" title="Sửa lý do">
                                             <i class="icofont icofont-edit"></i>
                                         </a>
                                     </div>
