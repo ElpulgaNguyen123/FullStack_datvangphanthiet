@@ -8,10 +8,24 @@ let FrhomeController = async (req, res, next) => {
         let streets = [];
         let racestype = []; 
         let childstype = [];
+        let products = [];
         var slideQuery = 'SELECT * FROM slide';
         var brandQuery = 'SELECT * FROM brand';
         var queryCategory = 'SELECT * FROM categories';
         var queryEndow = 'SELECT * FROM endow';
+        var queyProduct =`
+        SELECT product.id as product_id, product.name, product.short_description, 
+        product.image, 
+        product.sku,
+        product.slug, 
+        product.quantity,
+        product.price,
+        categories.category_name,
+        categories.category_name,
+        categories.category_slug,
+        categories.id  
+        FROM product 
+        INNER JOIN categories ORDER BY ID DESC LIMIT 6`;
         let userInfo = {};
         var queryUser = 'SELECT * FROM user';
         var user = await service.getAllUser(queryUser);
@@ -71,19 +85,18 @@ let FrhomeController = async (req, res, next) => {
             WHERE categories.id = ${categories[2].id}`;
             childstype = await service.getAllCategoryProduct(productChildQuery);
         }
-
-
         var queryBlog = 'Select * from blog';
         const slide = await service.getAllSlide(slideQuery);
         const brand = await service.getAllBrand(brandQuery);
         const endows = await service.getAllEndow(queryEndow);
         const blogs = await service.getAllBlog(queryBlog);
-
+        products = await service.queryActionNoParams(queyProduct);
         pool.query('SELECT * FROM user', function (error, results, fields) {
             if (error) throw error;
             res.render('datvangphanthiet/home/home', {
                 title: 'Trang chủ',
                 slides: slide,
+                products : products,
                 endows : endows,
                 brands: brand.slice(0, 8),
                 streets: streets.slice(0, 6),

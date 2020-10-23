@@ -13,7 +13,8 @@ var { queryAction,
     getProductAttributes,
     getImageProduct,
     getAllCategoryProduct,
-    getAllProductFr} = require('./productservice');
+    getAllProductFr,
+    checkSkuMatch} = require('./productservice');
 
     var {queryActionBrandDelete,
         getAllBrand,
@@ -53,6 +54,7 @@ module.exports = {
     getImageProduct,
     getAllCategoryProduct,
     getAllProductFr,
+    checkSkuMatch,
 
 
     // brand service

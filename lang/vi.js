@@ -34,6 +34,7 @@ let Tranerrors = {
   hasErrors: 'Có lỗi xảy ra',
   emailinvalid: 'Email này không tồn tại, vui lòng nhập lại !',
   userinvalid: 'Tài khoản này không tồn tại',
+  skuAvaliable : 'Mã sản phẩm đã được đặt tên, vui lòng nhập mã khác !',
 
   createError: function (text) {
     return `Thêm ${text} không thành công !`;

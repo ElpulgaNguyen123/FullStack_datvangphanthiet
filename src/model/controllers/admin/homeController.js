@@ -5,7 +5,7 @@ let homeController = async (req, res, next) => {
     try {
         // Lấy tất cả sản phẩm và hiển thị ra table
         var user = req.user || {};
-        var queyProduct = 'SELECT * FROM product';
+        var queyProduct = 'SELECT * FROM product ORDER BY ID DESC LIMIT 6';
         var queryBlog = 'SELECT * FROM blog';
         var products = [];
         var blogs = [];
@@ -29,6 +29,10 @@ let homeController = async (req, res, next) => {
         for(var x = 0; x < allSLide.length; x++){
             slideCount++;
         }
+
+        console.log('Danh sách sản phẩm')
+        console.log(allProducts);
+
         res.render('admin/home/home', {
             title: 'Trang chủ',
             products : products,

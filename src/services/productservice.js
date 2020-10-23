@@ -1,4 +1,5 @@
 var pool = require('../model/config/connectDb');
+var { Tranerrors } = require('../../lang/vi');
 
 let queryAction = (query, params) => {
     return new Promise(async (resolve, reject) => {
@@ -153,10 +154,24 @@ let getImageProduct = (query) => {
         }
     })
 }
-
+// kiểm tra xem có trùng mã sản phẩm hay không
+let checkSkuMatch = (query, sku) => {
+    return new Promise((resolve, reject) => {
+        try {
+            pool.query(query, function (error, rows, fields) {
+                if (error) throw 'Lỗi';
+                if (rows[0]) {
+                    reject(Tranerrors.skuAvaliable);
+                }
+                resolve('Mã sản phẩm ok');
+            });
+        } catch (error) {
+            console.log('caught', error);
+        }
+    })
+}
 
 // Frontend
-
 let getAllCategoryProduct = (query) => {
     return new Promise((resolve, reject) => {
         try {
@@ -181,7 +196,7 @@ let getAllProductFr = (query, params) => {
             pool.query(query, params, function (error, rows, fields) {
                 if (error) throw error;
                 if (!rows[0]) {
-                     resolve(rows);
+                    resolve(rows);
                 }
                 console.log(rows)
                 return resolve(rows);
@@ -208,5 +223,6 @@ module.exports = {
     getAllCategoryProduct,
 
 
-    getAllProductFr
+    getAllProductFr,
+    checkSkuMatch
 }
