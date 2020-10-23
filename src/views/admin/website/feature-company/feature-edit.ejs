@@ -7,6 +7,7 @@
                 <div class="page-title-right">
                     <ol class="breadcrumb m-0">
                         <li class="breadcrumb-item"><a href="/admin">UTDESIGN</a></li>
+                        <li class="breadcrumb-item"><a href="/admin/company-features">Danh sách lý do chọn</a></li>
                         <li class="breadcrumb-item active"><%= title %></li>
                     </ol>
                 </div>
@@ -32,24 +33,23 @@
                     </script>
                 <%})%>
                 <%}%>
-                <form id="company_feature_edit_form" action="/admin/company-feature/edit-company-feature/<%= company_feature.id %>" method="POST"
-                enctype="multipart/form-data">
+                <form id="company_feature_edit_form" action="/admin/company-feature/edit-company-feature/<%= company_feature.id %>" method="POST">
                 <div class="row">
                     <div class="col-xs-12 col-md-12">
                         <div class="form-group">
                             <label class="font-weight-bold col-form-label" for="company_feature_icon">
                                 Icon
                             </label>
-                            <input type="text" name="company_feature_icon" id="company_feature_icon" class="form-control"
-                                placeholder="<%= company_feature.icon %>"
+                            <input type="text" name="company_feature_icon" value="<%= company_feature.icon %>" id="company_feature_icon" class="form-control"
+                                placeholder=""
                                 required> <%- company_feature.icon %> </input>
                         </div>
                         <div class="form-group">
                             <label class="font-weight-bold col-form-label" for="company_feature_title">
                                 Title
                             </label>
-                            <input type="text" name="company_feature_title" id="company_feature_title" class="form-control"
-                                placeholder="Tên <%= company_feature.title %>"
+                            <input type="text" name="company_feature_title" value="<%= company_feature.title %>" id="company_feature_title" class="form-control"
+                                placeholder=""
                                 required></input>
                         </div>
                         <div class="form-group">
@@ -87,7 +87,7 @@
                 company_feature_icon: {
                     required: 'Vui lòng không bỏ trống mục icon',
                 },
-                ompany_feature_title: {
+                company_feature_title: {
                     required: "Vui lòng nhập tiêu đề lý do",
                 },
                 company_feature_describe: {
@@ -99,6 +99,5 @@
 
 
     });
-</script>
 </script>
 <%- include("../../modal/attribute-value-delete-modal.ejs") %>

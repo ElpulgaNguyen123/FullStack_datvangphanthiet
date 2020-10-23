@@ -66,7 +66,6 @@ let addFeatureCompanyPost = (req, res, next) => {
         });
     }
 }
-// lấy thông tin chỉnh sửa thương hiệu
 let getFeatureCompanyEndow = async (req, res, next) => {
     try {
         var company_feature_id = req.params.id;
@@ -89,7 +88,7 @@ let getFeatureCompanyEndow = async (req, res, next) => {
         return res.status(500).send(error);
     }
 }
-// lấy thông tin chỉnh sửa thương hiệu gửi lên update lên server
+// lấy thông tin chỉnh sửa gửi lên update lên server
 let postFeatureCompanyEndow = async (req, res, next) => {
     try {
         // Lấy tất cả sản phẩm và hiển thị ra table
@@ -112,7 +111,7 @@ let postFeatureCompanyEndow = async (req, res, next) => {
             if (error) throw error;
             successArr.push(Transuccess.saveSuccess('Lý do'));
             req.flash('Success', successArr);
-            res.redirect('/admin/company-features');
+            res.redirect('/admin/company-feature/edit-company-feature/' + req.params.id);
         });
     } catch (error) {
         console.log(error);
