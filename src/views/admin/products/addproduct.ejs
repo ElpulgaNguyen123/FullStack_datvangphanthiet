@@ -132,7 +132,31 @@
                                             <label class="font-weight-bold required-form" for="product_sku">
                                                 Mã sản phẩm
                                             </label>
-                                            <input type="text" name="product_sku" id="product_sku" class="form-control"
+                                            <script>
+                                                var data = {};
+                                                function AjaxSkuMatch(sku) {
+                                                    data.sku = sku; 
+                                                    $.ajax({
+                                                        url: '/admin/product/check-sku',
+                                                        type: 'POST',
+                                                        cache: false,
+                                                        data: JSON.stringify(data),
+                                                        contentType: 'application/json',
+                                                        processData: false,
+                                                        success: function (result) {
+                                                           toastr.success(result.success);
+                                                        },
+                                                        error: function (error) {
+                                                            toastr.error('Mã này đã được sử dụng, vui lòng chọn mã khác');
+                                                        }
+                                                    });
+                                                }
+                                                function checkSkuMatch(sku) {
+                                                    AjaxSkuMatch(sku);
+                                                }
+                                            </script>
+                                            <input type="text" name="product_sku" id="product_sku"
+                                                onchange="checkSkuMatch($(this).val())" class="form-control"
                                                 placeholder="Mã sản phẩm" required>
                                             <small> Mã sản phẩm không được trùng nhau</small>
                                         </div>
@@ -186,9 +210,8 @@
                                             <label class="font-weight-bold required-form" for="product_price"> Giá sản
                                                 phẩm
                                             </label>
-                                            <input type="text" name="product_price"
-                                                        id=" product_price" class="form-control price-format"
-                                                placeholder="giá sản phẩm" required>
+                                            <input type="text" name="product_price" id=" product_price"
+                                                class="form-control price-format" placeholder="giá sản phẩm" required>
                                         </div>
                                         <div class="form-group">
                                             <label class="font-weight-bold" for="product_quantity"> Số

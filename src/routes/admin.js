@@ -51,6 +51,7 @@ adminRouter.get('/products/giam-dan', controller.checkloggedIn, controller.getAl
 adminRouter.get('/product/search/:name', controller.checkloggedIn, controller.searchData);
 adminRouter.get('/product/delete-product/:iddelete', controller.checkloggedIn, controller.deleteProductController);
 adminRouter.post('/product/get-more/:page', controller.checkloggedIn, controller.getPageLoad);
+adminRouter.post('/product/check-sku', controller.checkloggedIn, controller.checkSkuMatch);
 // products router // end
 
 // attribute start
