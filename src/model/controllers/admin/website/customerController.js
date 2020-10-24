@@ -9,13 +9,13 @@ var fs = require('fs');
 var fsExtras = require('fs-extra');
 
 // get all Blog
-let getAllFeatureCompany = async (req, res, next) => {
+let getAllCustomeController = async (req, res, next) => {
     try {
-        await pool.query('SELECT * FROM feature_company', function (error, rows, fields) {
+        await pool.query('SELECT * FROM customers', function (error, rows, fields) {
             if (error) throw error;
-            res.render('admin/website/feature-company/features', {
-                title: 'Lý do chọn Đất vàng',
-                company_features: rows,
+            res.render('admin/website/customers/customers', {
+                title: 'Đánh giá của khách hàng',
+                customers: rows,
                 errors: req.flash('Errors'),
                 success: req.flash('Success'),
                 user: req.user
@@ -27,13 +27,12 @@ let getAllFeatureCompany = async (req, res, next) => {
     }
 }
 
-// dẫn đến trang thêm blog
-let addFeatureCompanyGet = async (req, res, next) => {
+let addCustomerGetController = async (req, res, next) => {
     try {
         // Lấy tất cả sản phẩm và hiển thị ra table
         var user = req.user || {};
-        res.render('admin/website/feature-company/feature-add', {
-            title: 'Thêm Ưu đãi',
+        res.render('admin/website/customers/add-customer', {
+            title: 'Thêm đánh giá',
             errors: req.flash('Errors'),
             success: req.flash('Success'),
             user: user
@@ -43,7 +42,7 @@ let addFeatureCompanyGet = async (req, res, next) => {
         return res.status(500).send(error);
     }
 }
-let addFeatureCompanyPost = (req, res, next) => {
+let addCustomerPostController = (req, res, next) => {
     try {
         var arrayError = [],
             successArr = [];
@@ -66,18 +65,18 @@ let addFeatureCompanyPost = (req, res, next) => {
         });
     }
 }
-let getFeatureCompanyEndow = async (req, res, next) => {
+let getEditCustomerController = async (req, res, next) => {
     try {
-        var company_feature_id = req.params.id;
+        var customer_id = req.params.id;
         var arrayError = [],
             successArr = [];
-        var query = `SELECT * FROM feature_company WHERE id = ?`;
+        var query = `SELECT * FROM customers WHERE id = ?`;
         // Lấy tất cả sản phẩm và hiển thị ra table
-        await pool.query(query, company_feature_id, function (error, rows, fields) {
+        await pool.query(query, customer_id, function (error, rows, fields) {
             if (error) throw error;
-            res.render('admin/website/feature-company/feature-edit', {
+            res.render('admin/website/customers/edit-customer', {
                 title: 'Chỉnh sửa lý do',
-                company_feature: rows[0],
+                customer: rows[0],
                 user: req.user,
                 errors: req.flash('Errors'),
                 success: req.flash('Success'),
@@ -88,42 +87,56 @@ let getFeatureCompanyEndow = async (req, res, next) => {
         return res.status(500).send(error);
     }
 }
-// lấy thông tin chỉnh sửa gửi lên update lên server
-let postFeatureCompanyEndow = async (req, res, next) => {
+let postEditCustomerController = async (req, res, next) => {
+    try {
+        // Lấy tất cả sản phẩm và hiển thị ra table
+        let arrayError = [],
+            successArr = [];
+
+        let queryUpdate = `
+        UPDATE customers
+        SET customer_name = ?, 
+        customer_career = ?, 
+        customer_evaluate = ?
+        WHERE id = ?`
+        var customerValues = [
+            req.body.customer_name,
+            req.body.customer_career,
+            req.body.customer_evaluate,
+            req.params.id
+        ]
+        await pool.query(queryUpdate, customerValues, function (error, results, fields) {
+            if (error) throw error;
+            successArr.push(Transuccess.saveSuccess('Đánh giá'));
+            req.flash('Success', successArr);
+            res.redirect('/admin/customer/edit-customer/' + req.params.id);
+        });
+    } catch (error) {
+        console.log(error);
+    }
+}
+let deleteCustomerController = async (req, res, next) => {
     try {
         // Lấy tất cả sản phẩm và hiển thị ra table
         var arrayError = [],
             successArr = [];
-
-        var queryUpdate = `
-        UPDATE feature_company
-        SET title = ?, 
-        icon = ?, 
-        feature_describe = ?
-        WHERE id = ?`
-        var companyFeatureValues = [
-            req.body.company_feature_title,
-            req.body.company_feature_icon,
-            req.body.company_feature_describe,
-            req.params.id
-        ]
-        await pool.query(queryUpdate, companyFeatureValues, function (error, results, fields) {
+        let querydelete = `DELETE customers WHERE id = ?`
+        await pool.query(queryUpdate, req.params.id, function (error, results, fields) {
             if (error) throw error;
             successArr.push(Transuccess.saveSuccess('Lý do'));
             req.flash('Success', successArr);
-            res.redirect('/admin/company-feature/edit-company-feature/' + req.params.id);
+            res.redirect('/admin/customers');
         });
     } catch (error) {
         console.log(error);
     }
 }
 
-
-
 module.exports = {
-    getAllFeatureCompany,
-    addFeatureCompanyGet,
-    addFeatureCompanyPost,
-    getFeatureCompanyEndow,
-    postFeatureCompanyEndow
+    getAllCustomeController,
+    addCustomerGetController,
+    addCustomerPostController,
+    getEditCustomerController,
+    postEditCustomerController,
+    deleteCustomerController
 };

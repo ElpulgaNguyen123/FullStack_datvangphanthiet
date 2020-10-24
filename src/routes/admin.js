@@ -120,6 +120,14 @@ adminRouter.get('/company-feature/edit-company-feature/:id', controller.checklog
 adminRouter.post('/company-feature/edit-company-feature/:id', controller.checkloggedIn, controller.postFeatureCompanyEndow);
 // endow / end
 
+adminRouter.get('/customers', controller.checkloggedIn, controller.getAllCustomeController);
+adminRouter.get('/customer/add-customer', controller.checkloggedIn, controller.addCustomerGetController);
+adminRouter.post('/customer/add-customer', controller.checkloggedIn, controller.addCustomerPostController);
+adminRouter.get('/customer/edit-customer/:id', controller.checkloggedIn, controller.getEditCustomerController);
+adminRouter.post('/customer/edit-customer/:id', controller.checkloggedIn, controller.postEditCustomerController);
+adminRouter.post('/customer/delete-customer/:id', controller.checkloggedIn, controller.deleteCustomerController);
+
+
 /*=====   Website template / end  ======*/
 adminRouter.use((req, res, next) => {
   res.render('admin/notfound/notfound', {

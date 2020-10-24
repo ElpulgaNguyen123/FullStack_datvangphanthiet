@@ -53,7 +53,6 @@ var { loginController,
     getLogout
 } = require('./authController');
 
-
 var {
     getUser,
     updateUserData,
@@ -93,6 +92,13 @@ var {
     getFeatureCompanyEndow,
     postFeatureCompanyEndow } = require('./website/featureCompanyController');
 
+var {
+    getAllCustomeController,
+    addCustomerGetController,
+    addCustomerPostController,
+    getEditCustomerController,
+    postEditCustomerController,
+    deleteCustomerController } = require('./website/customerController');
 
 module.exports = {
 
@@ -197,5 +203,14 @@ module.exports = {
     addFeatureCompanyGet,
     addFeatureCompanyPost,
     getFeatureCompanyEndow,
-    postFeatureCompanyEndow
+    postFeatureCompanyEndow,
+
+
+    // customer controller
+    getAllCustomeController,
+    addCustomerGetController,
+    addCustomerPostController,
+    getEditCustomerController,
+    postEditCustomerController,
+    deleteCustomerController
 }

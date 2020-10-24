@@ -1,0 +1,103 @@
+<% extend("../../../admin.ejs") %>
+<div class="container-fluid">
+    <!-- start page title -->
+    <div class="row">
+        <div class="col-12">
+            <div class="page-title-box">
+                <div class="page-title-right">
+                    <ol class="breadcrumb m-0">
+                        <li class="breadcrumb-item"><a href="/admin">UTDESIGN</a></li>
+                        <li class="breadcrumb-item"><a href="/admin/customers">Danh sách đánh giá</a></li>
+                        <li class="breadcrumb-item active"><%= title %></li>
+                    </ol>
+                </div>
+                <h4 class="page-title"><%= title %></h4>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="card-box">
+                <h4> <strong> <%= customer.customer_name %></strong></h4>
+                <% if(errors != ""){%>
+                <% errors.forEach((item) => {%>
+                    <script>
+                        toastr.error('<%- item %>', 'Lỗi !')
+                    </script>
+                <%})%>
+                <%}%>
+                <% if(success != ""){%>
+                <% success.forEach((item) => {%>
+                    <script>
+                        toastr.success('<%- item %>', 'Thành công !')
+                    </script>
+                <%})%>
+                <%}%>
+                <form id="customer_edit_form" action="/admin/customer/edit-customer/<%= customer.id %>" method="POST">
+                <div class="row">
+                    <div class="col-xs-12 col-md-12">
+                        <div class="form-group">
+                            <label class="font-weight-bold col-form-label" for="customer_name">
+                                Tên Khách hàng
+                            </label>
+                            <input type="text" name="customer_name" value="<%= customer.customer_name %>" id="customer_name" class="form-control"
+                                placeholder=""
+                                required></input>
+                        </div>
+                        <div class="form-group">
+                            <label class="font-weight-bold col-form-label" for="customer_career">
+                                Nghề nghiệp
+                            </label>
+                            <input type="text" name="customer_career" value="<%= customer.customer_career %>" id="company_feature_title" class="form-control"
+                                placeholder=""
+                                required></input>
+                        </div>
+                        <div class="form-group">
+                            <label class="font-weight-bold" for="customer_evaluate">
+                                Mô tả ngắn </label>
+                            <textarea type="text" name="customer_evaluate" id="customer_evaluate" class="form-control"
+                                rows="4" placeholder="Mô tả"
+                                required> <%= customer.customer_evaluate %> </textarea>
+                        </div>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-success mt-3">Lưu lại</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+
+        // validate form edit attribute  start=======
+        $("#customer_edit_form").validate({
+            rules: {
+                customer_name: {
+                    required: true,
+                },
+                customer_career: {
+                    required: true,
+                },
+                customer_evaluate: {
+                    required: true
+                }
+            },
+            messages: {
+                customer_name: {
+                    required: 'Vui lòng không bỏ trống tên khách hàng',
+                },
+                customer_career: {
+                    required: "Vui lòng nhập nghề nghiệp",
+                },
+                customer_evaluate: {
+                    required: "Vui lòng nhập mô tả ngắn"
+                },
+            }
+        });
+        // validate form edit attribute end=======
+
+
+    });
+</script>
+<%- include("../../modal/attribute-value-delete-modal.ejs") %>
