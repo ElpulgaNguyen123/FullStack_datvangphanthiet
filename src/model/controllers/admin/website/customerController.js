@@ -3,7 +3,7 @@ var app = require('../../../config/app');
 var service = require('../../../../services');
 var multer = require('multer');
 var { uuid } = require('uuidv4');
-var { Transuccess } = require('../../../../../lang/vi');
+var { Transuccess, Tranerrors } = require('../../../../../lang/vi');
 var sharp = require('sharp');
 var fs = require('fs');
 var fsExtras = require('fs-extra');
@@ -38,29 +38,35 @@ let addCustomerGetController = async (req, res, next) => {
             user: user
         });
     } catch (error) {
-        console.log(error);
-        return res.status(500).send(error);
+        arrayError.push('Xảy ra lỗi');
+        req.flash('Error', arrayError);
+        res.redirect('/admin/customer/add-customer');
     }
 }
 let addCustomerPostController = (req, res, next) => {
     try {
         var arrayError = [],
             successArr = [];
-        let queryNew = `INSERT INTO customers (customer_name, customer_career, customer_evaluate) VALUES ?`;
+        let queryNew = 'INSERT INTO customers (customer_name, customer_career, customer_evaluate) VALUES ?';
         var customerValues = [
-            req.body.customer_name,
-                req.body.customer_career,
-            req.body.customer_evaluate
+            [req.body.customer_name,
+            req.body.customer_career,
+            req.body.customer_evaluate]
         ];
         pool.query(queryNew, [customerValues], function (error, results, fields) {
-            if (error) throw error;
+            if (error) {
+                arrayError.push('Lỗi');
+                req.flash('Success', arrayError);
+                res.redirect('/admin/customer/add-customer');
+                throw error;
+            }
             successArr.push(Transuccess.createSuccess('đánh giá'));
             req.flash('Success', successArr);
             res.redirect('/admin/customers');
         });
     } catch (error) {
-        arrayError.push('Lỗi');
-        req.flash('Success', arrayError);
+        arrayError.push('Xảy ra lỗi');
+        req.flash('Error', arrayError);
         res.redirect('/admin/customers');
     }
 }
@@ -111,7 +117,8 @@ let postEditCustomerController = async (req, res, next) => {
             res.redirect('/admin/customer/edit-customer/' + req.params.id);
         });
     } catch (error) {
-        console.log(error);
+        arrayError.push('Xảy ra lỗi');
+        res.redirect('/admin/customer/edit-customer/' + req.params.id);
     }
 }
 let deleteCustomerController = async (req, res, next) => {
@@ -119,15 +126,20 @@ let deleteCustomerController = async (req, res, next) => {
         // Lấy tất cả sản phẩm và hiển thị ra table
         var arrayError = [],
             successArr = [];
-        let querydelete = `DELETE customers WHERE id = ?`
-        await pool.query(queryUpdate, req.params.id, function (error, results, fields) {
-            if (error) throw error;
-            successArr.push(Transuccess.saveSuccess('Lý do'));
+        let querydelete = `DELETE FROM customers WHERE id = ?`
+        await pool.query(querydelete, req.params.id, function (error, results, fields) {
+            if (error) {
+                arrayError.push(Tranerrors.deleteError('đánh giá'));
+                res.redirect('/admin/customers');
+                throw error;
+            }
+            successArr.push(Transuccess.deleteSuccess('Lý do'));
             req.flash('Success', successArr);
             res.redirect('/admin/customers');
         });
     } catch (error) {
-        console.log(error);
+        arrayError.push(Tranerrors.deleteError('đánh giá'));
+        res.redirect('/admin/customers');
     }
 }
 

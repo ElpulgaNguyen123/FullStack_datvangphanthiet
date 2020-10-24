@@ -100,6 +100,14 @@ var {
     postEditCustomerController,
     deleteCustomerController } = require('./website/customerController');
 
+var {
+    getAllPolicy,
+    addPolicyPost,
+    addPolicyGet,
+    postEditPolicy,
+    getEditPolicy,
+    postDeletePolicy } = require('./policiesController');
+
 module.exports = {
 
     // Admin START
@@ -212,5 +220,14 @@ module.exports = {
     addCustomerPostController,
     getEditCustomerController,
     postEditCustomerController,
-    deleteCustomerController
+    deleteCustomerController,
+
+
+    // policies 
+    getAllPolicy,
+    addPolicyPost,
+    addPolicyGet,
+    postEditPolicy,
+    getEditPolicy,
+    postDeletePolicy
 }

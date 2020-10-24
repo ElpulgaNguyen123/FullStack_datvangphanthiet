@@ -66,32 +66,19 @@ testimonial -->
       <div class="col-lg-8">
         <div class="owl-carousel owl-dots-bottom-left" data-nav-dots="true" data-items="1" data-md-items="1"
           data-sm-items="1" data-xs-items="1" data-xx-items="1" data-space="0">
+          <% customers.forEach(function(customer){ %>
           <div class="item">
             <div class="testimonial">
               <div class="testimonial-content">
-                <p><i class="quotes">"</i>Cảm ơn Quốc Tuấn đã bán đất cho chúng tôi. Chúng tôi rất vui mừng với kết quả
-                  này, Quốc Tuấn là 1 người chuyên nghiệp và chu đáo</p>
+                <p><i class="quotes">"</i><%= customer.customer_evaluate %></p>
               </div>
               <div class="testimonial-name">
-                <h6 class="text-primary mb-1">Ly Ly Nguyễn</h6>
-                <span>Người bán</span>
+                <h6 class="text-primary mb-1"><%= customer.customer_name %></h6>
+                <span><%= customer.customer_career %></span>
               </div>
             </div>
           </div>
-          <div class="item">
-            <div class="testimonial">
-              <div class="testimonial-content">
-                <p><i class="quotes">"</i>Quốc Tuấn luôn nở một nụ cười và rất nhanh chóng trả lời và hoàn thành công
-                  việc.
-                  Tôi chắc chắn sẽ gợi ý bạn cho bất kỳ ai mà chúng tôi biết đang bán hoặc muốn mua nhà. Anh ấy là
-                  tốt nhất!</p>
-              </div>
-              <div class="testimonial-name">
-                <h6 class="text-primary mb-1">Đoàn Trọng</h6>
-                <span>Nhà đầu tư</span>
-              </div>
-            </div>
-          </div>
+          <% }); %>
         </div>
       </div>
     </div>

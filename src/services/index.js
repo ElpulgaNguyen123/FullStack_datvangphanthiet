@@ -34,6 +34,7 @@ var { queryAction,
         var {queryActionAttributeDelete,
             addExampleAttribute,
             queryAllAttribute} = require('./attributeService');
+            var {getAllCustomer} = require('./customerService');
 
 
 module.exports = {
@@ -78,6 +79,10 @@ module.exports = {
 
     queryActionAttributeDelete,
     addExampleAttribute,
-    queryAllAttribute
+    queryAllAttribute,
+
+
+    // customer
+    getAllCustomer
 
 }

@@ -112,21 +112,33 @@ adminRouter.get('/endow/edit-endow/:id', controller.checkloggedIn, controller.ge
 adminRouter.post('/endow/edit-endow/:id', controller.checkloggedIn, controller.postEditEndow);
 // endow / end
 
-// endow / start
+// company-feature / start
 adminRouter.get('/company-features', controller.checkloggedIn, controller.getAllFeatureCompany);
 adminRouter.get('/company-feature/add-company-feature', controller.checkloggedIn, controller.addFeatureCompanyGet);
 adminRouter.post('/company-feature/add-company-feature', controller.checkloggedIn, controller.addFeatureCompanyPost);
 adminRouter.get('/company-feature/edit-company-feature/:id', controller.checkloggedIn, controller.getFeatureCompanyEndow);
 adminRouter.post('/company-feature/edit-company-feature/:id', controller.checkloggedIn, controller.postFeatureCompanyEndow);
-// endow / end
+// company-feature / end
 
+
+// company-feature / start
 adminRouter.get('/customers', controller.checkloggedIn, controller.getAllCustomeController);
 adminRouter.get('/customer/add-customer', controller.checkloggedIn, controller.addCustomerGetController);
 adminRouter.post('/customer/add-customer', controller.checkloggedIn, controller.addCustomerPostController);
 adminRouter.get('/customer/edit-customer/:id', controller.checkloggedIn, controller.getEditCustomerController);
 adminRouter.post('/customer/edit-customer/:id', controller.checkloggedIn, controller.postEditCustomerController);
-adminRouter.post('/customer/delete-customer/:id', controller.checkloggedIn, controller.deleteCustomerController);
+adminRouter.get('/customer/delete-customer/:id', controller.checkloggedIn, controller.deleteCustomerController);
+// company-feature / end
 
+
+// policies / start
+adminRouter.get('/policies', controller.checkloggedIn, controller.getAllPolicy);
+adminRouter.get('/policy/add-policy', controller.checkloggedIn, controller.addPolicyGet);
+adminRouter.post('/policy/add-policy', controller.checkloggedIn, controller.addPolicyPost);
+adminRouter.get('/policy/edit-policy/:id', controller.checkloggedIn, controller.getEditPolicy);
+adminRouter.post('/policy/edit-policy/:id', controller.checkloggedIn, controller.postEditPolicy);
+adminRouter.get('/policy/delete-policy/:id', controller.checkloggedIn, controller.postDeletePolicy);
+// policies / end
 
 /*=====   Website template / end  ======*/
 adminRouter.use((req, res, next) => {

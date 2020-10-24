@@ -1,0 +1,101 @@
+<% extend("../../admin.ejs") %>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <div class="page-title-box">
+                <div class="page-title-right">
+                    <ol class="breadcrumb m-0">
+                        <li class="breadcrumb-item"><a href="/admin">UTDESIGN</a></li>
+                        <li class="breadcrumb-item"><a href="/admin/policies">Chính sách</a></li>
+                        <li class="breadcrumb-item active"><%= title %></li>
+                    </ol>
+                </div>
+                <h4 class="page-title"><%= title %></h4>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <script>
+            function to_slug(str) {
+                // Chuyển hết sang chữ thường
+                str = str.toLowerCase();
+                // xóa dấu
+                str = str.replace(/(à|á|ạ|ả|ã|â|ầ|ấ|ậ|ẩ|ẫ|ă|ằ|ắ|ặ|ẳ|ẵ)/g, 'a');
+                str = str.replace(/(è|é|ẹ|ẻ|ẽ|ê|ề|ế|ệ|ể|ễ)/g, 'e');
+                str = str.replace(/(ì|í|ị|ỉ|ĩ)/g, 'i');
+                str = str.replace(/(ò|ó|ọ|ỏ|õ|ô|ồ|ố|ộ|ổ|ỗ|ơ|ờ|ớ|ợ|ở|ỡ)/g, 'o');
+                str = str.replace(/(ù|ú|ụ|ủ|ũ|ư|ừ|ứ|ự|ử|ữ)/g, 'u');
+                str = str.replace(/(ỳ|ý|ỵ|ỷ|ỹ)/g, 'y');
+                str = str.replace(/(đ)/g, 'd');
+                // Xóa ký tự đặc biệt
+                str = str.replace(/([^0-9a-z-\s])/g, '');
+                // Xóa khoảng trắng thay bằng ký tự -
+                str = str.replace(/(\s+)/g, '-');
+                // xóa phần dự - ở đầu
+                str = str.replace(/^-+/g, '');
+                // xóa phần dư - ở cuối
+                str = str.replace(/-+$/g, '');
+                // return
+                document.getElementById('policy_slug').value = str;
+                return str;
+            }
+        </script>
+        <div class="col-sm-12">
+            <div class="card-box">
+                <form id="policy-add-form" action="/admin/policy/add-policy" method="POST">
+                    <div class="form-group">
+                        <label for="policy_name">Tên chính sách<span class="text-danger">*</span></label>
+                        <input type="text" onkeyup="to_slug($(this).val())" name="policy_name" required="" placeholder="Nhập tên chính sách"
+                            class="form-control" id="policy_name">
+                    </div>
+                    <div class="form-group">
+                        <label for="policy_slug">Slug<span class="text-danger">*</span></label>
+                        <input type="text" name="policy_slug" required="" readonly placeholder="slug"
+                            class="form-control" id="policy_slug">
+                    </div>
+                    <div class="form-group">
+                        <div>
+                            <label for="policy_content">Nội dung chính sách</label>
+                            <textarea id="summernote" required="" placeholder="Nội dung chính sách" class="form-control"
+                                name="policy_content" id="policy_content"></textarea>
+                        </div>
+                    </div>
+                    <div class="form-group text-left mb-0">
+                        <button class="btn btn-success waves-effect waves-light" type="submit">
+                            Lưu đánh giá
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+        $("#customer-add-form").validate({
+            rules: {
+                policy_name: {
+                    required: true,
+                },
+                policy_slug: {
+                    required: true,
+                },
+                policy_content: {
+                    required: true
+                }
+            },
+            messages: {
+                policy_name: {
+                    required: 'Vui lòng nhập tên chính sách',
+                },
+                policy_slug: {
+                    required: "Vui lòng nhập slug",
+                },
+                policy_content: {
+                    required: "Vui lòng nhập nội dung chính sách"
+                },
+            }
+        });
+    });
+</script>
+© 2020 GitHub, Inc.

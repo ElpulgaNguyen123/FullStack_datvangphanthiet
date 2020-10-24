@@ -7,9 +7,11 @@ let FrAboutController = async (req, res, next) => {
         let userInfo = {};
         var queryUser = 'SELECT * FROM user';
         var queryCompanyFeatures = 'SELECT * FROM feature_company';
+        var queryCustomer = 'SELECT * FROM customers';
 
 
         const company_features = await service.getAllEndow(queryCompanyFeatures);
+        const customers = await service.getAllCustomer(queryCustomer);
         var user = await service.getAllUser(queryUser);
         if(user[0]){
             userInfo = user[0];
@@ -18,6 +20,7 @@ let FrAboutController = async (req, res, next) => {
         res.render('datvangphanthiet/about/about', {
             title: 'Giới thiệu',
             userInfo : userInfo,
+            customers : customers,
             company_features :  company_features,
             errors: req.flash('Errors'),
             success: req.flash('Success'),
