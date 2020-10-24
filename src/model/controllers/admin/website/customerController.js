@@ -46,23 +46,22 @@ let addCustomerPostController = (req, res, next) => {
     try {
         var arrayError = [],
             successArr = [];
-        var queryNew = `INSERT INTO endow (title, image, description) VALUES ?`;
-        var endowValues = [
-            [req.body.endow_title,
-                filename,
-            req.body.endow_description]
+        let queryNew = `INSERT INTO customers (customer_name, customer_career, customer_evaluate) VALUES ?`;
+        var customerValues = [
+            req.body.customer_name,
+                req.body.customer_career,
+            req.body.customer_evaluate
         ];
-        pool.query(queryNew, [endowValues], function (error, results, fields) {
+        pool.query(queryNew, [customerValues], function (error, results, fields) {
             if (error) throw error;
-            successArr.push(Transuccess.createSuccess('Blog'));
+            successArr.push(Transuccess.createSuccess('đánh giá'));
             req.flash('Success', successArr);
-            res.redirect('/admin/endow');
+            res.redirect('/admin/customers');
         });
     } catch (error) {
-        console.log(error);
-        res.render('admin/notfound/notfound', {
-            title: 'Trang Không tìm thấy'
-        });
+        arrayError.push('Lỗi');
+        req.flash('Success', arrayError);
+        res.redirect('/admin/customers');
     }
 }
 let getEditCustomerController = async (req, res, next) => {
