@@ -109,12 +109,13 @@ var {
     postDeletePolicy } = require('./policiesController');
 
 
-    var {
-        getAllStaff,
-        addStaffGet,
-        addStaffPost,
-        postEditStaff,
-        postDeleteStaff } = require('./website/staffController');
+var {
+    getAllStaff,
+    addStaffGet,
+    addStaffPost,
+    getEditStaff,
+    postEditStaff,
+    postDeleteStaff } = require('./website/staffController');
 
 module.exports = {
 
@@ -243,6 +244,7 @@ module.exports = {
     getAllStaff,
     addStaffGet,
     addStaffPost,
+    getEditStaff,
     postEditStaff,
     postDeleteStaff
 }

@@ -22,6 +22,7 @@ var storage = multer.diskStorage({
         cb(null, file.originalname);
     }
 });
+
 var productUploadFile = multer({ storage: storage }).single('brand_image');
 // get all products
 let getAllBrand = async (req, res, next) => {
@@ -157,7 +158,6 @@ let postEditBrand = (req, res, next) => {
         }
     })
 }
-
 
 // xóa dữ liệu của 1 brand
 let postDeleteBrand = async (req, res, next) => {

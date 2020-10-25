@@ -1,0 +1,156 @@
+<% extend("../../../admin.ejs") %>
+<!-- Start Content-->
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <div class="page-title-box">
+                <div class="page-title-right">
+                    <ol class="breadcrumb m-0">
+                        <li class="breadcrumb-item"><a href="/admin">utadmin</a></li>
+                        <li class="breadcrumb-item"><a href="/admin/staffs">Nhân viên</a></li>
+                        <li class="breadcrumb-item active"><%= title %></li>
+                    </ol>
+                </div>
+                <h4 class="page-title"><%= title %></h4>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="card-box table-responsive">
+                <h4 class="header-title"><b><%= staff.staff_name %></b></h4>
+                <% if(errors != ""){%>
+                <% errors.forEach((item) => {%>
+                <script>toastr.error('<%- item %>', 'Gặp lỗi !')</script>
+                <%})%>
+                <%}%>
+                 <% if(success != ""){%>
+                <% success.forEach((item) => {%>
+                <script>
+                    toastr.success('<%- item %>', 'Thành công !')
+                </script>
+                <%})%>
+                <%}%>
+                <form id="blog-edit-form" action="/admin/staff/edit-staff/<%= staff.id %>" method="POST"
+                enctype="multipart/form-data">
+                <div class="row">
+                    <div class="col-xs-12 col-md-12">
+                        <div class="form-group text-center">
+                            <div class="image-border">
+                                <% if(staff.staff_avatar != ''){ %>
+                                <img class="sp_img_main" src="/public/uploads/staffs/<%= staff.staff_avatar %>"
+                                    alt="<%= staff.staff_name %>">
+                                <input type="hidden" name="staff_old_image" value="<%= staff.staff_avatar %>">
+                                <% } else{ %>
+                                <img class="sp_img_main" src="/admin/images/example.png" alt="<%= staff.staff_name %>">
+                                <% } %>
+                                <button id="trigger_button" class="btn btn-success btn-grd-primary mt-4">Chọn
+                                    hình ảnh...</button>
+                                <input type="file" id="staff_avatar" name="staff_avatar" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="font-weight-bold" for="staff_slogan">
+                                Slogan <span class="text-danger">*</span>
+                            </label>
+                            <textarea id="summernote" id="staff_slogan"
+                                name="staff_slogan"> <%= staff.staff_slogan %> </textarea>
+                        </div>
+                        <div class="form-group">
+                            <label class="font-weight-bold col-form-label" for="staff_name">
+                                Tên nhân viên <span class="text-danger">*</span>
+                            </label>
+                            <input type="text" name="staff_name" value="<%= staff.staff_name %>" id="staff_name" class="form-control"
+                                placeholder="Tên nhân viên" required></input>
+                        </div>
+                        <div class="form-group">
+                            <label class="font-weight-bold" for="staff_position">
+                                Chức vụ <span class="text-danger">*</span> </label>
+                            <input type="text" name="staff_position" id="staff_position" class="form-control"
+                                value="<%= staff.staff_position %>" placeholder="Chức vụ">
+                        </div>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-success mt-3">Lưu lại</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+
+        // chọn hình ảnh thay thế cho thương hiệu ============ start
+        $('#staff_avatar').hide();
+        $("#trigger_button").click(function (e) {
+            e.preventDefault()
+            $("#staff_avatar").trigger('click');
+        });
+        function getBrandAvatarUpdate() {
+            $('#staff_avatar').bind('change', function () {
+                let fileData = $(this)[0].files[0];
+                let math = ["image/png", "image/jpg", "image/jpeg", "image/webp"];
+                let limit = 1048576; // 1 mb
+                // hàm inArray là dùng để check dữ liệu coi có trùng hay không.
+                if ($.inArray(fileData.type, math) === -1) {
+                    toastr.error('Kiểu ảnh không hợp lệ, chỉ chấp nhận kiểu jpg hoặc png');
+                    $(this).val(null);
+                    return false;
+                }
+                if (fileData.size > limit) {
+                    toastr.error('Dung lượng ảnh quá lớn');
+                    $(this).val(null);
+                    return false;
+                }
+                // kiểm tra xem trình duyệt có hỗ trợ file reader hay không
+                if (typeof (FileReader) != 'undefine') {
+                    var fileReader = new FileReader();
+                    // hình ảnh preview sau khi chọn file;
+                    var image_preview = $('.sp_img_main');
+                    fileReader.onload = function (element) {
+                        image_preview.attr('src', element.target.result);
+                    }
+                    fileReader.readAsDataURL(fileData);
+                }
+            })
+        }
+        getBrandAvatarUpdate();
+        // chọn hình ảnh thay thế cho thương hiệu ============ end
+
+        // validate form edit attribute  start=======
+        $("#blog-edit-form").validate({
+            rules: {
+                staff_avatar: {
+                    required: true,
+                },
+                staff_slogan: {
+                    required: true,
+                },
+                staff_name: {
+                    required: true,
+                },
+                staff_position: {
+                    required: true
+                },
+            },
+            messages: {
+                staff_avatar: {
+                    required: 'Bạn chưa chọn ảnh cho nhân viên',
+                },
+                staff_slogan: {
+                    required: "Vui lòng nhập Slogan",
+                },
+                staff_name: {
+                    required: "Vui lòng nhập tên nhân viên"
+                },
+                staff_position: {
+                    required: "Vui lòng nhập vị trí nhân viên"
+                },
+            }
+        });
+        // validate form edit attribute end=======
+
+
+    });
+</script>
+<%- include("../../modal/attribute-value-delete-modal.ejs") %>

@@ -26,7 +26,6 @@ let FrContactController = async (req, res, next) => {
 }
 
 let FrSendmailController = async (req, res, next) => {
-
     try {
         let customer = {};
         customer.name = req.body.customer_name;

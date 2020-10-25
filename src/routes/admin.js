@@ -140,13 +140,13 @@ adminRouter.post('/policy/edit-policy/:id', controller.checkloggedIn, controller
 adminRouter.get('/policy/delete-policy/:id', controller.checkloggedIn, controller.postDeletePolicy);
 // policies / end
 
-// endow / start
-adminRouter.get('/endow', controller.checkloggedIn, controller.getAllEndow);
-adminRouter.get('/endow/add-endow', controller.checkloggedIn, controller.addEndowGet);
-adminRouter.post('/endow/add-endow', controller.checkloggedIn, controller.addEndowPost);
-adminRouter.get('/endow/edit-endow/:id', controller.checkloggedIn, controller.getEditEndow);
-adminRouter.post('/endow/edit-endow/:id', controller.checkloggedIn, controller.postEditEndow);
-// endow / end
+// staff / start
+adminRouter.get('/staffs', controller.checkloggedIn, controller.getAllStaff);
+adminRouter.get('/staff/add-staff', controller.checkloggedIn, controller.addStaffGet);
+adminRouter.post('/staff/add-staff', controller.checkloggedIn, controller.addStaffPost);
+adminRouter.get('/staff/edit-staff/:id', controller.checkloggedIn, controller.getEditStaff);
+adminRouter.post('/staff/edit-staff/:id', controller.checkloggedIn, controller.postEditStaff);
+// staff / end
 
 /*=====   Website template / end  ======*/
 adminRouter.use((req, res, next) => {

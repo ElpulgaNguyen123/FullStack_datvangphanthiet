@@ -15,13 +15,22 @@
             </div>
         </div>
     </div>
+    <% if(errors != ""){%>
+    <% errors.forEach((item) => {%>
+    <script>toastr.error('<%- item %>', 'Gặp lỗi !')</script>
+    <%})%>
+    <%}%>
+                 <% if(success != ""){%>
+    <% success.forEach((item) => {%>
+    <script>
+        toastr.success('<%- item %>', 'Thành công !')
+    </script>
+    <%})%>
+    <%}%>
     <div class="row">
         <div class="col-sm-12">
             <div class="card-box table-responsive">
-                <h4 class="header-title"><b><%= title %></b></h4>
-                <p class="sub-header">
-                    In this example the column index is prefixed to the column title.
-                </p>
+                <a href="/admin/staff/add-staff" type="button" class="btn btn-teal waves-light waves-effect float-right mb-2"><i class="ion ion-md-add"></i></a>
                 <div class="card-block table-border-style mt-2">
                     <div class="table-responsive">
                         <table class="table table-striped table-bordered">
@@ -36,52 +45,50 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <% staffs.forEach(function(staff, index){ %>
-                                <tr>
-                                    <th scope="row"><%= index %></th>
-                                    <% if(staff.staff_avatar != '' || staff.staff_avatar != null){ %>
-                                    <td class="product-image">
-                                        <img class="sp_img-<%= staff.id%>" src="/public/uploads/staffs/<%= staff.staff_avatar %>"
-                                            alt="<%= staff.staff_name %>">
-                                    </td>
-                                    <% } else{ %>
-                                    <td class="product-image">
-                                        <img class="sp_img-<%= blog.id%>" src="/admin/public/images/example.png"
-                                            alt="<%= staff.staff_name %>">
-                                    </td>
-                                    <% } %>
-                                    <td class="font-weight-bold">
-                                        <p> <%= staff.staff_name %> </p>
-                                    </td>
-                                    <td class="font-weight-bold">
-                                        <p> <%= staff.staff_position %> </p>
-                                    </td>
-                                    <td>
-                                        <p> <%= staff.staff_slogan %> </p>
-                                    </td>
-                                    <td>
-                                        <div class="btn-group" role="group" aria-label="Basic example">
-                                            <a href="/admin/blog/edit-blog/<%= staff.id %>"
-                                                class="btn hor-grd btn-grd-warning" title="Sửa blog">
-                                                <i class="icofont icofont-edit"></i>
-                                            </a>
-                                            <a href="/admin/slide/delete-blog/<%= staff.id %>"
-                                                class="delete-blog-confirm btn hor-grd btn-grd-danger"
-                                                data-url="/admin/blog/delete-blog/<%= staff.id %>" title="Xóa blog"
-                                                data-target="#blog-delete-modal" data-toggle="modal">
-                                                <i class="icofont icofont-ui-delete"></i>
-                                            </a>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <% }); %>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
+        <% staffs.forEach(function(staff, index){ %>
+    <tr>
+        <th scope="row"><%= index %></th>
+        <% if(staff.staff_avatar != '' || staff.staff_avatar != null){ %>
+        <td class="product-image">
+            <img class="sp_img-<%= staff.id%>" src="/public/uploads/staffs/<%= staff.staff_avatar %>"
+                alt="<%= staff.staff_name %>">
+        </td>
+        <% } else{ %>
+        <td class="product-image">
+            <img class="sp_img-<%= blog.id%>" src="/admin/public/images/example.png" alt="<%= staff.staff_name %>">
+        </td>
+        <% } %>
+        <td class="font-weight-bold">
+            <p> <%= staff.staff_name %> </p>
+        </td>
+        <td class="font-weight-bold">
+            <p> <%= staff.staff_position %> </p>
+        </td>
+        <td>
+            <p> <%= staff.staff_slogan %> </p>
+        </td>
+        <td>
+            <div class="btn-group" role="group" aria-label="Basic example">
+                <a href="/admin/staff/edit-staff/<%= staff.id %>" class="btn hor-grd btn-grd-warning" title="Sửa nhân viên">
+                    <i class="icofont icofont-edit"></i>
+                </a>
+                <a href="/admin/staff/delete-staff/<%= staff.id %>"
+                    class="delete-blog-confirm btn hor-grd btn-grd-danger"
+                    data-url="/admin/blog/delete-blog/<%= staff.id %>" title="Xóa nhân viên" data-target="#blog-delete-modal"
+                    data-toggle="modal">
+                    <i class="icofont icofont-ui-delete"></i>
+                </a>
             </div>
-        </div>
-    </div>
+        </td>
+    </tr>
+    <% }); %>
+    </tbody>
+    </table>
+</div>
+</div>
+</div>
+</div>
+</div>
 </div>
 <script>
     $('.delete-blog-confirm').on('click', function (e) {

@@ -38,7 +38,7 @@
                     <div class="col-xs-12 col-md-12">
                         <div class="form-group">
                             <label class="font-weight-bold col-form-label" for="customer_name">
-                                Tên Khách hàng
+                                Tên Khách hàng<span class="text-danger">*</span>
                             </label>
                             <input type="text" name="customer_name" value="<%= customer.customer_name %>" id="customer_name" class="form-control"
                                 placeholder=""
@@ -46,7 +46,7 @@
                         </div>
                         <div class="form-group">
                             <label class="font-weight-bold col-form-label" for="customer_career">
-                                Nghề nghiệp
+                                Nghề nghiệp<span class="text-danger">*</span>
                             </label>
                             <input type="text" name="customer_career" value="<%= customer.customer_career %>" id="company_feature_title" class="form-control"
                                 placeholder=""
@@ -54,7 +54,7 @@
                         </div>
                         <div class="form-group">
                             <label class="font-weight-bold" for="customer_evaluate">
-                                Mô tả ngắn </label>
+                                Đánh giá<span class="text-danger">*</span> </label>
                             <textarea type="text" name="customer_evaluate" id="customer_evaluate" class="form-control"
                                 rows="4" placeholder="Mô tả"
                                 required> <%= customer.customer_evaluate %> </textarea>

@@ -3,7 +3,7 @@ var app = require('../../../config/app');
 var service = require('../../../../services');
 var multer = require('multer');
 var { uuid } = require('uuidv4');
-var { Transuccess } = require('../../../../../lang/vi');
+var { Transuccess, Tranerrors } = require('../../../../../lang/vi');
 var sharp = require('sharp');
 var fs = require('fs');
 var fsExtras = require('fs-extra');
@@ -22,15 +22,14 @@ var storage = multer.diskStorage({
         cb(null, file.originalname);
     }
 });
-var productUploadFile = multer({ storage: storage }).single('endow_image');
-
+var productUploadFile = multer({ storage: storage }).single('staff_avatar');
 // get all Blog
 let getAllStaff = async (req, res, next) => {
     try {
         await pool.query('SELECT * FROM staffs', function (error, rows, fields) {
             if (error) throw error;
             res.render('admin/website/staffs/staffs', {
-                title: 'Ưu đãi',
+                title: 'Nhân viên',
                 staffs: rows,
                 errors: req.flash('Errors'),
                 success: req.flash('Success'),
@@ -43,13 +42,13 @@ let getAllStaff = async (req, res, next) => {
     }
 }
 
-// dẫn đến trang thêm blog
+// dẫn đến trang thêm nhân viên
 let addStaffGet = async (req, res, next) => {
     try {
         // Lấy tất cả sản phẩm và hiển thị ra table
         var user = req.user || {};
-        res.render('admin/website/endow/endow-add', {
-            title: 'Thêm Ưu đãi',
+        res.render('admin/website/staffs/add-staff', {
+            title: 'Thêm nhân viên',
             errors: req.flash('Errors'),
             success: req.flash('Success'),
             user: user
@@ -59,18 +58,17 @@ let addStaffGet = async (req, res, next) => {
         return res.status(500).send(error);
     }
 }
-// thêm hình ảnh cho thương hiệu
+// thêm nhân viên
 let addStaffPost = (req, res, next) => {
     productUploadFile(req, res, (error) => {
         try {
-            console.log(req.body);
             var arrayError = [],
                 successArr = [];
             var generatecode = uuid();
             if (req.file) {
                 // resize image before uploads.
                 sharp(`${req.file.destination}/${req.file.filename}`)
-                    .resize(200, 200)
+                    .resize(600, 600)
                     .toFile(`${req.file.destination}/${req.file.filename}-${generatecode}.webp`, (err, info) => {
                         fs.unlinkSync(req.file.path);
                     });
@@ -79,39 +77,49 @@ let addStaffPost = (req, res, next) => {
             if (req.file) {
                 filename = `${req.file.filename}-${generatecode}.webp`;
             }
-            var queryNew = `INSERT INTO endow (title, image, description) VALUES ?`;
-            var endowValues = [
-                [req.body.endow_title,
-                    filename,
-                req.body.endow_description]
+            var queryNewStaff = `INSERT INTO staffs (staff_name, staff_position, staff_slogan, staff_avatar) VALUES ?`;
+            var staffValues = [
+                [req.body.staff_name,
+                req.body.staff_postion,
+                req.body.staff_slogan,
+                    filename,]
             ];
-            pool.query(queryNew, [endowValues], function (error, results, fields) {
-                if (error) throw error;
-                successArr.push(Transuccess.createSuccess('Blog'));
+            pool.query(queryNewStaff, [staffValues], async function (error, results, fields) {
+                if (error) {
+                    try {
+                        await fsExtras.remove(`${app.directory_staffs}/${filename}`);
+                        arrayError.push(Tranerrors.saveError('nhân viên'));
+                        req.flash('Errors', arrayError);
+                        res.redirect('/admin/staff/add-staff');
+                    } catch (error) {
+                        throw error;
+                    }
+                };
+                successArr.push(Transuccess.createSuccess('nhân viên'));
                 req.flash('Success', successArr);
-                res.redirect('/admin/endow');
+                res.redirect('/admin/staff/add-staff');
             });
         } catch (error) {
-            console.log(error);
-            res.render('admin/notfound/notfound', {
-                title: 'Trang Không tìm thấy'
-            });
+            throw error;
+            // arrayError.push(Tranerrors.saveError('nhân viên'));
+            // req.flash('Errors', arrayError);
+            // res.redirect('/admin/staff/add-staff');
         }
     })
 }
-// lấy thông tin chỉnh sửa thương hiệu
+// lấy thông tin chỉnh sửa nhân viên
 let getEditStaff = async (req, res, next) => {
     try {
-        var endow_id = req.params.id;
+        var staff_id = req.params.id;
         var arrayError = [],
-            successArr = [];
-        var query = `SELECT * FROM endow WHERE id = ?`;
+            succesArr = [];
+        var query = `SELECT * FROM staffs WHERE id = ?`;
         // Lấy tất cả sản phẩm và hiển thị ra table
-        await pool.query(query, endow_id, function (error, rows, fields) {
+        await pool.query(query, staff_id, function (error, rows, fields) {
             if (error) throw error;
-            res.render('admin/website/endow/endow-edit', {
-                title: 'Chỉnh sửa Ưu đãi',
-                endow: rows[0],
+            res.render('admin/website/staffs/edit-staff', {
+                title: 'Chỉnh sửa nhân viên',
+                staff: rows[0],
                 user: req.user,
                 errors: req.flash('Errors'),
                 success: req.flash('Success'),
@@ -133,11 +141,11 @@ let postEditStaff = (req, res, next) => {
             if (req.file) {
                 // resize image before uploads.
                 sharp(`${req.file.destination}/${req.file.filename}`)
-                    .resize(200, 200)
+                    .resize(600, 600)
                     .toFile(`${req.file.destination}/${req.file.filename}-${generatecode}.webp`, async (err, info) => {
                         fs.unlinkSync(req.file.path);
-                        if (req.body.endow_old_image) {
-                            await fsExtras.remove(`${app.directory_endows}/${req.body.endow_old_image}`);
+                        if (req.body.staff_old_image) {
+                            await fsExtras.remove(`${app.directory_staffs}/${req.body.staff_old_image}`);
                         }
                     });
             }
@@ -145,30 +153,38 @@ let postEditStaff = (req, res, next) => {
             if (req.file) {
                 filename = `${req.file.filename}-${generatecode}.webp`;
             }
-            else if (req.body.endow_old_image) {
-                filename = `${req.body.endow_old_image}`;
+            else if (req.body.staff_old_image) {
+                filename = `${req.body.staff_old_image}`;
             }
-            var queryUpdate = `
-            UPDATE endow
-            SET title = ?, 
-            image = ?, 
-            description = ?
+            var queryUpdateStaff = `
+            UPDATE staffs
+            SET staff_name = ?, 
+            staff_position = ?, 
+            staff_slogan = ?,
+            staff_avatar = ?
             WHERE id = ?`
-            var endowValues = [
-                req.body.endow_title,
+            var staffValues = [
+                req.body.staff_name,
+                req.body.staff_position,
+                req.body.staff_slogan,
                 filename,
-                req.body.endow_description,
                 req.params.id
             ]
-            console.log(endowValues);
-            await pool.query(queryUpdate, endowValues, function (error, results, fields) {
-                if (error) throw error;
-                successArr.push(Transuccess.saveSuccess('BLog'));
+            console.log(staffValues);
+            await pool.query(queryUpdateStaff, staffValues, function (error, results, fields) {
+                if (error) {
+                    arrayError.push(Tranerrors.saveError('nhân viên'));
+                    req.flash('Errors', arrayError);
+                    res.redirect('/admin/staff/edit-staff/' + req.params.id);
+                };
+                successArr.push(Transuccess.saveSuccess('nhân viên'));
                 req.flash('Success', successArr);
-                res.redirect('/admin/endow');
+                res.redirect('/admin/staff/edit-staff/' + req.params.id);
             });
         } catch (error) {
-            console.log(error);
+            arrayError.push(Tranerrors.saveError('nhân viên'));
+            req.flash('Errors', arrayError);
+            res.redirect('/admin/staff/edit-staff/' + req.params.id);
         }
     })
 }
@@ -212,6 +228,7 @@ module.exports = {
     getAllStaff,
     addStaffGet,
     addStaffPost,
+    getEditStaff,
     postEditStaff,
     postDeleteStaff
 };

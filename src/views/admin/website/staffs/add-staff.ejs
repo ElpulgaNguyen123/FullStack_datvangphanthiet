@@ -1,0 +1,155 @@
+<% extend("../../../admin.ejs") %>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <div class="page-title-box">
+                <div class="page-title-right">
+                    <ol class="breadcrumb m-0">
+                        <li class="breadcrumb-item"><a href="/admin">utadmin</a></li>
+                        <li class="breadcrumb-item"><a href="/admin/staff">Nhân viên</a></li>
+                        <li class="breadcrumb-item active"><%= title %></li>
+                    </ol>
+                </div>
+                <h4 class="page-title"><%= title %></h4>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <% if(errors != ""){%>
+        <% errors.forEach((item) => {%>
+        <script>toastr.error('<%- item %>', 'Gặp lỗi !')</script>
+        <%})%>
+        <%}%>
+             <% if(success != ""){%>
+        <% success.forEach((item) => {%>
+        <script>
+            toastr.success('<%- item %>', 'Thành công !')
+        </script>
+        <%})%>
+        <%}%>
+        <div class="col-sm-12">
+            <div class="card-box table-responsive">
+                <h4 class="header-title"><b><%= title %></b></h4>
+        <div class="update-avatar-form">
+            <div class="row">
+                <div class="col-xs-12 col-sm-12 col-md-12">
+                    <form action="/admin/staff/add-staff" id="staff_form_add" method="POST" enctype="multipart/form-data">
+                        <div class="row">
+                            <div class="col-xs-12 col-md-12">
+                                <div class="form-group text-center mb-5">
+                                    <div class="image-border">
+                                        <label class="font-weight-bold col-form-label" for="staff_avatar">
+                                            Chọn hình ảnh đại diện nhân viên
+                                        </label>
+                                        <div class="avatar-change">
+                                            <img id="image-avatar-preview" src="" alt="">
+                                        </div>
+                                        <button id="trigger_button" class="btn btn-success btn-grd-primary mt-4">Chọn
+                                            hình ảnh...</button>
+                                        <input type="file" id="staff_avatar" name="staff_avatar" required />
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="font-weight-bold" for="staff_slogan">
+                                        SLogan <span class="text-danger">*</span>
+                                    </label>
+                                    <textarea id="summernote" id="staff_slogan" name="staff_slogan"></textarea>
+                                </div>
+                                <div class="form-group">
+                                    <label class="font-weight-bold col-form-label" for="staff_name">
+                                        Tên nhân viên<span class="text-danger">*</span>
+                                    </label>
+                                    <input type="text" name="staff_name" id="staff_name" class="form-control"
+                                        placeholder="Nhập tên nhân viên" required>
+                                </div>
+                                <div class="form-group">
+                                    <label class="font-weight-bold col-form-label" for="staff_position">
+                                        Chức vụ<span class="text-danger">*</span>
+                                    </label>
+                                    <input type="text" name="staff_position" id="staff_position" class="form-control"
+                                        placeholder="Nhập chức vụ" required>
+                                </div>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-success mt-3">Lưu lại</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+</div>
+<script>
+    $(document).ready(function () {
+        $("#staff_form_add").validate({
+            rules: {
+                staff_avatar: {
+                    required: true,
+                },
+                staff_slogan: {
+                    required: true,
+                },
+                staff_name: {
+                    required: true,
+                },
+                staff_position: {
+                    required: true
+                },
+            },
+            messages: {
+                staff_avatar: {
+                    required: 'Bạn chưa chọn ảnh cho nhân viên',
+                },
+                staff_slogan: {
+                    required: "Vui lòng nhập Slogan",
+                },
+                staff_name: {
+                    required: "Vui lòng nhập tên nhân viên"
+                },
+                staff_position: {
+                    required: "Vui lòng nhập vị trí nhân viên"
+                },
+            }
+        });
+        // click event to upload image ======================== start
+        $("#trigger_button").click(function (e) {
+            e.preventDefault()
+            $("#staff_avatar").trigger('click');
+        });
+        $('#staff_avatar').hide();
+        function getBrandAvatarUpdate() {
+            $('#staff_avatar').bind('change', function () {
+                let fileData = $(this)[0].files[0];
+                let math = ["image/png", "image/jpg", "image/jpeg", "image/webp"];
+                let limit = 1048576;  // 1 mb 
+                // hàm inArray là dùng để check dữ liệu coi có trùng hay không.
+                if ($.inArray(fileData.type, math) === -1) {
+                    notify('Kiểu ảnh không hợp lệ, chỉ chấp nhận kiểu jpg hoặc png', 'danger');
+                    $(this).val(null);
+                    return false;
+                }
+                if (fileData.size > limit) {
+                    notify('Dung lượng ảnh quá lớn', 'danger');
+                    $(this).val(null);
+                    return false;
+                }
+                // kiểm tra xem trình duyệt có hỗ trợ file reader hay không
+                if (typeof (FileReader) != 'undefine') {
+                    var fileReader = new FileReader();
+                    // hình ảnh preview sau khi chọn file;
+                    var image_preview = $('#image-avatar-preview');
+                    fileReader.onload = function (element) {
+                        image_preview.attr('src', element.target.result);
+                        image_preview.css('display', 'block');
+                    }
+                    fileReader.readAsDataURL(fileData);
+                }
+            })
+        }
+        getBrandAvatarUpdate();
+        // click event to upload image ======================== end
+
+    });
+</script>
+© 2020 GitHub, Inc.
