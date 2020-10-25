@@ -3,7 +3,8 @@
 const FrhomeController = require('./homeController');
 const FrAboutController = require('./aboutController');
 const FrProjectController = require('./projectController');
-const FrTermController = require('./termController');
+const {FrgetAllPolicy,
+    FrgetPolicyDetails} = require('./policiesController');
 const { FrContactController,
     FrSendmailController } = require('./contactController');
 const { FrBlogController,
@@ -40,6 +41,11 @@ module.exports = {
     getPageLoad,
     FrProjectController,
 
-    FrTermController,
+
+    // policy
+    FrgetAllPolicy,
+    FrgetPolicyDetails,
+
+
     notFoundController
 }

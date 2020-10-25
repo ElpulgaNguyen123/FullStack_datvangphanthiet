@@ -11,7 +11,7 @@ var fsExtras = require('fs-extra');
 var storage = multer.diskStorage({
     destination: function (req, file, cb) {
         // cb(null, app.directory_products);
-        cb(null, app.directory_endows);
+        cb(null, app.directory_staffs);
     },
     filename: function (req, file, cb) {
         // let match = app.avatar_type;
@@ -23,14 +23,15 @@ var storage = multer.diskStorage({
     }
 });
 var productUploadFile = multer({ storage: storage }).single('endow_image');
+
 // get all Blog
 let getAllStaff = async (req, res, next) => {
     try {
-        await pool.query('SELECT * FROM staff', function (error, rows, fields) {
+        await pool.query('SELECT * FROM staffs', function (error, rows, fields) {
             if (error) throw error;
-            res.render('admin/website/endow/endow', {
+            res.render('admin/website/staffs/staffs', {
                 title: 'Ưu đãi',
-                endows: rows,
+                staffs: rows,
                 errors: req.flash('Errors'),
                 success: req.flash('Success'),
                 user: req.user
@@ -43,7 +44,7 @@ let getAllStaff = async (req, res, next) => {
 }
 
 // dẫn đến trang thêm blog
-let addEndowGet = async (req, res, next) => {
+let addStaffGet = async (req, res, next) => {
     try {
         // Lấy tất cả sản phẩm và hiển thị ra table
         var user = req.user || {};
@@ -59,7 +60,7 @@ let addEndowGet = async (req, res, next) => {
     }
 }
 // thêm hình ảnh cho thương hiệu
-let addEndowPost = (req, res, next) => {
+let addStaffPost = (req, res, next) => {
     productUploadFile(req, res, (error) => {
         try {
             console.log(req.body);
@@ -99,7 +100,7 @@ let addEndowPost = (req, res, next) => {
     })
 }
 // lấy thông tin chỉnh sửa thương hiệu
-let getEditEndow = async (req, res, next) => {
+let getEditStaff = async (req, res, next) => {
     try {
         var endow_id = req.params.id;
         var arrayError = [],
@@ -122,7 +123,7 @@ let getEditEndow = async (req, res, next) => {
     }
 }
 // lấy thông tin chỉnh sửa thương hiệu gửi lên update lên server
-let postEditEndow = (req, res, next) => {
+let postEditStaff = (req, res, next) => {
     productUploadFile(req, res, async (error) => {
         try {
             // Lấy tất cả sản phẩm và hiển thị ra table
@@ -172,6 +173,45 @@ let postEditEndow = (req, res, next) => {
     })
 }
 
+// xóa dữ liệu của 1 brand
+let postDeleteStaff = async (req, res, next) => {
+    try {
+        // Lấy tất cả sản phẩm và hiển thị ra table
+        var arrayError = [],
+            successArr = [];
+
+        var brand_id = req.params.id;
+        var querySetnull = `UPDATE product SET brand_id = NULL WHERE brand_id = ${brand_id}`;
+        var query = `SELECT * FROM brand WHERE id = ?`;
+        // Lấy tất cả sản phẩm và hiển thị ra table
+        var Image_delete = await service.queryActionBrandDelete(query, brand_id);
+        if (Image_delete[0].image != null) {
+            await fsExtras.remove(`${app.directory_brands}/${Image_delete[0].image}`);
+        }
+        await service.queryActionBrandsNoParams(querySetnull);
+
+        var querydeleteBrand = `
+        DELETE FROM 
+        brand 
+        WHERE id = ${brand_id}`
+        pool.query(querydeleteBrand, async function (error, results, fields) {
+            if (error) throw error;
+            successArr.push(Transuccess.deleteSuccess('Thương hiệu'));
+            req.flash('Success', successArr);
+            res.redirect('/admin/brands');
+        });
+
+    } catch (error) {
+        arrayError.push('Có lỗi xảy ra');
+        req.flash('errors', arrayError);
+        res.redirect('/admin/brands');
+    }
+}
+
 module.exports = {
-    getAllStaff
+    getAllStaff,
+    addStaffGet,
+    addStaffPost,
+    postEditStaff,
+    postDeleteStaff
 };

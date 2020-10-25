@@ -27,7 +27,7 @@ let getAllPolicy = async (req, res, next) => {
 
 let addPolicyGet = (req, res, next) => {
     res.render('admin/policies/add-policy', {
-        title:'Thêm chính sách',
+        title: 'Thêm chính sách',
         user: req.user,
         errors: req.flash('Errors'),
         success: req.flash('Success'),
@@ -49,26 +49,27 @@ let addPolicyPost = (req, res, next) => {
             if (error) throw error;
             successArr.push(Transuccess.createSuccess('Chính sách'));
             req.flash('Success', successArr);
-            res.redirect('/admin/chinh-sach');
+            res.redirect('/admin/policies');
         });
     } catch (error) {
         arrayError.push('Có lỗi xảy ra');
         req.flash('errors', arrayError);
-        res.redirect('/admin/chinh-sach');
+        res.redirect('/admin/policies');
     }
 }
 // lấy thông tin chỉnh sửa thương hiệu
-let postEditPolicy = async (req, res, next) => {
+let getEditPolicy = async (req, res, next) => {
     try {
-        var brand_id = req.params.id;
+        var policy_id = req.params.id;
         var arrayError = [],
             successArr = [];
-        var query = `SELECT * FROM brand WHERE id = ?`;
+        var query = `SELECT * FROM policies WHERE id = ?`;
         // Lấy tất cả sản phẩm và hiển thị ra table
-        await pool.query(query, brand_id, function (error, rows, fields) {
+        await pool.query(query, policy_id, function (error, rows, fields) {
             if (error) throw error;
-            res.render('admin/products/brands/editbrand', {
-                brand: rows[0],
+            res.render('admin/policies/edit-policy', {
+                title: 'Chỉnh sửa chính sách',
+                policy: rows[0],
                 user: req.user,
                 errors: req.flash('Errors'),
                 success: req.flash('Success'),
@@ -81,55 +82,39 @@ let postEditPolicy = async (req, res, next) => {
     }
 }
 // lấy thông tin chỉnh sửa thương hiệu gửi lên update lên server
-let getEditPolicy = (req, res, next) => {
-    productUploadFile(req, res, async (error) => {
-        try {
-            // Lấy tất cả sản phẩm và hiển thị ra table
-            var arrayError = [],
-                successArr = [];
-            var generatecode = uuid();
-            if (req.file) {
-                // resize image before uploads.
-                sharp(`${req.file.destination}/${req.file.filename}`)
-                    .resize(300, 200)
-                    .toFile(`${req.file.destination}/${req.file.filename}-${generatecode}.webp`, async (err, info) => {
-                        fs.unlinkSync(req.file.path);
-                        if (req.body.brand_old_image) {
-                            await fsExtras.remove(`${app.directory_brands}/${req.body.brand_old_image}`);
-                        }
-                    });
-            }
-            var filename = '';
-            if (req.file) {
-                filename = `${req.file.filename}-${generatecode}.webp`;
-            }
-            else if (req.body.brand_old_image) {
-                filename = `${req.body.brand_old_image}`;
-            }
-            var queryUpdate = `
-            UPDATE brand
-            SET name = ?, 
-            slug = ?, 
-            image = ?
+let postEditPolicy = async (req, res, next) => {
+
+    try {
+        // Lấy tất cả sản phẩm và hiển thị ra table
+        var arrayError = [],
+            successArr = [];
+        var queryUpdate = `
+            UPDATE policies
+            SET policy_name = ?, 
+            policy_slug = ?, 
+            policy_content = ?
             WHERE id = ?`
-            var brandValues = [
-                req.body.brand_name,
-                req.body.brand_slug,
-                filename,
-                req.params.id
-            ];
-            await pool.query(queryUpdate, brandValues, function (error, results, fields) {
-                if (error) throw error;
-                successArr.push(Transuccess.saveSuccess('thuộc tính'));
-                req.flash('Success', successArr);
-                res.redirect('/admin/brands');
-            });
-        } catch (error) {
-            arrayError.push('Có lỗi xảy ra');
-            req.flash('errors', arrayError);
-            res.redirect('/admin/brands');
-        }
-    })
+        var policyValues = [
+            req.body.policy_name,
+            req.body.policy_slug,
+            req.body.policy_content,
+            req.params.id
+        ];
+        await pool.query(queryUpdate, policyValues, function (error, results, fields) {
+            if (error) {
+                arrayError.push('Có lỗi xảy ra');
+                req.flash('errors', arrayError);
+                res.redirect('/admin/policy/edit-policy/' + req.params.id);
+            };
+            successArr.push(Transuccess.saveSuccess('chính sách'));
+            req.flash('Success', successArr);
+            res.redirect('/admin/policy/edit-policy/' + req.params.id);
+        });
+    } catch (error) {
+        arrayError.push('Có lỗi xảy ra');
+        req.flash('errors', arrayError);
+        res.redirect('/admin/policy/edit-policy/' + req.params.id);
+    }
 }
 // xóa dữ liệu của 1 brand
 let postDeletePolicy = async (req, res, next) => {
@@ -137,32 +122,26 @@ let postDeletePolicy = async (req, res, next) => {
         // Lấy tất cả sản phẩm và hiển thị ra table
         var arrayError = [],
             successArr = [];
-
-        var brand_id = req.params.id;
-        var querySetnull = `UPDATE product SET brand_id = NULL WHERE brand_id = ${brand_id}`;
-        var query = `SELECT * FROM brand WHERE id = ?`;
-        // Lấy tất cả sản phẩm và hiển thị ra table
-        var Image_delete = await service.queryActionBrandDelete(query, brand_id);
-        if (Image_delete[0].image != null) {
-            await fsExtras.remove(`${app.directory_brands}/${Image_delete[0].image}`);
-        }
-        await service.queryActionBrandsNoParams(querySetnull);
-
-        var querydeleteBrand = `
+        let policy_id = req.params.id
+        var querydeletePolicy = `
         DELETE FROM 
-        brand 
-        WHERE id = ${brand_id}`
-        pool.query(querydeleteBrand, async function (error, results, fields) {
-            if (error) throw error;
-            successArr.push(Transuccess.deleteSuccess('Thương hiệu'));
+        policies 
+        WHERE id = ${policy_id}`
+        pool.query(querydeletePolicy, function (error, results, fields) {
+            if (error) {
+                arrayError.push('Có lỗi xảy ra');
+                req.flash('errors', arrayError);
+                res.redirect('/admin/policies');
+            };
+            successArr.push(Transuccess.deleteSuccess('chính sách'));
             req.flash('Success', successArr);
-            res.redirect('/admin/brands');
+            res.redirect('/admin/policies');
         });
 
     } catch (error) {
         arrayError.push('Có lỗi xảy ra');
         req.flash('errors', arrayError);
-        res.redirect('/admin/brands');
+        res.redirect('/admin/policies');
     }
 }
 

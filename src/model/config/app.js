@@ -6,6 +6,7 @@ var app = {
     directory_slides : 'src/public/uploads/slides',
     directory_blogs : 'src/public/uploads/blogs',
     directory_endows : 'src/public/uploads/endows',
+    directory_staffs : 'src/public/uploads/staffs',
     avatar_type :['image/png','image/jpg', 'image/jpeg','image/webp'],
     avatar_limit_size : 16388608,
 }

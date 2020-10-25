@@ -15,6 +15,18 @@
         </div>
     </div>
     <div class="row">
+        <% if(errors != ""){%>
+        <% errors.forEach((item) => {%>
+        <script>toastr.error('<%- item %>', 'Gặp lỗi !')</script>
+        <%})%>
+        <%}%>
+            <% if(success != ""){%>
+        <% success.forEach((item) => {%>
+        <script>
+            toastr.success('<%- item %>', 'Thành công !')
+        </script>
+        <%})%>
+        <%}%>
         <script>
             function to_slug(str) {
                 // Chuyển hết sang chữ thường
@@ -42,33 +54,33 @@
         </script>
         <div class="col-sm-12">
             <div class="card-box">
-                <form id="policy-add-form" action="/admin/policy/add-policy" method="POST">
-                    <div class="form-group">
-                        <label for="policy_name">Tên chính sách<span class="text-danger">*</span></label>
-                        <input type="text" onkeyup="to_slug($(this).val())" name="policy_name" required="" placeholder="Nhập tên chính sách"
-                            class="form-control" id="policy_name">
-                    </div>
-                    <div class="form-group">
-                        <label for="policy_slug">Slug<span class="text-danger">*</span></label>
-                        <input type="text" name="policy_slug" required="" readonly placeholder="slug"
-                            class="form-control" id="policy_slug">
-                    </div>
-                    <div class="form-group">
-                        <div>
-                            <label for="policy_content">Nội dung chính sách</label>
-                            <textarea id="summernote" required="" placeholder="Nội dung chính sách" class="form-control"
-                                name="policy_content" id="policy_content"></textarea>
-                        </div>
-                    </div>
-                    <div class="form-group text-left mb-0">
-                        <button class="btn btn-success waves-effect waves-light" type="submit">
-                            Lưu chính sách
-                        </button>
-                    </div>
-                </form>
+                <form id="policy-edit-form" action="/admin/policy/edit-policy/<%= policy.id %>" method="POST">
+        <div class="form-group">
+            <label for="policy_name">Tên chính sách<span class="text-danger">*</span></label>
+            <input type="text" value="<%= policy.policy_name %>" onkeyup="to_slug($(this).val())" name="policy_name"
+                required="" placeholder="Nhập tên chính sách" class="form-control" id="policy_name">
+        </div>
+        <div class="form-group">
+            <label for="policy_slug">Slug<span class="text-danger">*</span></label>
+            <input type="text" value="<%= policy.policy_slug %>" name="policy_slug" required="" readonly
+                placeholder="slug" class="form-control" id="policy_slug">
+        </div>
+        <div class="form-group">
+            <div>
+                <label for="policy_content">Nội dung chính sách</label>
+                <textarea id="summernote" required="" placeholder="Nội dung chính sách" class="form-control"
+                    name="policy_content" id="policy_content"><%= policy.policy_content %></textarea>
             </div>
         </div>
+        <div class="form-group text-left mb-0">
+            <button class="btn btn-success waves-effect waves-light" type="submit">
+                Lưu chính sách
+            </button>
+        </div>
+        </form>
     </div>
+</div>
+</div>
 </div>
 <script>
     $(document).ready(function () {

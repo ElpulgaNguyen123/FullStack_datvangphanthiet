@@ -1,4 +1,6 @@
-  <!--=================================
+<% extend("../../datvangphanthiet") %>
+
+<!--=================================
 header -->
 <header class="header">
   <div class="topbar">
@@ -54,8 +56,7 @@ header -->
                 </div>
                 <div class="row">
                   <div class="col-sm-4">
-                    <h6 class="mb-3 nav-title"> <a
-                        class="d-block text-md-center pd-badge badge badge-danger color-red"
+                    <h6 class="mb-3 nav-title"> <a class="d-block text-md-center pd-badge badge badge-danger color-red"
                         href="/san-pham">Đất</a></h6>
                   </div>
                   <div class="col-sm-4">
@@ -65,13 +66,12 @@ header -->
                   </div>
                   <div class="col-sm-4">
                     <h6 class="mb-3 nav-title"> <a
-                        class="d-block text-md-center pd-badge badge badge-primary color-blue"
-                        href="/san-pham">Mặt bằng</a>
+                        class="d-block text-md-center pd-badge badge badge-primary color-blue" href="/san-pham">Mặt
+                        bằng</a>
                     </h6>
                   </div>
                   <div class="col-12 mt-4 d-none d-lg-block">
-                    <div class="p-4 bg-holder bg-overlay-black-70"
-                      style="background-image: url(images/banner-01.jpg);">
+                    <div class="p-4 bg-holder bg-overlay-black-70" style="background-image: url(images/banner-01.jpg);">
                       <div class="position-relative">
                         <div class="position-relative d-flex align-items-center">
                           <div class="pr-1">
@@ -105,19 +105,11 @@ header -->
               Pháp lý <i class="fas fa-chevron-down fa-xs"></i>
             </a>
             <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="/dieu-kien-phap-ly">Lên thổ cư</a></li>
-              <li><a class="dropdown-item" href="/dieu-kien-phap-ly">Hợp đồng chuyển nhượng</a></li>
-              <li><a class="dropdown-item" href="/dieu-kien-phap-ly">Đo đạc, tách thửa, hợp thửa</a></li>
-              <li><a class="dropdown-item" href="/dieu-kien-phap-ly">Cấp mới quyền sử dụng đất</a></li>
-              <li><a class="dropdown-item" href="/dieu-kien-phap-ly">Đăng ký thế chấp, xóa thế tranh chấp</a>
-              </li>
-              <li><a class="dropdown-item" href="/dieu-kien-phap-ly">Tư vấn & xin giấy phép lập doanh
-                  nghiệp</a>
-              </li>
-              <li><a class="dropdown-item" href="/dieu-kien-phap-ly">Hỗ trợ vay vốn, đáo hạn</a></li>
-              <li><a class="dropdown-item" href="/dieu-kien-phap-ly">Nguyên vật liệu</a></li>
-              <li><a class="dropdown-item" href="/dieu-kien-phap-ly">Cho vay thế chấp quyền sử dụng đất</a>
-              </li>
+              <li><a class="dropdown-item" href="/phap-ly" title="tất cả">Tất cả</a></li>
+              <% policies.forEach(function(policy){ %>
+              <li><a class="dropdown-item" href="/phap-ly/<%= policy.policy_slug %>.<%= policy.id %>"
+                  title="<%= policy.policy_name %>"><%= policy.policy_name %></a></li>
+              <% }); %>
             </ul>
           </li>
           <li class="nav-item dropdown">

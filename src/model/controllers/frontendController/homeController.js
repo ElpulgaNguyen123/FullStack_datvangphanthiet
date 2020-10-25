@@ -13,6 +13,8 @@ let FrhomeController = async (req, res, next) => {
         var brandQuery = 'SELECT * FROM brand';
         var queryCategory = 'SELECT * FROM categories';
         var queryCompanyFeatures = 'SELECT * FROM feature_company';
+        let queryPolicies = 'SELECT * FROM policies';
+        var queryBlog = 'Select * from blog';
         var queyProduct =`
         SELECT product.id as product_id, product.name, product.short_description, 
         product.image, 
@@ -33,7 +35,6 @@ let FrhomeController = async (req, res, next) => {
             userInfo = user[0];
         }
         const categories = await service.getAllCategoryProduct(queryCategory);
-
         var productStreetQuery = '';
         var productRaceQuery = '';
         var productChildQuery = '';
@@ -85,11 +86,15 @@ let FrhomeController = async (req, res, next) => {
             WHERE categories.id = ${categories[2].id}`;
             childstype = await service.getAllCategoryProduct(productChildQuery);
         }
-        var queryBlog = 'Select * from blog';
+        
         const slide = await service.getAllSlide(slideQuery);
         const brand = await service.getAllBrand(brandQuery);
         const company_features = await service.getAllEndow(queryCompanyFeatures);
         const blogs = await service.getAllBlog(queryBlog);
+        let policies = await service.getAllPolicies(queryPolicies);
+        if(policies.length > 6){
+            policies = policies.slice(0,6);
+        }
         products = await service.queryActionNoParams(queyProduct);
         pool.query('SELECT * FROM user', function (error, results, fields) {
             if (error) throw error;
@@ -97,6 +102,7 @@ let FrhomeController = async (req, res, next) => {
                 title: 'Trang chủ',
                 slides: slide,
                 products : products,
+                policies : policies,
                 company_features : company_features,
                 brands: brand.slice(0, 8),
                 streets: streets.slice(0, 6),

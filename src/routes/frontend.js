@@ -25,7 +25,11 @@ frontendRouter.post('/xe-dap/get-more/:page',controller.getPageLoad);
 
 frontendRouter.get('/du-an',controller.FrProjectController);
 
-frontendRouter.get('/dieu-kien-phap-ly',controller.FrTermController);
+
+// chinh sach và phap ly / start
+frontendRouter.get('/phap-ly',controller.FrgetAllPolicy);
+frontendRouter.get('/phap-ly/*.:id',controller.FrgetPolicyDetails);
+// chinh sach và phap ly / end
 
 // not founds page
 frontendRouter.use(controller.notFoundController);

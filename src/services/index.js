@@ -36,6 +36,8 @@ var { queryAction,
             queryAllAttribute} = require('./attributeService');
             var {getAllCustomer} = require('./customerService');
 
+            var {getAllPolicies} = require('./policiesService');
+
 
 module.exports = {
     register_service,
@@ -83,6 +85,10 @@ module.exports = {
 
 
     // customer
-    getAllCustomer
+    getAllCustomer,
+
+
+    //policies
+    getAllPolicies
 
 }

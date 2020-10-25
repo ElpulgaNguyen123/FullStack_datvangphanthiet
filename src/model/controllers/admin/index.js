@@ -108,6 +108,14 @@ var {
     getEditPolicy,
     postDeletePolicy } = require('./policiesController');
 
+
+    var {
+        getAllStaff,
+        addStaffGet,
+        addStaffPost,
+        postEditStaff,
+        postDeleteStaff } = require('./website/staffController');
+
 module.exports = {
 
     // Admin START
@@ -229,5 +237,12 @@ module.exports = {
     addPolicyGet,
     postEditPolicy,
     getEditPolicy,
-    postDeletePolicy
+    postDeletePolicy,
+
+    // staff
+    getAllStaff,
+    addStaffGet,
+    addStaffPost,
+    postEditStaff,
+    postDeleteStaff
 }

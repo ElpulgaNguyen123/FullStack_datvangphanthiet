@@ -1,0 +1,61 @@
+<% extend("../../datvangphanthiet") %>
+
+<!--=================================
+breadcrumb -->
+<div class="bg-light">
+    <div class="container">
+      <div class="row">
+        <div class="col-12">
+          <ol class="breadcrumb mb-0">
+            <li class="breadcrumb-item"><a href="/" title="Trang chủ"> <i class="fas fa-home"></i> </a></li>
+            <li class="breadcrumb-item"> <i class="fas fa-chevron-right"></i> <a href="/phap-ly" title="Pháp lý">Pháp lý</a></li>
+            <li class="breadcrumb-item active"> <i class="fas fa-chevron-right"></i> <span><%= title  %></span>
+            </li>
+          </ol>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--=================================
+breadcrumb -->
+
+  <!--=================================
+Terms and conditions -->
+  <section class="space-ptb">
+    <div class="container">
+      <div class="row">
+        <div class="col-12">
+          <div class="section-title">
+            <h2><%= policy.policy_name %></h2>
+          </div>
+           <%- policy.policy_content %>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!--=================================
+Terms and conditions -->
+
+<!--=================================
+newsletter -->
+<section class="py-5 bg-primary">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-5">
+        <h3 class="text-white mb-0">Đăng ký nhận bản tin của chúng tôi để nhận những tin tức và ưu đãi mới nhất.</h3>
+      </div>
+      <div class="col-md-7 mt-3 mt-md-0">
+        <div class="newsletter">
+          <form>
+            <div class="form-group mb-0">
+              <input type="email" class="form-control" placeholder="Enter email">
+            </div>
+            <button type="submit" class="btn btn-dark b-radius-left-none">Nhận tin nhắn</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!--=================================
+newsletter -->

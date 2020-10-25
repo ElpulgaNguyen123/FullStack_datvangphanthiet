@@ -9,6 +9,12 @@ let FrAboutController = async (req, res, next) => {
         var queryCompanyFeatures = 'SELECT * FROM feature_company';
         var queryCustomer = 'SELECT * FROM customers';
 
+        let queryPolicies = 'SELECT * FROM policies';
+        let policies = await service.getAllPolicies(queryPolicies);
+        if(policies.length > 6){
+            policies = policies.slice(0,6);
+        }
+
 
         const company_features = await service.getAllEndow(queryCompanyFeatures);
         const customers = await service.getAllCustomer(queryCustomer);
@@ -20,6 +26,7 @@ let FrAboutController = async (req, res, next) => {
         res.render('datvangphanthiet/about/about', {
             title: 'Giới thiệu',
             userInfo : userInfo,
+            policies : policies,
             customers : customers,
             company_features :  company_features,
             errors: req.flash('Errors'),
