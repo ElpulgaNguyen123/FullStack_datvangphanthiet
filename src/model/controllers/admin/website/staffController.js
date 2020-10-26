@@ -77,33 +77,28 @@ let addStaffPost = (req, res, next) => {
             if (req.file) {
                 filename = `${req.file.filename}-${generatecode}.webp`;
             }
-            var queryNewStaff = `INSERT INTO staffs (staff_name, staff_position, staff_slogan, staff_avatar) VALUES ?`;
+            var queryNewStaff = 'INSERT INTO staffs (staff_name, staff_position, staff_slogan, staff_avatar) VALUES ?';
             var staffValues = [
                 [req.body.staff_name,
-                req.body.staff_postion,
+                req.body.staff_position,
                 req.body.staff_slogan,
-                    filename,]
+                    filename]
             ];
             pool.query(queryNewStaff, [staffValues], async function (error, results, fields) {
                 if (error) {
-                    try {
-                        await fsExtras.remove(`${app.directory_staffs}/${filename}`);
-                        arrayError.push(Tranerrors.saveError('nhân viên'));
-                        req.flash('Errors', arrayError);
-                        res.redirect('/admin/staff/add-staff');
-                    } catch (error) {
-                        throw error;
-                    }
+                    fsExtras.remove(`${app.directory_staffs}/${filename}`);
+                    arrayError.push(Tranerrors.saveError('nhân viên'));
+                    req.flash('Errors', arrayError);
+                    res.redirect('/admin/staff/add-staff');
                 };
                 successArr.push(Transuccess.createSuccess('nhân viên'));
                 req.flash('Success', successArr);
                 res.redirect('/admin/staff/add-staff');
             });
         } catch (error) {
-            throw error;
-            // arrayError.push(Tranerrors.saveError('nhân viên'));
-            // req.flash('Errors', arrayError);
-            // res.redirect('/admin/staff/add-staff');
+            arrayError.push(Tranerrors.saveError('nhân viên'));
+            req.flash('Errors', arrayError);
+            res.redirect('/admin/staff/add-staff');
         }
     })
 }
@@ -173,6 +168,7 @@ let postEditStaff = (req, res, next) => {
             console.log(staffValues);
             await pool.query(queryUpdateStaff, staffValues, function (error, results, fields) {
                 if (error) {
+                    fsExtras.remove(`${app.directory_staffs}/${filename}`);
                     arrayError.push(Tranerrors.saveError('nhân viên'));
                     req.flash('Errors', arrayError);
                     res.redirect('/admin/staff/edit-staff/' + req.params.id);
@@ -196,31 +192,33 @@ let postDeleteStaff = async (req, res, next) => {
         var arrayError = [],
             successArr = [];
 
-        var brand_id = req.params.id;
-        var querySetnull = `UPDATE product SET brand_id = NULL WHERE brand_id = ${brand_id}`;
-        var query = `SELECT * FROM brand WHERE id = ?`;
+        var staff_id = req.params.id;
         // Lấy tất cả sản phẩm và hiển thị ra table
-        var Image_delete = await service.queryActionBrandDelete(query, brand_id);
-        if (Image_delete[0].image != null) {
-            await fsExtras.remove(`${app.directory_brands}/${Image_delete[0].image}`);
-        }
-        await service.queryActionBrandsNoParams(querySetnull);
-
-        var querydeleteBrand = `
-        DELETE FROM 
-        brand 
-        WHERE id = ${brand_id}`
-        pool.query(querydeleteBrand, async function (error, results, fields) {
-            if (error) throw error;
-            successArr.push(Transuccess.deleteSuccess('Thương hiệu'));
-            req.flash('Success', successArr);
-            res.redirect('/admin/brands');
-        });
+        let queryStaff = 'SELECT * FROM staffs WHERE id = ?';
+        var Image_delete = await service.getStaffService(queryStaff, staff_id);
+        console.log(Image_delete[0].staff_avatar);
+        // if (Image_delete[0].staff_avatar != null) {
+        //     await fsExtras.remove(`${app.directory_staffs}/${Image_delete[0].staff_avatar}`);
+        // }
+        // var querydeleteStaff = `
+        // DELETE FROM 
+        // staffs 
+        // WHERE id = ${staff_id}`
+        // pool.query(querydeleteStaff, function (error, results, fields) {
+        //     if (error) {
+        //         arrayError.push('Có lỗi xảy ra');
+        //         req.flash('errors', arrayError);
+        //         res.redirect('/admin/staffs');
+        //     };
+        //     successArr.push(Transuccess.deleteSuccess('nhân viên'));
+        //     req.flash('Success', successArr);
+        //     res.redirect('/admin/staffs');
+        // });
 
     } catch (error) {
         arrayError.push('Có lỗi xảy ra');
         req.flash('errors', arrayError);
-        res.redirect('/admin/brands');
+        res.redirect('/admin/staffs');
     }
 }
 

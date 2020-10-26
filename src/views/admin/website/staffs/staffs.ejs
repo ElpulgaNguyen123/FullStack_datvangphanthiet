@@ -7,7 +7,6 @@
                 <div class="page-title-right">
                     <ol class="breadcrumb m-0">
                         <li class="breadcrumb-item"><a href="/admin">Utadmin</a></li>
-                        <li class="breadcrumb-item"><a href="/admin/blog">Nhân viên</a></li>
                         <li class="breadcrumb-item active"><%= title %></li>
                     </ol>
                 </div>
@@ -65,7 +64,7 @@
             <p> <%= staff.staff_position %> </p>
         </td>
         <td>
-            <p> <%= staff.staff_slogan %> </p>
+            <p> <%- staff.staff_slogan %> </p>
         </td>
         <td>
             <div class="btn-group" role="group" aria-label="Basic example">
@@ -74,7 +73,7 @@
                 </a>
                 <a href="/admin/staff/delete-staff/<%= staff.id %>"
                     class="delete-blog-confirm btn hor-grd btn-grd-danger"
-                    data-url="/admin/blog/delete-blog/<%= staff.id %>" title="Xóa nhân viên" data-target="#blog-delete-modal"
+                    data-url="/admin/staff/delete-staff/<%= staff.id %>" title="Xóa nhân viên" data-target="#blog-delete-modal"
                     data-toggle="modal">
                     <i class="icofont icofont-ui-delete"></i>
                 </a>

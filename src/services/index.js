@@ -2,8 +2,8 @@ var { register_service,
     resetpassword_service,
     resetPassword, } = require('./authService');
 
-var { queryAction, 
-    queryActionNoParams, 
+var { queryAction,
+    queryActionNoParams,
     newProduct,
     getlastProduct,
     getLastId,
@@ -14,29 +14,32 @@ var { queryAction,
     getImageProduct,
     getAllCategoryProduct,
     getAllProductFr,
-    checkSkuMatch} = require('./productservice');
+    checkSkuMatch } = require('./productservice');
 
-    var {queryActionBrandDelete,
-        getAllBrand,
-        queryActionBrandsParams,
-        queryActionBrandsNoParams} = require('./brandService');
-    var {queryActionSlideDelete,
-    getAllSlide} = require('./slideService');
-    var {queryActionBlogelete,
-        getAllBlog,
-        getBlog} = require('./blogService');
-    var {queryActionCategoryDelete,
-        queryActionCategoriesParams,
-        queryActionCategoriesNoParams} = require('./categoryService');
+var { queryActionBrandDelete,
+    getAllBrand,
+    queryActionBrandsParams,
+    queryActionBrandsNoParams } = require('./brandService');
+var { queryActionSlideDelete,
+    getAllSlide } = require('./slideService');
+var { queryActionBlogelete,
+    getAllBlog,
+    getBlog } = require('./blogService');
+var { queryActionCategoryDelete,
+    queryActionCategoriesParams,
+    queryActionCategoriesNoParams } = require('./categoryService');
 
-        var {getAllEndow} = require('./endowService');
-        var {getAllUser} = require('./userService');
-        var {queryActionAttributeDelete,
-            addExampleAttribute,
-            queryAllAttribute} = require('./attributeService');
-            var {getAllCustomer} = require('./customerService');
+var { getAllEndow } = require('./endowService');
+var { getAllUser } = require('./userService');
+var { queryActionAttributeDelete,
+    addExampleAttribute,
+    queryAllAttribute } = require('./attributeService');
+var { getAllCustomer } = require('./customerService');
 
-            var {getAllPolicies} = require('./policiesService');
+var { getAllPolicies } = require('./policiesService');
+
+
+var { getStaffService } = require('./staffService');
 
 
 module.exports = {
@@ -89,6 +92,10 @@ module.exports = {
 
 
     //policies
-    getAllPolicies
+    getAllPolicies,
+
+
+    // staff
+    getStaffService
 
 }

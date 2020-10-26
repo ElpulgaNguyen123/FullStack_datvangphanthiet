@@ -6,7 +6,7 @@
                 <div class="page-title-right">
                     <ol class="breadcrumb m-0">
                         <li class="breadcrumb-item"><a href="/admin">utadmin</a></li>
-                        <li class="breadcrumb-item"><a href="/admin/staff">Nhân viên</a></li>
+                        <li class="breadcrumb-item"><a href="/admin/staffs">Nhân viên</a></li>
                         <li class="breadcrumb-item active"><%= title %></li>
                     </ol>
                 </div>
@@ -33,7 +33,8 @@
         <div class="update-avatar-form">
             <div class="row">
                 <div class="col-xs-12 col-sm-12 col-md-12">
-                    <form action="/admin/staff/add-staff" id="staff_form_add" method="POST" enctype="multipart/form-data">
+                    <form action="/admin/staff/add-staff" id="staff_form_add" method="POST"
+                        enctype="multipart/form-data">
                         <div class="row">
                             <div class="col-xs-12 col-md-12">
                                 <div class="form-group text-center mb-5">
@@ -50,12 +51,6 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label class="font-weight-bold" for="staff_slogan">
-                                        SLogan <span class="text-danger">*</span>
-                                    </label>
-                                    <textarea id="summernote" id="staff_slogan" name="staff_slogan"></textarea>
-                                </div>
-                                <div class="form-group">
                                     <label class="font-weight-bold col-form-label" for="staff_name">
                                         Tên nhân viên<span class="text-danger">*</span>
                                     </label>
@@ -68,6 +63,12 @@
                                     </label>
                                     <input type="text" name="staff_position" id="staff_position" class="form-control"
                                         placeholder="Nhập chức vụ" required>
+                                </div>
+                                <div class="form-group">
+                                    <label class="font-weight-bold" for="staff_slogan">
+                                        SLogan <span class="text-danger">*</span>
+                                    </label>
+                                    <textarea id="summernote" id="staff_slogan" name="staff_slogan"></textarea>
                                 </div>
                             </div>
                         </div>
