@@ -146,6 +146,8 @@ adminRouter.get('/staff/add-staff', controller.checkloggedIn, controller.addStaf
 adminRouter.post('/staff/add-staff', controller.checkloggedIn, controller.addStaffPost);
 adminRouter.get('/staff/edit-staff/:id', controller.checkloggedIn, controller.getEditStaff);
 adminRouter.post('/staff/edit-staff/:id', controller.checkloggedIn, controller.postEditStaff);
+adminRouter.get('/staff/delete-staff/:id', controller.checkloggedIn, controller.postDeleteStaff);
+
 // staff / end
 
 /*=====   Website template / end  ======*/

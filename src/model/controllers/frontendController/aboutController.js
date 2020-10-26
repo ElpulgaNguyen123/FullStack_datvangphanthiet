@@ -8,6 +8,8 @@ let FrAboutController = async (req, res, next) => {
         var queryUser = 'SELECT * FROM user';
         var queryCompanyFeatures = 'SELECT * FROM feature_company';
         var queryCustomer = 'SELECT * FROM customers';
+        let queryStaff = 'SELECT * FROM staffs';
+
 
         let queryPolicies = 'SELECT * FROM policies';
         let policies = await service.getAllPolicies(queryPolicies);
@@ -18,6 +20,8 @@ let FrAboutController = async (req, res, next) => {
 
         const company_features = await service.getAllEndow(queryCompanyFeatures);
         const customers = await service.getAllCustomer(queryCustomer);
+        const staffs = await service.getAllStaffService(queryStaff);
+
         var user = await service.getAllUser(queryUser);
         if(user[0]){
             userInfo = user[0];
@@ -26,6 +30,7 @@ let FrAboutController = async (req, res, next) => {
         res.render('datvangphanthiet/about/about', {
             title: 'Giới thiệu',
             userInfo : userInfo,
+            staffs : staffs,
             policies : policies,
             customers : customers,
             company_features :  company_features,

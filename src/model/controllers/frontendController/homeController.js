@@ -15,6 +15,7 @@ let FrhomeController = async (req, res, next) => {
         var queryCompanyFeatures = 'SELECT * FROM feature_company';
         let queryPolicies = 'SELECT * FROM policies';
         var queryBlog = 'Select * from blog';
+        let queryStaff = 'SELECT * FROM staffs';
         var queyProduct =`
         SELECT product.id as product_id, product.name, product.short_description, 
         product.image, 
@@ -91,6 +92,7 @@ let FrhomeController = async (req, res, next) => {
         const brand = await service.getAllBrand(brandQuery);
         const company_features = await service.getAllEndow(queryCompanyFeatures);
         const blogs = await service.getAllBlog(queryBlog);
+        const staffs = await service.getAllStaffService(queryStaff);
         let policies = await service.getAllPolicies(queryPolicies);
         if(policies.length > 6){
             policies = policies.slice(0,6);
@@ -105,6 +107,7 @@ let FrhomeController = async (req, res, next) => {
                 policies : policies,
                 company_features : company_features,
                 brands: brand.slice(0, 8),
+                staffs : staffs.slice(0,4),
                 streets: streets.slice(0, 6),
                 streetsTitle: streets[0],
                 raceTitle: racestype[0],

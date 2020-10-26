@@ -196,24 +196,23 @@ let postDeleteStaff = async (req, res, next) => {
         // Lấy tất cả sản phẩm và hiển thị ra table
         let queryStaff = 'SELECT * FROM staffs WHERE id = ?';
         var Image_delete = await service.getStaffService(queryStaff, staff_id);
-        console.log(Image_delete[0].staff_avatar);
-        // if (Image_delete[0].staff_avatar != null) {
-        //     await fsExtras.remove(`${app.directory_staffs}/${Image_delete[0].staff_avatar}`);
-        // }
-        // var querydeleteStaff = `
-        // DELETE FROM 
-        // staffs 
-        // WHERE id = ${staff_id}`
-        // pool.query(querydeleteStaff, function (error, results, fields) {
-        //     if (error) {
-        //         arrayError.push('Có lỗi xảy ra');
-        //         req.flash('errors', arrayError);
-        //         res.redirect('/admin/staffs');
-        //     };
-        //     successArr.push(Transuccess.deleteSuccess('nhân viên'));
-        //     req.flash('Success', successArr);
-        //     res.redirect('/admin/staffs');
-        // });
+        if (Image_delete[0].staff_avatar != null) {
+            await fsExtras.remove(`${app.directory_staffs}/${Image_delete[0].staff_avatar}`);
+        }
+        var querydeleteStaff = `
+        DELETE FROM 
+        staffs 
+        WHERE id = ${staff_id}`
+        pool.query(querydeleteStaff, function (error, results, fields) {
+            if (error) {
+                arrayError.push('Có lỗi xảy ra');
+                req.flash('errors', arrayError);
+                res.redirect('/admin/staffs');
+            };
+            successArr.push(Transuccess.deleteSuccess('nhân viên'));
+            req.flash('Success', successArr);
+            res.redirect('/admin/staffs');
+        });
 
     } catch (error) {
         arrayError.push('Có lỗi xảy ra');

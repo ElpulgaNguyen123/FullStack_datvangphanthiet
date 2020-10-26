@@ -39,7 +39,8 @@ var { getAllCustomer } = require('./customerService');
 var { getAllPolicies } = require('./policiesService');
 
 
-var { getStaffService } = require('./staffService');
+var { getStaffService,
+    getAllStaffService } = require('./staffService');
 
 
 module.exports = {
@@ -96,6 +97,7 @@ module.exports = {
 
 
     // staff
-    getStaffService
+    getStaffService,
+    getAllStaffService
 
 }
