@@ -19,6 +19,10 @@ var { getAllProduct,
     getPageLoad,
     checkSkuMatch } = require('./productController');
 
+
+var { getAllProject,addProjectGet } = require('./projectController');
+
+
 var { getAllAttribute,
     postAddAttribute,
     getEditAttribute,
@@ -83,7 +87,7 @@ var {
     addBlogCategoryPost,
     editBlogCategoryGet,
     editBlogCategoryPost,
-    postDeleteBlogCategory} = require('./website/blogController');
+    postDeleteBlogCategory } = require('./website/blogController');
 
 var {
     getAllEndow,

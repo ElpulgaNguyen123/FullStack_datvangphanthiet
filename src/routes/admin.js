@@ -36,7 +36,7 @@ adminRouter.post('/update-avatar/:id', controller.checkloggedIn, controller.upda
 adminRouter.get('/', controller.checkloggedIn, controller.homeController);
 // products router
 adminRouter.get('/products', controller.checkloggedIn, controller.getAllProduct);
-adminRouter.get('/products/add-product', controller.checkloggedIn, controller.checkloggedIn, controller.addProductGet);
+adminRouter.get('/products/add-product', controller.checkloggedIn, controller.addProductGet);
 adminRouter.post('/product/add-product-image', controller.checkloggedIn, controller.addProductImage);
 adminRouter.post('/products/add-product', controller.checkloggedIn, controller.addProductPost);
 adminRouter.get('/product/edit-product/:id', controller.checkloggedIn, controller.editProductGet);
@@ -53,6 +53,13 @@ adminRouter.get('/product/delete-product/:iddelete', controller.checkloggedIn, c
 adminRouter.post('/product/get-more/:page', controller.checkloggedIn, controller.getPageLoad);
 adminRouter.post('/product/check-sku', controller.checkloggedIn, controller.checkSkuMatch);
 // products router // end
+
+
+// project router // start
+adminRouter.get('/projects', controller.checkloggedIn, controller.getAllProject);
+adminRouter.get('/project/add-project', controller.checkloggedIn, controller.addProjectGet);
+
+// project router // end
 
 // attribute start
 adminRouter.get('/attributes', controller.checkloggedIn, controller.getAllAttribute);

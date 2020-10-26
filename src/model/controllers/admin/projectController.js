@@ -49,6 +49,31 @@ let getAllProject = async (req, res, next) => {
     }
 }
 
+// chuyển qua trang thêm sản phẩm   
+let addProjectGet = async (req, res, next) => {
+    try {
+        var queryattributes = 'SELECT * FROM attributes';
+        var querycategories = 'SELECT * FROM categories';
+        var attributes = await service.queryActionNoParams(queryattributes);
+        var categories = await service.queryActionNoParams(querycategories);
+        pool.query('SELECT * FROM brand', function (error, results, fields) {
+            res.render('admin/products/addproduct', {
+                title: 'Thêm sản phẩm',
+                brands: results,
+                attributes: attributes,
+                categories: categories,
+                user: req.user
+            });
+        });
+
+    } catch (error) {
+        arrayError.push('Có lỗi xảy ra');
+        req.flash('errors', arrayError);
+        res.redirect('/admin/products');
+    }
+}
+
 module.exports = {
     getAllProject,
+    addProjectGet
 };
