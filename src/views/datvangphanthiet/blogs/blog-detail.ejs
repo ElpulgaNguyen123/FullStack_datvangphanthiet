@@ -1,82 +1,254 @@
-<% extend("../../xedapphanthiet") %>
-<section class="breacrumb_bg">
-    <div class="container">
-      <div class="row">
-        <div class="col-xs-12 col-md-12">
-          <span class=big-title> <%= blog.title  %> </span>
-          <nav class="breadcrumb">
-            <a class="breadcrumb-item" href="/">Trang chủ</a>
-            <span class="breadcrumb-item active"><%= blog.title  %></span>
-          </nav>
-        </div>
+<% extend("../../datvangphanthiet") %>
+<!--=================================
+breadcrumb -->
+<div class="bg-light">
+  <div class="container">
+    <div class="row">
+      <div class="col-12">
+        <ol class="breadcrumb mb-0">
+          <li class="breadcrumb-item"><a href="/"> <i class="fas fa-home"></i> </a></li>
+          <li class="breadcrumb-item"> <i class="fas fa-chevron-right"></i> <a href="/blogs" title="Tin tức">Tin tức</a>
+          </li>
+          <li class="breadcrumb-item active"> <i class="fas fa-chevron-right"></i> <span> <%= blog.title %> </span></li>
+        </ol>
       </div>
     </div>
-  </section>
+  </div>
+</div>
+<!--=================================
+breadcrumb -->
 
-  <!-- news start -->
-  <section id="news" class="news-details mt-4 page-relative">
-    <div class="container">
-      <div class="news-detail-box">
-        <div class="row bg-white">
-          <div class="col-sm-12 col-md-8">
-            <div class="top-details">
-              <img src="images/news/012.jpg" alt="">
+<!--=================================
+blog-detail -->
+<section class="space-ptb">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8">
+        <div class="blog-detail">
+          <div class="blog-post">
+            <div class="blog-post-title">
+              <h2><%= blog.title %></h2>
             </div>
-            <h1 class="ut_bold mt-4 mb-4"><%= blog.title  %></h1>
-            <div class="news-event__day">
-              <ul class="d-flex">
-                <li> <i class="icofont icofont-ui-calendar"></i>
-                  <span>
-                    <%= blog.create_at  %> </span></li>
-                <li> <i class="icofont-user-suited"></i> <%= blog.author  %> </li>
+            <div class="blog-post-category ">
+              <a class="mb-3" href="#"><strong><%= blog.blog_category_name %></strong></a>
+            </div>
+            <div class="blog-post-footer border-0 justify-content-start">
+              <div class="blog-post-time ml-0">
+                <span> <i class="far fa-clock"></i><%= blog.create_at %></span>
+              </div>
+              <div class="blog-post-author">
+                <span> <%= blog.author %> </span>
+              </div>
+            </div>
+            <div class="blog-post-image">
+              <img class="img-fluid mb-4" src="/public/uploads/blogs/<%= blog.image %>" alt="<%= blog.title %>">
+            </div>
+            <div class="blog-post-content border-0">
+              <%- blog.content %>
+              <div class="mt-4">
+                <h5 class="mb-4">Related Post</h5>
+                <div class="row">
+                  <div class="col-12">
+                    <div class="owl-carousel " data-nav-dots="true" data-items="2" data-md-items="2" data-sm-items="1"
+                      data-xs-items="1" data-xx-items="1" data-space="15">
+                      <div class="item">
+                        <div class="blog-post">
+                          <div class="blog-post-image">
+                            <img class="img-fluid" src="images/blog/01.jpg" alt="">
+                          </div>
+                          <div class="blog-post-content">
+                            <div class="blog-post-details">
+                              <div class="blog-post-category">
+                                <a class="mb-3" href="#"><strong>Home improvement</strong></a>
+                              </div>
+                              <div class="blog-post-title">
+                                <h5><a href="blog-detail.html">7 pieces of advice to newbies</a></h5>
+                              </div>
+                              <div class="blog-post-description">
+                                <p class="mb-0">So, how can we stay on course with all the distractions in our lives?
+                                  Willpower.</p>
+                              </div>
+                            </div>
+                            <div class="blog-post-footer">
+                              <div class="blog-post-time">
+                                <span href="#"> <i class="far fa-clock"></i>02 Jan 2019</span>
+                              </div>
+                              <div class="blog-post-author">
+                                <span> By <a href="#"> <img class="img-fluid" src="images/avatar/01.jpg" alt="">Sara
+                                    lisbon </a> </span>
+                              </div>
+                              <div class="blog-post-comment">
+                                <a href="#"> <i class="far fa-comment"></i>(12) </a>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="item">
+                        <div class="blog-post">
+                          <div class="blog-post-image">
+                            <img class="img-fluid" src="images/blog/02.jpg" alt="">
+                          </div>
+                          <div class="blog-post-content">
+                            <div class="blog-post-details">
+                              <div class="blog-post-category">
+                                <a class="mb-3" href="#"><strong>Tips and advice</strong></a>
+                              </div>
+                              <div class="blog-post-title">
+                                <h5><a href="blog-detail.html">Where to Invest in Real Estate</a></h5>
+                              </div>
+                              <div class="blog-post-description">
+                                <p class="mb-0">Is a good start, but it’s very difficult to stay on track simply through
+                                  willpower.</p>
+                              </div>
+                            </div>
+                            <div class="blog-post-footer">
+                              <div class="blog-post-time">
+                                <a href="#"> <i class="far fa-clock"></i>14 Feb 2019</a>
+                              </div>
+                              <div class="blog-post-author">
+                                <span> By <a href="#"> <img class="img-fluid" src="images/avatar/02.jpg" alt="">Anne
+                                    Smith</a> </span>
+                              </div>
+                              <div class="blog-post-comment">
+                                <a href="#"> <i class="far fa-comment"></i>(32) </a>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="item">
+                        <div class="blog-post">
+                          <div class="blog-post-image">
+                            <img class="img-fluid" src="images/blog/03.jpg" alt="">
+                          </div>
+                          <div class="blog-post-content">
+                            <div class="blog-post-details">
+                              <div class="blog-post-category">
+                                <a class="mb-3" href="#"><strong>Market trends</strong></a>
+                              </div>
+                              <div class="blog-post-title">
+                                <h5><a href="blog-detail.html">Cutting your losses in Real Estate</a></h5>
+                              </div>
+                              <div class="blog-post-description">
+                                <p class="mb-0">The best way is to develop and follow a plan. Start with your goals in
+                                  mind.</p>
+                              </div>
+                            </div>
+                            <div class="blog-post-footer">
+                              <div class="blog-post-time">
+                                <a href="#"> <i class="far fa-clock"></i>30 March 2019</a>
+                              </div>
+                              <div class="blog-post-author">
+                                <span> By <a href="#"> <img class="img-fluid" src="images/avatar/03.jpg" alt="">Alice
+                                    Williams</a> </span>
+                              </div>
+                              <div class="blog-post-comment">
+                                <a href="#"> <i class="far fa-comment"></i>(45) </a>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-4 mt-4 mt-lg-0">
+        <div class="blog-sidebar">
+          <div class="widget">
+            <div class="widget-title">
+              <h6>Tìm kiếm</h6>
+            </div>
+            <div class="search">
+              <i class="fas fa-search"></i>
+              <input type="text" class="form-control" placeholder="Tìm kiếm bài viết...">
+            </div>
+          </div>
+          <div class="widget">
+            <div class="widget-title">
+              <h6>Giới thiệu về Blog</h6>
+            </div>
+            <ul class="pl-3">
+              <li class="mb-2">Đưa ra quyết định</li>
+              <li class="mb-2">Sự rõ ràng - phát triển Tầm nhìn</li>
+              <li class="mb-2">Hành động - thực hành Sẵn sàng, Cháy, Nhắm mục tiêu.</li>
+            </ul>
+          </div>
+          <div class="widget">
+            <div class="widget-title">
+              <h6> Bài đăng gần đây </h6>
+            </div>
+            <% newblogs.forEach(function(newblog){ %>
+            <div class="d-flex mb-3 align-items-top">
+              <div class="avatar avatar-xl h-auto">
+                <img class="img-fluid" src="/public/uploads/blogs/<%= newblog.image %>" alt="">
+              </div>
+              <div class="ml-3">
+                <a class="text-dark" href="/blog/<%= newblog.slug %>.<%= newblog.id %>"
+                  title="<%= newblog.title %>"><b><%= newblog.title %></b></a>
+                <span class="d-flex font-sm text-dark"><%= newblog.create_at %></span>
+              </div>
+            </div>
+            <% }); %>
+          </div>
+          <div class="widget">
+            <div class="widget-title">
+              <h6>Danh mục bài viết</h6>
+            </div>
+            <ul class="list-unstyled list-style mb-0">
+              <% blog_categories.forEach(function(blog_category){ %>
+              <li><a href="/blog/blog-category/<%= blog_category.blog_category_slug %>.<%= blog_category.id %>"
+                  title="<%= blog_category.blog_category_name %>"><%= blog_category.blog_category_name %></a>
+              </li>
+              <% }); %>
+            </ul>
+          </div>
+          <div class="widget">
+            <div class="widget-title">
+              <h6>Đăng ký và theo dõi Facebook</h6>
+            </div>
+            <div class="social">
+              <ul class="list-unstyled">
+                <li class="facebook">
+                  <a class="text-uppercase" href="#"> <i class="fab fa-facebook-f mr-3"></i>Facebook</a>
+                  <a class="follow ml-auto" href="#">Like </a>
                 </li>
               </ul>
             </div>
-            <div class="entry-content single-page">
-              <%- blog.content  %>
-            </div>
-          </div>
-          <div class="col-sm-12 col-md-4">
-            <div class="sidebar-right">
-              <div class="sidebar-widget">
-                <h4 class="text_P text-main ut_bold"> TIN TỨC NỔI BẬT </h4>
-                <div class="relate-list">
-                  <ul>
-                    <% blogFeature.forEach((blogfea) => { %>
-                    <li>
-                      <a class="feature_item" href="/blog/<%= blogfea.slug %>.<%= blogfea.id %>" title="<%= blogfea.title %>">
-                        <div class="left_img">
-                          <img src="/public/uploads/blogs/<%= blogfea.image %>" alt="<%= blogfea.title %>">
-                        </div>
-                        <div class="right_feature">
-                          <h5><%= blogfea.title %></h5>
-                          <div class="news-event__day">
-                            <ul class="d-flex">
-                              <li> <i class="icofont icofont-ui-calendar"></i>
-                                <span>
-                                  <%= blogfea.create_at %> </span></li>
-                              <li> <i class="icofont-user-suited"></i> <%= blogfea.author %> </li>
-                            </ul>
-                          </div>
-                        </div>
-                      </a>
-                    </li>
-                    <% }) %>
-                  </ul>
-                </div>
-              </div>
-              <div class="sidebar-widget">
-                <h4 class="text_P text-main ut_bold"> KẾT NỐI VỚI CHÚNG TÔI </h4>
-                <div class="facebook-page">
-                  <iframe
-                    src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2FChiEunkorea%2F&tabs=timeline&width=340&height=500&small_header=false&adapt_container_width=true&hide_cover=false&show_facepile=true&appId=925230941188257"
-                    width="100%" height="500" style="border:none;overflow:hidden" scrolling="no" frameborder="0"
-                    allowTransparency="true" allow="encrypted-media"></iframe>
-                </div>
-              </div>
-            </div>
           </div>
         </div>
       </div>
-  </section>
-  <!-- news end -->
+    </div>
+  </div>
+</section>
+<!--=================================
+blog-detail -->
+
+<!--=================================
+newsletter -->
+<section class="py-5 bg-primary">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-5">
+        <h3 class="text-white mb-0">Đăng ký nhận bản tin của chúng tôi để nhận những tin tức và ưu đãi mới nhất.</h3>
+      </div>
+      <div class="col-md-7 mt-3 mt-md-0">
+        <div class="newsletter">
+          <form>
+            <div class="form-group mb-0">
+              <input type="email" class="form-control" placeholder="Enter email">
+            </div>
+            <button type="submit" class="btn btn-dark b-radius-left-none">Nhận tin nhắn</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!--=================================
+newsletter -->

@@ -24,7 +24,8 @@ var { queryActionSlideDelete,
     getAllSlide } = require('./slideService');
 var { queryActionBlogelete,
     getAllBlog,
-    getBlog } = require('./blogService');
+    getBlog,
+    getAllBlogCategories } = require('./blogService');
 var { queryActionCategoryDelete,
     queryActionCategoriesParams,
     queryActionCategoriesNoParams } = require('./categoryService');
@@ -79,6 +80,9 @@ module.exports = {
     queryActionBlogelete,
     getAllBlog,
     getBlog,
+    getAllBlogCategories,
+
+
     getAllEndow,
     getAllUser,
 

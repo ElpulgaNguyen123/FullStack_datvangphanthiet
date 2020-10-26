@@ -76,7 +76,14 @@ var {
     addBlogPost,
     getEditBlog,
     postEditBlog,
-    postDeleteBlog } = require('./website/blogController');
+    postDeleteBlog,
+
+    getAllBlogCategory,
+    addBlogCategoryGet,
+    addBlogCategoryPost,
+    editBlogCategoryGet,
+    editBlogCategoryPost,
+    postDeleteBlogCategory} = require('./website/blogController');
 
 var {
     getAllEndow,
@@ -205,6 +212,13 @@ module.exports = {
     getEditBlog,
     postEditBlog,
     postDeleteBlog,
+
+    getAllBlogCategory,
+    addBlogCategoryGet,
+    addBlogCategoryPost,
+    editBlogCategoryGet,
+    editBlogCategoryPost,
+    postDeleteBlogCategory,
 
 
     //endow

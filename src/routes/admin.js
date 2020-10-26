@@ -9,8 +9,8 @@ const admin = require('../model/controllers/admin');
 initPassportLocal();
 // authencation ===============
 adminRouter.get('/login', controller.checkloggedOut, controller.loginController);
-  adminRouter.post('/login', controller.checkloggedOut, passport.authenticate('local', {
-    successRedirect: '/admin',
+adminRouter.post('/login', controller.checkloggedOut, passport.authenticate('local', {
+  successRedirect: '/admin',
   failureRedirect: '/admin/login',
   failureFlash: 'Người dùng không tồn tại !',
   successFlash: 'Chào mừng !',
@@ -102,6 +102,13 @@ adminRouter.post('/blog/add-blog', controller.checkloggedIn, controller.addBlogP
 adminRouter.get('/blog/edit-blog/:id', controller.checkloggedIn, controller.getEditBlog);
 adminRouter.post('/blog/edit-blog/:id', controller.checkloggedIn, controller.postEditBlog);
 adminRouter.get('/blog/delete-blog/:id', controller.checkloggedIn, controller.postDeleteBlog);
+
+adminRouter.get('/blog-categories', controller.checkloggedIn, controller.getAllBlogCategory);
+adminRouter.get('/blog-category/add-blog-category', controller.checkloggedIn, controller.addBlogCategoryGet);
+adminRouter.post('/blog-category/add-blog-category', controller.checkloggedIn, controller.addBlogCategoryPost);
+adminRouter.post('/blog-category/edit-blog-category/:id', controller.checkloggedIn, controller.editBlogCategoryPost);
+adminRouter.get('/blog-category/edit-blog-category/:id', controller.checkloggedIn, controller.editBlogCategoryGet);
+adminRouter.get('/blog-category/delete-blog-category/:id', controller.checkloggedIn, controller.postDeleteBlogCategory);
 // Blog / end
 
 // endow / start

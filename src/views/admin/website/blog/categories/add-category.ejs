@@ -1,0 +1,109 @@
+<% extend("../../../../admin.ejs") %>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <div class="page-title-box">
+                <div class="page-title-right">
+                    <ol class="breadcrumb m-0">
+                        <li class="breadcrumb-item"><a href="/admin">utadmin</a></li>
+                        <li class="breadcrumb-item"><a href="/admin/blog-categories">Danh mục</a></li>
+                        <li class="breadcrumb-item active"><%= title %></li>
+                    </ol>
+                </div>
+                <h4 class="page-title"><%= title %></h4>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <% if(errors != ""){%>
+        <% errors.forEach((item) => {%>
+        <script>toastr.error('<%- item %>', 'Gặp lỗi !')</script>
+        <%})%>
+        <%}%>
+                 <% if(success != ""){%>
+        <% success.forEach((item) => {%>
+        <script>
+            toastr.success('<%- item %>', 'Thành công !')
+        </script>
+        <%})%>
+        <%}%>
+        <div class="col-sm-12">
+            <div class="card-box table-responsive">
+                <div class="update-avatar-form">
+                    <div class="row">
+                        <script>
+                            function to_slug(str) {
+                                str = str.toLowerCase();
+                                // xóa dấu
+                                str = str.replace(/(à|á|ạ|ả|ã|â|ầ|ấ|ậ|ẩ|ẫ|ă|ằ|ắ|ặ|ẳ|ẵ)/g, 'a');
+                                str = str.replace(/(è|é|ẹ|ẻ|ẽ|ê|ề|ế|ệ|ể|ễ)/g, 'e');
+                                str = str.replace(/(ì|í|ị|ỉ|ĩ)/g, 'i');
+                                str = str.replace(/(ò|ó|ọ|ỏ|õ|ô|ồ|ố|ộ|ổ|ỗ|ơ|ờ|ớ|ợ|ở|ỡ)/g, 'o');
+                                str = str.replace(/(ù|ú|ụ|ủ|ũ|ư|ừ|ứ|ự|ử|ữ)/g, 'u');
+                                str = str.replace(/(ỳ|ý|ỵ|ỷ|ỹ)/g, 'y');
+                                str = str.replace(/(đ)/g, 'd');
+                                // Xóa ký tự đặc biệt
+                                str = str.replace(/([^0-9a-z-\s])/g, '');
+                                // Xóa khoảng trắng thay bằng ký tự -
+                                str = str.replace(/(\s+)/g, '-');
+                                // xóa phần dự - ở đầu
+                                str = str.replace(/^-+/g, '');
+                                // xóa phần dư - ở cuối
+                                str = str.replace(/-+$/g, '');
+                                // return
+                                document.getElementById('blog_category_slug').value = str;
+                                return str;
+                            }
+                        </script>
+                        <div class="col-xs-12 col-sm-12 col-md-12">
+                            <form action="/admin/blog-category/add-blog-category" id="blog_category_add_form" method="POST">
+                                <div class="row">
+                                    <div class="col-xs-12 col-md-12">
+                                        <div class="form-group">
+                                            <label for="blog_category_name">Tên danh mục<span class="text-danger">*</span></label>
+                                            <input type="text" name="blog_category_name" id="blog_category_name"
+                                                onkeyup="to_slug($(this).val())" class="form-control"
+                                                placeholder="Tên danh mục" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="blog_category_slug">Slug<span class="text-danger">*</span></label>
+                                            <input type="text" name="blog_category_slug" id="blog_category_slug"
+                                                class="form-control" placeholder="Slug"
+                                                readonly required>
+                                        </div>
+                                    </div>
+                                </div>
+                                <button type="submit" class="btn btn-success mt-3">Thêm
+                                    vào</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+        $("#blog_category_add_form").validate({
+            rules: {
+                blog_category_name: {
+                    required: true,
+                },
+                blog_category_slug: {
+                    required: true,
+                    minlength: 2,
+                }
+            },
+            messages: {
+                blog_category_name: {
+                    required: 'Vui lòng nhập tên danh mục',
+                },
+                blog_category_slug: {
+                    required: "Vui lòng nhập slug",
+                }
+            }
+        });
+    });
+</script>
+© 2020 GitHub, Inc.

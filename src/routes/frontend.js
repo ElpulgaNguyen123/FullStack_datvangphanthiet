@@ -8,7 +8,8 @@ frontendRouter.get('/lien-he', controller.FrContactController);
 frontendRouter.post('/lien-he/send-mail', controller.FrSendmailController);
 
 // blog / start
-frontendRouter.get('/blog', controller.FrBlogController);
+frontendRouter.get('/blogs', controller.FrBlogController);
+frontendRouter.get('/blog/blog-category/*.:id', controller.FrBlogCategoryController);
 frontendRouter.get('/blog/*.:id', controller.FrBlogDetailController);
 // blog / end
 

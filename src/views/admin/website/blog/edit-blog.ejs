@@ -7,7 +7,7 @@
                 <div class="page-title-right">
                     <ol class="breadcrumb m-0">
                         <li class="breadcrumb-item"><a href="/admin">utadmin</a></li>
-                        <li class="breadcrumb-item"><a href="/admin/blog">Blog</a></li>
+                        <li class="breadcrumb-item"><a href="/admin/blog">Tin tức</a></li>
                         <li class="breadcrumb-item active"><%= title %></li>
                     </ol>
                 </div>
@@ -18,22 +18,16 @@
     <div class="row">
         <div class="col-sm-12">
             <div class="card-box table-responsive">
-                <h4 class="header-title"><b><%= blog.name %></b></h4>
-                <p class="sub-header">
-                    In this example the column index is prefixed to the column title.
-                </p>
                 <% if(errors != ""){%>
                 <% errors.forEach((item) => {%>
-                <div class="alert alert-danger" role="alert">
-                    <strong class="alert-link"><%- item %></strong>.
-                </div>
+                <script>toastr.error('<%- item %>', 'Gặp lỗi !')</script>
                 <%})%>
                 <%}%>
-                            <% if(success != ""){%>
+                <% if(success != ""){%>
                 <% success.forEach((item) => {%>
-                <div class="alert alert-success" role="alert">
-                    <strong class="alert-link"><%- item %></strong>.
-                </div>
+                <script>
+                    toastr.success('<%- item %>', 'Thành công !')
+                </script>
                 <%})%>
                 <%}%>
                 <form id="blog-edit-form" action="/admin/blog/edit-blog/<%= blog.id %>" method="POST"
@@ -56,40 +50,47 @@
                         </div>
                         <div class="form-group">
                             <label class="font-weight-bold" for="blog_content">
-                                Mô tả
+                                Mô tả <span class="text-danger">*</span>
                             </label>
                             <textarea id="summernote" id="blog_content"
                                 name="blog_content"> <%= blog.content %> </textarea>
                         </div>
                         <div class="form-group">
-                            <label class="font-weight-bold col-form-label" for="blog_title">
-                                Title
+                            <label class="font-weight-bold" for="blog_title">
+                                Tiêu đề<span class="text-danger">*</span>
                             </label>
                             <textarea type="text" name="blog_title" id="blog_title" onkeyup="to_slug($(this).val())"
                                 class="form-control" placeholder="Tên <%= blog.title %>"
                                 required> <%= blog.title %> </textarea>
                         </div>
                         <div class="form-group">
-                            <label class="font-weight-bold col-form-label" for="blog_slug">
+                            <label class="font-weight-bold" for="blog_slug">
                                 SLug
                             </label>
-                            <input type="text" name="blog_slug" id="blog_slug"
-                                class="form-control" placeholder="Slug"
+                            <input type="text" name="blog_slug" id="blog_slug" class="form-control" placeholder="Slug"
                                 value="<%= blog.slug %>" readonly required>
+                        </div>
+                        <div class="form-group">
+                            <label class="font-weight-bold" for="blog_category">Loại tin tức<span
+                                    class="text-danger">*</span></label>
+                            <select id="blog_category" name="blog_category" class="form-control" required="">
+                                <option disabled checked value="">Chọn loại tin tức..</option>
+                                <% blog_categories.forEach(function(blog_category){ %>
+                                <option value="<%= blog_category.id%>"><%= blog_category.blog_category_name %></option>
+                                <% }); %>
+                            </select>
                         </div>
                         <div class="form-group">
                             <label class="font-weight-bold" for="short_description">
                                 Tác giả </label>
-                            <input type="text" name="blog_author" id="blog_author"
-                                class="form-control" value="<%= blog.author %>"
-                                placeholder="Tác giả">
+                            <input type="text" name="blog_author" id="blog_author" class="form-control"
+                                value="<%= blog.author %>" placeholder="Tác giả">
                         </div>
                         <div class="form-group">
                             <label class="font-weight-bold" for="short_description">
-                                Mô tả ngắn </label>
-                            <textarea type="text" name="short_description" id="short_description"
-                                class="form-control" rows="4" placeholder="Mô tả ngắn"
-                                required> <%= blog.short_description %> </textarea>
+                                Mô tả ngắn<span class="text-danger">*</span> </label>
+                            <textarea type="text" name="short_description" id="short_description" class="form-control"
+                                rows="4" placeholder="Mô tả ngắn" required> <%= blog.short_description %> </textarea>
                         </div>
                         <script>
                             function to_slug(str) {
@@ -176,7 +177,9 @@
                 },
                 blog_title: {
                     required: true,
-                    minlength: 2,
+                },
+                blog_category: {
+                    required: true,
                 },
                 blog_slug: {
                     required: true
@@ -194,7 +197,9 @@
                 },
                 blog_title: {
                     required: "Vui lòng nhập tiêu đề cho bài viết",
-                    minlength: "Tên thương hiệu phải có ít nhất 2 ký tự"
+                },
+                blog_category: {
+                    required: "Vui lòng chọn danh mục cho bài viết"
                 },
                 blog_slug: {
                     required: "Vui lòng nhập đường dẫn cho slide"

@@ -266,7 +266,6 @@ let addProductAttribute = async (req, res, next) => {
     }
 }
 
-
 // kiểm tra mã Sku
 let checkSkuMatch = async(req, res, next) => {
     let sku = req.body.sku;

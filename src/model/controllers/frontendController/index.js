@@ -8,7 +8,8 @@ const {FrgetAllPolicy,
 const { FrContactController,
     FrSendmailController } = require('./contactController');
 const { FrBlogController,
-    FrBlogDetailController } = require('./blogController');
+    FrBlogDetailController,
+    FrBlogCategoryController } = require('./blogController');
 
 
 const { FrProductController,
@@ -31,6 +32,7 @@ module.exports = {
 
     FrBlogController,
     FrBlogDetailController,
+    FrBlogCategoryController,
 
     FrProductController,
     FrProductDetailController,

@@ -17,10 +17,18 @@
     <div class="row">
         <div class="col-sm-12">
             <div class="card-box table-responsive">
-                <h4 class="header-title"><b><%= title %></b></h4>
-                <p class="sub-header">
-                    In this example the column index is prefixed to the column title.
-                </p>
+                <% if(errors != ""){%>
+                    <% errors.forEach((item) => {%>
+                    <script>toastr.error('<%- item %>', 'Gặp lỗi !')</script>
+                    <%})%>
+                    <%}%>
+                        <% if(success != ""){%>
+                    <% success.forEach((item) => {%>
+                    <script>
+                        toastr.success('<%- item %>', 'Thành công !')
+                    </script>
+                    <%})%>
+                    <%}%>
                 <div class="update-avatar-form">
                     <div class="row">
                         <script>
@@ -77,18 +85,37 @@
                                             <textarea id="summernote" id="blog_content" name="blog_content"></textarea>
                                         </div>
                                         <div class="form-group">
+                                            <label class="font-weight-bold" for="blog_title">
+                                                Tiêu đề<span class="text-danger">*</span>
+                                            </label>
                                             <input type="text" name="blog_title" id="blog_title"
                                                 onkeyup="to_slug($(this).val())" class="form-control"
                                                 placeholder="Nhập tiêu đề bài viết" required>
                                         </div>
                                         <div class="form-group">
-                                            <input type="text" name="blog_slug" id="blog_slug"
-                                                class="form-control" placeholder="Slug"
-                                                readonly required>
+                                            <label class="font-weight-bold" for="blog_slug">
+                                                SLug
+                                            </label>
+                                            <input type="text" name="blog_slug" id="blog_slug" class="form-control"
+                                                placeholder="Slug" readonly required>
                                         </div>
                                         <div class="form-group">
-                                            <input type="text" name="blog_author" id="blog_author"
-                                                class="form-control"
+                                            <label class="font-weight-bold" for="blog_category">Loại tin tức<span
+                                                    class="text-danger">*</span></label>
+                                            <select id="blog_category" name="blog_category" class="form-control"
+                                                required="">
+                                                <option disabled value="">Chọn loại tin tức..</option>
+                                                <% blog_categories.forEach(function(blog_category){ %>
+                                                <option value="<%= blog_category.id%>">
+                                                    <%= blog_category.blog_category_name %></option>
+                                                <% }); %>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="font-weight-bold" for="blog_author">
+                                                Tác giả
+                                            </label>
+                                            <input type="text" name="blog_author" id="blog_author" class="form-control"
                                                 placeholder="Tác giả">
                                         </div>
                                         <div class="form-group">

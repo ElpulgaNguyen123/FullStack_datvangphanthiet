@@ -16,6 +16,9 @@ let FrAboutController = async (req, res, next) => {
         if(policies.length > 6){
             policies = policies.slice(0,6);
         }
+        let queryBlogCatgories = 'SELECT * FROM blog_categories';
+        let blog_categories = await service.getAllBlogCategories(queryBlogCatgories);
+
 
 
         const company_features = await service.getAllEndow(queryCompanyFeatures);
@@ -32,6 +35,7 @@ let FrAboutController = async (req, res, next) => {
             userInfo : userInfo,
             staffs : staffs,
             policies : policies,
+            blog_categories : blog_categories,
             customers : customers,
             company_features :  company_features,
             errors: req.flash('Errors'),

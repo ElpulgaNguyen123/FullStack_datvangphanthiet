@@ -12,9 +12,20 @@ let FrContactController = async (req, res, next) => {
         if (user[0]) {
             userInfo = user[0];
         }
+
+        let queryPolicies = 'SELECT * FROM policies';
+        let policies = await service.getAllPolicies(queryPolicies);
+        if(policies.length > 6){
+            policies = policies.slice(0,6);
+        }
+        let queryBlogCatgories = 'SELECT * FROM blog_categories';
+        let blog_categories = await service.getAllBlogCategories(queryBlogCatgories);
+
         // Lấy tất cả sản phẩm và hiển thị ra table
         res.render('datvangphanthiet/contact/contact', {
             title: 'Liên hệ',
+            policies : policies,
+            blog_categories : blog_categories,
             userInfo: userInfo,
             errors: req.flash('Errors'),
             success: req.flash('Success'),

@@ -113,15 +113,15 @@ header -->
             </ul>
           </li>
           <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" aria-haspopup="true"
+            <a class="nav-link dropdown-toggle" href="blogs" data-toggle="dropdown" aria-haspopup="true"
               aria-expanded="false">
               Tin tức <i class="fas fa-chevron-down fa-xs"></i>
             </a>
             <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="/blog">Nhà đất & BĐS</a></li>
-              <li><a class="dropdown-item" href="/blog">Thị trường</a></li>
-              <li><a class="dropdown-item" href="/blog">Phân tích, Nhận định</a></li>
-              <li><a class="dropdown-item" href="/blog">Thông tin quy hoạch</a></li>
+              <li><a class="dropdown-item" href="/blogs" title="Tất cả">Tất cả</a></li>
+              <% blog_categories.forEach(function(blog_category){ %>
+                <li><a class="dropdown-item" href="/blog/blog-category/<%= blog_category.blog_category_slug %>.<%= blog_category.id %>" title="<%= blog_category.blog_category_name %>"><%= blog_category.blog_category_name %></a></li>
+              <% }); %>
             </ul>
           </li>
           <li class="dropdown nav-item mega-menu">

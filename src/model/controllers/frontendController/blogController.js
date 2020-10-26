@@ -8,16 +8,29 @@ let FrBlogController = async (req, res, next) => {
         let userInfo = {};
         var queryUser = 'SELECT * FROM user';
         var user = await service.getAllUser(queryUser);
-        if(user[0]){
+        if (user[0]) {
             userInfo = user[0];
         }
-        const queryBlog = 'Select * from blog';
+        let queryPolicies = 'SELECT * FROM policies';
+        let policies = await service.getAllPolicies(queryPolicies);
+
+        let queryBlogCatgories = 'SELECT * FROM blog_categories';
+        let blog_categories = await service.getAllBlogCategories(queryBlogCatgories);
+
+        if (policies.length > 6) {
+            policies = policiess.slice(0, 6);
+        }
+
+        const queryBlog = 'Select * from blog inner join blog_categories ON blog.blog_category_id = blog_categories.id';
         const blogs = await service.getAllBlog(queryBlog);
         // Lấy tất cả sản phẩm và hiển thị ra table
         res.render('datvangphanthiet/blogs/blogs', {
             title: 'Blog',
-            userInfo : userInfo,
+            policies: policies,
+            blog_categories : blog_categories,
+            userInfo: userInfo,
             blogs: blogs,
+            newblogs : blogs.slice(0,3),
             errors: req.flash('Errors'),
             success: req.flash('Success'),
         })
@@ -27,22 +40,85 @@ let FrBlogController = async (req, res, next) => {
     }
 }
 
+let FrBlogCategoryController = async (req, res, next) => {
+    try {
+        let userInfo = {};
+        var queryUser = 'SELECT * FROM user';
+        var user = await service.getAllUser(queryUser);
+        if (user[0]) {
+            userInfo = user[0];
+        }
+        let queryPolicies = 'SELECT * FROM policies';
+        let policies = await service.getAllPolicies(queryPolicies);
+        if (policies.length > 6) {
+            policies = policies.slice(0, 6);
+        }
+        let queryBlogCatgories = 'SELECT * FROM blog_categories';
+        let blog_categories = await service.getAllBlogCategories(queryBlogCatgories);
+        const queryBlog = `SELECT * FROM blog 
+        INNER JOIN blog_categories 
+        ON blog.blog_category_id = blog_categories.id WHERE blog.blog_category_id = ?
+        `;
+        const blogs = await service.getBlog(queryBlog, req.params.id);
+        // Lấy tất cả sản phẩm và hiển thị ra table
+        res.render('datvangphanthiet/blogs/blogs', {
+            title: 'Blog',
+            policies: policies,
+            blog_categories : blog_categories,
+            userInfo: userInfo,
+            blogs: blogs,
+            newblogs : blogs.slice(0,3),
+            errors: req.flash('Errors'),
+            success: req.flash('Success'),
+        })
+    } catch (error) {
+        console.log(error);
+        return res.status(500).send(error);
+    }
+}
+
+
+
 let FrBlogDetailController = async (req, res, next) => {
     try {
+
+        let userInfo = {};
+        var queryUser = 'SELECT * FROM user';
+        var user = await service.getAllUser(queryUser);
+        if (user[0]) {
+            userInfo = user[0];
+        }
+        const queryBlog = 'Select * from blog inner join blog_categories ON blog.blog_category_id = blog_categories.id';
         const queryBlogDetail = 'SELECT * from blog WHERE id = ?';
         const queryFeature = `SELECT * FROM blog ORDER BY id DESC LIMIT 4`;
         const blogFeature = await service.getAllBlog(queryFeature);
         const blog = await service.getBlog(queryBlogDetail, req.params.id);
+
+        let queryPolicies = 'SELECT * FROM policies';
+        let policies = await service.getAllPolicies(queryPolicies);
+        if (policies.length > 6) {
+            policies = policies.slice(0, 6);
+        }
+
+        let queryBlogCatgories = 'SELECT * FROM blog_categories';
+        let blog_categories = await service.getAllBlogCategories(queryBlogCatgories);
+        const blogs = await service.getAllBlog(queryBlog);
+
+
         if (blog[0]) {
             //Lấy tất cả sản phẩm và hiển thị ra table
-            res.render('xedapphanthiet/blogs/blog-detail', {
+            res.render('datvangphanthiet/blogs/blog-detail', {
                 title: 'Blog',
                 blog: blog[0],
-                blogFeature:blogFeature,
+                policies : policies,
+                blog_categories : blog_categories,
+                newblogs : blogs.slice(0,3),
+                blogFeature: blogFeature,
+                userInfo: userInfo,
                 errors: req.flash('Errors'),
                 success: req.flash('Success'),
             });
-        }else {
+        } else {
             res.send('Lỗi không tìm thấy');
         }
     } catch (error) {
@@ -50,7 +126,10 @@ let FrBlogDetailController = async (req, res, next) => {
         return res.status(500).send(error);
     }
 }
+
+
 module.exports = {
     FrBlogController,
-    FrBlogDetailController
+    FrBlogDetailController,
+    FrBlogCategoryController
 };
