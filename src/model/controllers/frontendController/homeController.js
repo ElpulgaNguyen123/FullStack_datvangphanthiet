@@ -107,6 +107,7 @@ let FrhomeController = async (req, res, next) => {
                 slides: slide,
                 products : products,
                 policies : policies,
+                categories : categories,
                 blog_categories : blog_categories,
                 company_features : company_features,
                 brands: brand.slice(0, 8),

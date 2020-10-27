@@ -20,7 +20,18 @@ var { getAllProduct,
     checkSkuMatch } = require('./productController');
 
 
-var { getAllProject,addProjectGet } = require('./projectController');
+var { getAllProject,
+    addProjectGet,
+    addProjectPost,
+    checkSkuMatchProject,
+    addProjectImage,
+    searchDataProject,
+    editProjectGet,
+    editProjectPost,
+    editProjectImage,
+    updateProjectImagePost,
+    addProjectImage,
+    deleteProjectImage } = require('./projectController');
 
 
 var { getAllAttribute,
@@ -132,6 +143,8 @@ module.exports = {
 
     // Admin START
     homeController,
+
+
     // products
     getAllProduct,
     addProductGet,
@@ -155,6 +168,16 @@ module.exports = {
     // project
     getAllProject,
     addProjectGet,
+    addProjectPost,
+    checkSkuMatchProject,
+    addProjectImage,
+    searchDataProject,
+    editProjectGet,
+    editProjectPost,
+    editProjectImage,
+    updateProjectImagePost,
+    addProjectImage,
+    deleteProjectImage,
 
 
 

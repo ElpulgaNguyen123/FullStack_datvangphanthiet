@@ -9,20 +9,31 @@ let FrProductController = async (req, res, next) => {
         if(user[0]){
             userInfo = user[0];
         }
-        const queryBikes = 'Select * from product';
+        const queryProduct = 'Select * from product';
         const querycategories = 'SELECT * FROM categories';
         const querybrands = 'SELECT * FROM brand';
         const brands = await service.getAllBrand(querybrands);
         const categories = await service.getAllCategoryProduct(querycategories);
-        const bikes = await service.getAllProductFr(queryBikes);
+        const products = await service.getAllProductFr(queryProduct);
         const query = 'Select * from product';
+
+        let queryPolicies = 'SELECT * FROM policies';
+        let policies = await service.getAllPolicies(queryPolicies);
+        if(policies.length > 6){
+            policies = policies.slice(0,6);
+        }
+        let queryBlogCatgories = 'SELECT * FROM blog_categories';
+        let blog_categories = await service.getAllBlogCategories(queryBlogCatgories);
+
         // Lấy tất cả sản phẩm và hiển thị ra table
         res.render('datvangphanthiet/products/products', {
-            title: 'Xe đạp',
+            title: 'Sản phẩm',
             userInfo : userInfo,
-            bikes: bikes.slice(0,9),
+            products: products.slice(0,9),
             brands: brands,
             query : query,
+            policies : policies,
+            blog_categories : blog_categories,
             categories: categories,
             errors: req.flash('Errors'),
             success: req.flash('Success'),
@@ -32,7 +43,7 @@ let FrProductController = async (req, res, next) => {
         return res.status(500).send(error);
     }
 }
-let getAllBikeCategory = async (req, res, next) => {
+let getAllProductCategory = async (req, res, next) => {
     try {
         let userInfo = {};
         var queryUser = 'SELECT * FROM user';
@@ -42,29 +53,36 @@ let getAllBikeCategory = async (req, res, next) => {
         }
         // Lấy tất cả sản phẩm và hiển thị ra table
         const querycategories = 'SELECT * FROM categories';
-        const querybrands = 'SELECT * FROM brand';
-        const queryBike = `SELECT * FROM product WHERE category_id = ?`;
-        const brands = await service.getAllBrand(querybrands);
+        const queryProduct = `SELECT * FROM product WHERE category_id = ?`;
         const categories = await service.getAllCategoryProduct(querycategories);
         const query = `SELECT * FROM product WHERE category_id = ${req.params.iddanhmuc}`;
-        pool.query(queryBike, req.params.iddanhmuc, async function (error, results, fields) {
-            if (error) throw error;
 
+        let queryPolicies = 'SELECT * FROM policies';
+        let policies = await service.getAllPolicies(queryPolicies);
+        if(policies.length > 6){
+            policies = policies.slice(0,6);
+        }
+        let queryBlogCatgories = 'SELECT * FROM blog_categories';
+        let blog_categories = await service.getAllBlogCategories(queryBlogCatgories);
+
+        pool.query(queryProduct, req.params.iddanhmuc, async function (error, results, fields) {
+            if (error) throw error;
+            var title = '';
             const queryTittle = `SELECT * FROM categories WHERE id = ?`;
             const categoriesTitle = await service.queryActionCategoriesParams(queryTittle, req.params.iddanhmuc);
             if (categoriesTitle.length > 0) {
                 title = categoriesTitle[0].category_name;
             }
-            res.render('xedapphanthiet/bikes/bikes', {
+            res.render('datvangphanthiet/products/products', {
                 title: title,
                 userInfo : userInfo,
                 query : query,
-                bikes: results,
-                brands: brands,
-                categories: categories,
+                products: results,
+                policies : policies,
+                categories : categories,
+                blog_categories : blog_categories,
                 errors: req.flash('Errors'),
                 success: req.flash('Success'),
-                user: req.user
             });
         });
 
@@ -283,7 +301,7 @@ let getPageLoad = async (req, res, next) => {
 module.exports = {
     FrProductController,
     FrProductDetailController,
-    getAllBikeCategory,
+    getAllProductCategory,
     getAllBikeBrand,
     searchData,
     getAllBikeDesc,

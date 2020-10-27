@@ -58,6 +58,13 @@
                                     class="form-control" placeholder="Tên <%= slide.name %>" required>
                             </div>
                             <div class="form-group">
+                                <label class="font-weight-bold col-form-label" for="slide_caption">
+                                    Caption<span class="text-danger">*</span>
+                                </label>
+                                <input type="text" value="<%= slide.slide_caption %>" name="slide_caption" id="slide_caption" class="form-control"
+                                    placeholder="Nhập caption cho slide" required>
+                            </div>
+                            <div class="form-group">
                                 <label class="font-weight-bold col-form-label" for="slide_link">
                                     Link
                                 </label>
@@ -65,7 +72,6 @@
                                     placeholder="Nhập link cho slide" value="<%= slide.link %>" required>
                                 <small class="form-text text-muted"> Link là đường dẫn đến bài viết, sản phẩm,
                                     hoặc danh sách mà slide mô tả </small>
-
                             </div>
                         </div>
                     </div>
@@ -82,7 +88,6 @@
             var url = $(this).attr('data-url');
             $('#link-delete-value').attr('href', url);
         });
-
         // chọn hình ảnh thay thế cho thương hiệu ============ start
         $('#slide_image').hide();
         $("#trigger_button").click(function (e) {
@@ -123,20 +128,31 @@
         // validate form edit attribute  start=======
         $("#slide-edit-form").validate({
             rules: {
+                slide_image: {
+                    required: true,
+                },
                 slide_name: {
                     required: true,
-                    minlength: 2,
+                },
+                slide_caption: {
+                    required: true,
                 },
                 slide_link: {
                     required: true
                 },
             },
             messages: {
+                slide_image: {
+                    required: 'Bạn chưa chọn ảnh cho slide',
+                },
+                slide_caption: {
+                    required: 'Nhập mô tả cho slide',
+                },
                 slide_name: {
-                    required: "Vui lòng không bỏ trống tên thương hiệu",
+                    required: "Vui lòng nhập tên thương hiệu",
                 },
                 slide_link: {
-                    required: "Vui lòng không bỏ trống đường dẫn SEO",
+                    required: "Vui lòng nhập đường dẫn cho slide"
                 },
             }
         });

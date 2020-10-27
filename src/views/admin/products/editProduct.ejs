@@ -5,7 +5,7 @@
             <div class="page-title-box">
                 <div class="page-title-right">
                     <ol class="breadcrumb m-0">
-                        <li class="breadcrumb-item"><a href="/admin">utadmin</a></li>
+                        <li class="breadcrumb-item"><a href="/admin"><i class="mdi mdi-home-circle"></i></a></li>
                         <li class="breadcrumb-item"><a href="/admin/products">Sản phẩm</a></li>
                         <li class="breadcrumb-item active"><%= title %></li>
                     </ol>
@@ -17,10 +17,6 @@
     <div class="row">
         <div class="col-sm-12">
             <div class="card-box table-responsive">
-                <h4 class="header-title"><b><%= title %></b></h4>
-                <p class="sub-header">
-                    In this example the column index is prefixed to the column title.
-                </p>
                 <% if(errors != ""){%>
                 <% errors.forEach((item) => {%>
                 <script>toastr.error('<%- item %>', 'Lỗi !')</script>
@@ -158,18 +154,6 @@
                                 placeholder="Đường dẫn sản phẩm">
                         </div>
                         <div class="form-group">
-                            <input type="hidden" name="product_attributes_type02" id="product_attributes_type02"
-                                class="form-control" placeholder="">
-                        </div>
-                        <div class="form-group">
-                            <input type="hidden" name="product_attributes_type01" id="product_attributes_type01"
-                                value="<%= idtype01Arr %>" class="form-control" placeholder="">
-                        </div>
-                        <div class="form-group">
-                            <input type="hidden" name="product_attributes_valuetype01"
-                                id="product_attributes_valuetype01" class="form-control" placeholder="">
-                        </div>
-                        <div class="form-group">
                             <label class="font-weight-bold required-form" for="product_sku">
                                 Sku
                             </label>
@@ -178,22 +162,21 @@
                             <small> Sku tương tự như mã sản phẩm </small>
                         </div>
                         <div class="form-group">
-                            <label class="font-weight-bold" for="product_brand">
-                                Thương
-                                Hiệu
+                            <label class="font-weight-bold" for="product_location">
+                                Địa điểm
                             </label>
-                            <select class="form-control custom-select" name="product_brand" id="product_brand">
-                                <% brands.forEach(function(brand, index){ %>
-                                <% if(product.brand_id == brand.id ){%>
-                                <option value="<%= brand.id %>" selected>
-                                    <%= brand.name %>
+                            <select class="form-control custom-select" name="product_location" id="product_location">
+                                <% locations.forEach(function(location, index){ %>
+                                <% if(product.location_id == location.id ){%>
+                                <option value="<%= location.id %>" selected>
+                                    <%= location.location_name %>
                                 </option>
                                 <%}else {%>
-                                <option value="<%= brand.id %>">
-                                    <%= brand.name %>
+                                <option value="<%= location.id %>">
+                                    <%= location.location_name %>
                                 </option>
                                 <%}%>
-                                                <%})%>
+                             <%})%>
                             </select>
                         </div>
                         <div class="form-group">
@@ -227,6 +210,7 @@
                             <input type="text" name="product_name" value="<%= product.name %>" class="form-control"
                                 placeholder="Tên sản phẩm">
                         </div>
+
                         <div class="form-group">
                             <label class="font-weight-bold" for="product_slug">
                                 Đường dẫn slug
@@ -329,94 +313,24 @@
                                             </small>
                                         </div>
                                     </div>
-                                    <div class="tab-pane" id="techinfotab" role="tabpanel">
-                                        <div class="form-group row">
-                                            <label class="col-sm-2 col-form-label">Thuộc
-                                                tính</label>
-                                            <div class="col-sm-8">
-                                                <select name="select_attribute" id="select_attribute"
-                                                    class="form-control">
-                                                    <option value="0" disabled> Chọn
-                                                        thêm thuộc
-                                                        tính
-                                                    </option>
-                                                    <% attributes.forEach(function(attribute, index){ %>
-                                                    <option id="op_<%=attribute.id%>" value="<%= attribute.id %>">
-                                                        <%= attribute.attribute_name %>
-                                                    </option>
-                                                    <%})%>
-                                                </select>
-                                            </div>
-                                            <div class="col-sm-2">
-                                                <button type="button" id="add_more_attribute"
-                                                    class="btn btn-teal waves-light waves-effect"><i
-                                                        class="ti-plus"></i>
-                                                </button>
-                                            </div>
+                                    <div class="tab-pane row" id="techinfotab" role="tabpanel">
+                                        <div class="form-group">
+                                            <label class="font-weight-bold" for="product_address"> Địa
+                                                chỉ </label>
+                                            <input type="text" value="<%= product.address %>" name="product_address" id="product_address"
+                                                class="form-control" placeholder="Địa chỉ">
                                         </div>
-                                        <script>
-                                            function getValue() {
-                                                var checks = $('.checks');
-                                                var str = '';
-                                                for (i = 0; i < checks.length; i++) {
-                                                    if (checks[i].checked === true) {
-                                                        str += `${checks[i].value},`;
-                                                    }
-                                                }
-                                                $('#product_attributes_type02').val(str);
-                                                var value = $('#product_attributes_type02').val();
-                                            }
-                                        </script>
-                                        <div class="attribute_product">
-                                            <% attributeValueArr.forEach(function(attributeValueAr, index){ %>
-                                            <div class="form-group row"
-                                                id="attr_<%= attributeValueAr[0].attribute_id %>"
-                                                data-id="<%= attributeValueAr[0].attribute_id %>">
-                                                <label class="col-sm-12 col-form-label attribute-label mb-3">
-                                                    <strong>
-                                                        <%= attributeValueAr[0].attribute_name  %>
-                                                    </strong>
-                                                    <div
-                                                        class="minus-button btn btn-danger btn-outline-danger float-right">
-                                                        <i class="ti-minus"></i>
-                                                    </div>
-                                                </label>
-                                                <% attributeValueAr.forEach(function(attributeValueA, index){ %>
-                                                <div class="attribute_list_<%= attributeValueA.id %> col-sm-12">
-                                                    <div class="form-check">
-                                                        <label class="form-check-label"
-                                                            for="product_attr<%= attributeValueA.id %>"><%= attributeValueA.name %></label>
-                                                        <input type="checkbox" class="checks form-check-input"
-                                                            onclick="getValue()" value="<%= attributeValueA.id %>"
-                                                            id="product_attr<%= attributeValueA.id %>">
-                                                    </div>
-                                                </div>
-                                                <% }) %>
-                                            </div>
-                                            <% }) %>
-                                            <!-- danh sách thuộc tính sản phẩm start -->
-                                            <% attributesValues.forEach(function(attributesValue, index){ %>
-                                            <!-- nếu thuộc tính có type = 2 thì đưa vào if / start -->
-                                            <% if(attributesValue.type == 1){ %>
-                                            <div class="form-group row" id="attr_<%= attributesValue.attribute_id %>"
-                                                data-id="<%= attributesValue.attribute_id %>">
-                                                <label class="font-weight-bold col-sm-3" for="product_meta_description">
-                                                    <strong> <%= attributesValue.attribute_name %>
-                                                    </strong>
-                                                </label>
-                                                <input type="text" value="<%= attributesValue.name %>"
-                                                    name="product_<%= attributesValue.attribute_id %>"
-                                                    class="form-control col-sm-7" placeholder="Nhập giá trị thuộc tính">
-                                                <div class="col-sm-2">
-                                                    <button
-                                                        class="minus-button btn btn-icon waves-effect waves-light btn-danger">
-                                                        <i class="ti-minus"></i>
-                                                    </button>
-                                                </div>
-                                            </div>
-                                            <% } %>
-                                            <!-- nếu thuộc tính có type = 2 thì đưa vào if / end -->
-                                            <% }) %>
+                                        <div class="form-group">
+                                            <label class="font-weight-bold" for="product_square"> Diện
+                                                tích </label>
+                                            <input type="text" value="<%= product.square %>" name="product_square" id="product_square"
+                                                class="form-control" placeholder="Diện tích">
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="font-weight-bold" for="product_view"> Mặt bằng
+                                            </label>
+                                            <input type="text" value="<%= product.view %>" name="product_view" id="product_view"
+                                                class="form-control" placeholder="Mặt bằng (vd : đường nhựa)">
                                         </div>
                                     </div>
                                     <div class="tab-pane" id="describe-details-tab" role="tabpanel"
@@ -451,98 +365,12 @@
 </div>
 <script>
 
-    // thiết lập các dữ liệu thuộc tính loại 2 cho checked
-    function setCheckValue() {
-        var idtype02 = '<%= producidtype02 %>';
-        var idtype02arr = idtype02.split(",");
-        // thiết lập các thuộc tính loại 2 của sản phẩm checked.
-        for (i = 0; i < idtype02arr.length; i++) {
-            $(`#product_attr${idtype02arr[i]}`).attr('checked', 'checked')
-        }
-    }
-    function setOptions() {
-        var idAttribute = '<%= idtype02Arr %>';
-        var idAttributeArr = idAttribute.split(",");
-        var options = $('#select_attribute option');
-        for (i = 0; i < idAttributeArr.length; i++) {
-            $(`#op_${idAttributeArr[i]}`).attr('disabled', true);
-        }
-        // var valueSelect = $('#select_attribute').val();
-        // if (!valueSelect) {
-        //     return false;
-        // }
-        // $("#select_attribute option:selected").attr('disabled', true);
-        // // đưa id thuộc tính lên cho server
-        // getAttributeServer(valueSelect);
-    }
-    // lấy thông tin của id thuộc tính và gửi lên server.
-
-    function fortmartType01Remove(id, idArr, element) {
-        var index = idArr.indexOf(id.toString());
-        if (index != -1) {
-            idArr.splice(index, 1);
-            element.val(JSON.stringify(idArr));
-        }
-        console.log('Danh sách thuộc tính');
-        console.log(idArr);
-    }
     $(document).ready(function () {
-        // ==================================================================
-        // thiết lập checkbox checked cho id loại 2
-        setCheckValue();
-        // ==================================================================
-        // disabled các option mà thuộc tính đã có rồi.
-        setOptions();
 
         var imageData = null;
         var ProductAttrArr = [];
         var id_attribues = [];
 
-        // gán danh sách id loại 1 cho input form.
-        var idTyoe01Element = $('#product_attributes_type01');
-        var idType01 = idTyoe01Element.val();
-        var idtype01Arr = idType01.split(",");
-        idTyoe01Element.val(JSON.stringify(idtype01Arr));
-        id_attribues = idtype01Arr;
-        var type01 = function (id, name) {
-            return `
-        <div class="form-group row" id=attr_${id} data-id="${id}">
-        <label class="font-weight-bold col-sm-3" for="product_meta_description">
-            ${name}
-        </label>
-        <input type="text" name="product_${id}" class="form-control col-sm-7"
-            placeholder="${name}">
-            <div class="col-sm-2">
-                <button class="minus-button btn btn-icon waves-effect waves-light btn-danger">
-                                                        <i class="ti-minus"></i> 
-                                                    </button>
-        </div>
-    </div>
-    `
-        }
-        var type02 = function (id, name) {
-            return `
-        <div class="form-group row" id=attr_${id} data-id="${id}">
-            <label class="col-sm-12 col-form-label attribute-label mb-3"> <strong>${name} </strong> 
-                <div class="minus-button btn btn-danger btn-outline-danger float-right"><i
-                        class="icofont icofont-minus-circle"></i>
-                </div>
-            </label>
-            <div class="attribute_list_${id} col-sm-12">
-            </div>
-        </div>
-    `
-        }
-        var type02_attributes = function (id, name) {
-            return `
-        <div class="form-check">
-            <input type="checkbox"
-                class="checks form-check-input" onclick="getValue()"  value="${id}" id="${id}" checked>
-            <label class="form-check-label"
-                for="${id}">${name}</label>
-        </div>`
-        }
-        // gửi thông tin hình ảnh lên cho server và đưa về model.
         function updateProductImage(url) {
             $.ajax({
                 url: url,
@@ -636,127 +464,6 @@
         $('#trigger_button').on('click', function () {
             $('#product_image').trigger('click', getProductImageUpdate());
         });
-        // expected output: "￥123,457"
-        // $("#product-edit-form").validate({
-        //     rules: {
-        //         product_name: {
-        //             required: true,
-        //             minlength: 2,
-        //         },
-        //         product_sku: {
-        //             required: true,
-        //             minlength: 5
-        //         },
-        //         product_price: {
-        //             required: true,
-        //             number: true
-        //         },
-        //         product_brand: {
-        //             required: true,
-        //         },
-        //         product_category: {
-        //             required: true
-        //         }
-        //     },
-        //     messages: {
-        //         product_name: {
-        //             required: "Vui lòng nhập tên sản phẩm",
-        //             minlength: "Tên sản phẩm phải có ít nhất 2 ký tự"
-        //         },
-        //         product_sku: {
-        //             required: "Vui lòng nhập mã sản phẩm",
-        //             minlength: "Mã sản phẩm phảo có ít nhất 2 ký tự"
-        //         },
-        //         product_price: {
-        //             required: "Vui lòng nhập giá sản phẩm",
-        //             number: 'giá sản phẩm phải là số'
-        //         },
-        //         product_brand: {
-        //             required: "Vui lòng chọn hãng sản xuất",
-        //         },
-        //         product_category: {
-        //             required: 'Vui lòng chọn danh mục cho sản phẩm'
-        //         }
-        //     }
-        // });
-
-        // start ajax ==================
-        function getAttributeServer(id) {
-            $.ajax({
-                url: '/admin/product/add-product-attribute/' + id,
-                type: 'POST',
-                cache: false,
-                contentType: 'application/json',
-                dataType: 'json',
-                processData: false, // Set giá trị này là false nếu bạn không muốn dữ liệu được truyền vào thiết lập data sẽ được xử lý và biến thành một query kiểu chuỗi.
-                data: JSON.stringify({ id: id }),
-                success: function (result) {
-                    // nếu loại sản phẩm là danh sách thì cho vào danh sách
-                    if (result.type == 2) {
-                        var attributes = result.attributes;
-                        $('.attribute_product').append(type02(result.attribute_id, result.attribute_name));
-                        var list_attributes = $(`.attribute_list_${result.id}`);
-                        for (var index = 0; index < attributes.length; index++) {
-                            list_attributes.append(type02_attributes(attributes[index].id, attributes[index].name));
-                        }
-                        // thêm id thuộc tính vào mảng html
-                        ProductAttrArr.push(`attr_${result.attribute_id}`);
-                        getValue();
-                    } else {
-                        // nếu loại danh sách là text thì cho vào loại text.
-                        var attributes = result.attributes;
-                        $('.attribute_product').append(type01(attributes[0].id, attributes[0].attribute_name));
-                        var formcontrolAttribute = $('#product_attributes_type01').val();
-                        ProductAttrArr.push(`attr_${result.attribute_id}`);
-                        // trường hợp input đã có dữ liệu
-                        if (formcontrolAttribute.length > 0) {
-                            id_attribues = JSON.parse(formcontrolAttribute);
-                            var idAdd = result.attribute_id;
-                            id_attribues.push(id.toString());
-                            idTyoe01Element.val(JSON.stringify(id_attribues));
-                        } else {
-                            // trường hợp input chưa có dữ liệu
-                            id_attribues.push(attributes[0].id.toString());
-                            id_attribues.splice(0, 1);
-                            idTyoe01Element.val(JSON.stringify(id_attribues));
-                            console.log(idTyoe01Element.val());
-                        }
-                    }
-                },
-                error: function (error) {
-                    notify(error, 'danger');
-                }
-            })
-        }
-        // end ajax ==================
-        // start send attribute id ==================
-        $('#add_more_attribute').on('click', function (e) {
-            e.preventDefault();
-            var options = $('#select_attribute option');
-            var valueSelect = $('#select_attribute').val();
-            if (!valueSelect) {
-                return false;
-            }
-            $("#select_attribute option:selected").attr('disabled', true);
-            // đưa id thuộc tính lên cho server
-            getAttributeServer(valueSelect);
-        });
-        // end send attribute id ======================
-
-        // start remove attribute id ==================
-        $(document).on("click", ".minus-button", function (e) {
-            e.preventDefault()
-            alert('Click');
-            var parent = $(this).parent().parent();
-            var parentId = parent.attr('id');
-            var idParentSelect = parent.attr('data-id');
-            $("#select_attribute option[value=" + idParentSelect + "]").attr('disabled', false);
-            $(`#${parentId}`).remove();
-            getValue();
-            fortmartType01Remove(idParentSelect, id_attribues, idTyoe01Element);
-            // xóa id của attribute trước khi đưa lên server
-        })
-        // end remove attribute id ==================
     });
 </script>
 

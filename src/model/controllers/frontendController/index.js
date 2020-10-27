@@ -14,7 +14,7 @@ const { FrBlogController,
 
 const { FrProductController,
     FrProductDetailController,
-    getAllBikeCategory,
+    getAllProductCategory,
     getAllBikeBrand,
     searchData,
     getAllBikeDesc,
@@ -36,7 +36,7 @@ module.exports = {
 
     FrProductController,
     FrProductDetailController,
-    getAllBikeCategory,
+    getAllProductCategory,
     getAllBikeBrand,
     searchData,
     getAllBikeDesc,

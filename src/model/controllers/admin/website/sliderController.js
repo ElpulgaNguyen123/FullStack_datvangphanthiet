@@ -63,10 +63,11 @@ let addSlide = (req, res, next) => {
             if (req.file) {
                 filename = `${req.file.filename}-${generatecode}.webp`;
             }
-            var queryNew = "INSERT INTO slide (name, link, image) VALUES ?";
+            var queryNew = "INSERT INTO slide (name, link, slide_caption, image) VALUES ?";
             var slideValues = [
                 [req.body.slide_name,
                 req.body.slide_link,
+                req.body.slide_caption,
                     filename]
             ];
             pool.query(queryNew, [slideValues], function (error, results, fields) {
@@ -143,12 +144,14 @@ let postEditSlide = (req, res, next) => {
             var queryUpdate = `
             UPDATE slide
             SET name = ?, 
-            link = ?, 
+            link = ?,
+            slide_caption = ?, 
             image = ?
             WHERE id = ?`
             var slideValues = [
                 req.body.slide_name,
                 req.body.slide_link,
+                req.body.slide_caption,
                 filename,
                 req.params.id
             ];

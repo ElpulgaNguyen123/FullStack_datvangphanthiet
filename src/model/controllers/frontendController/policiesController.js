@@ -17,12 +17,17 @@ let FrgetAllPolicy = async (req, res, next) => {
         let queryBlogCatgories = 'SELECT * FROM blog_categories';
         let blog_categories = await service.getAllBlogCategories(queryBlogCatgories);
 
+
+        var queryCategory = 'SELECT * FROM categories';        
+        const categories = await service.getAllCategoryProduct(queryCategory);
+
         await pool.query('SELECT * FROM policies', function (error, rows, fields) {
             if (error) throw error;
             res.render('datvangphanthiet/policies/policies', {
                 title: 'Chính sách',
                 policies: policies,
                 blog_categories : blog_categories,
+                categories : categories,
                 policess : rows,
                 errors: req.flash('Errors'),
                 success: req.flash('Success'),
@@ -43,6 +48,7 @@ let FrgetPolicyDetails = async (req, res, next) => {
         var arrayError = [],
             successArr = [];
         var query = `SELECT * FROM policies WHERE id = ?`;
+        
         let queryPolicies = 'SELECT * FROM policies';
         let policies = await service.getAllPolicies(queryPolicies);
         if(policies.length > 6){
@@ -51,6 +57,10 @@ let FrgetPolicyDetails = async (req, res, next) => {
         let queryBlogCatgories = 'SELECT * FROM blog_categories';
         let blog_categories = await service.getAllBlogCategories(queryBlogCatgories);
 
+
+        var queryCategory = 'SELECT * FROM categories';        
+        const categories = await service.getAllCategoryProduct(queryCategory);
+
         // Lấy tất cả sản phẩm và hiển thị ra table
         await pool.query(query, policy_id, function (error, rows, fields) {
             if (error) throw error;
@@ -58,6 +68,7 @@ let FrgetPolicyDetails = async (req, res, next) => {
                 title: 'Chi tiết chính sách',
                 policy: rows[0],
                 policies : policies,
+                categories : categories,
                 blog_categories : blog_categories,
                 user: req.user,
                 errors: req.flash('Errors'),

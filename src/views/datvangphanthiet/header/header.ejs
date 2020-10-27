@@ -55,23 +55,14 @@ header -->
                   </div>
                 </div>
                 <div class="row">
-                  <div class="col-sm-4">
-                    <h6 class="mb-3 nav-title"> <a class="d-block text-md-center pd-badge badge badge-danger color-red"
-                        href="/san-pham">Đất</a></h6>
-                  </div>
-                  <div class="col-sm-4">
-                    <h6 class="mb-3 nav-title"> <a
-                        class="d-block text-md-center pd-badge text-small-thin badge badge-warning color-yellow"
-                        href="/san-pham">Nhà</a></h6>
-                  </div>
-                  <div class="col-sm-4">
-                    <h6 class="mb-3 nav-title"> <a
-                        class="d-block text-md-center pd-badge badge badge-primary color-blue" href="/san-pham">Mặt
-                        bằng</a>
-                    </h6>
-                  </div>
+                  <% categories.forEach(function(category){ %>
+                    <div class="col-sm-4">
+                      <h6 class="mb-3 nav-title"> <a class="d-block text-md-center pd-badge badge badge-danger color-red"
+                          href="/san-pham/danh-muc/<%= category.category_slug %>.<%= category.id %>" title="<%= category.category_name %>"><%= category.category_name %></a></h6>
+                    </div>
+                    <% }); %>
                   <div class="col-12 mt-4 d-none d-lg-block">
-                    <div class="p-4 bg-holder bg-overlay-black-70" style="background-image: url(images/banner-01.jpg);">
+                    <div class="p-4 bg-holder bg-overlay-black-70" style="background-image: url(/public/datvangphanthiet/images/banner-01.jpg);">
                       <div class="position-relative">
                         <div class="position-relative d-flex align-items-center">
                           <div class="pr-1">
@@ -79,7 +70,7 @@ header -->
                             <small class="text-white mb-0">Chúng tôi sẽ tìm kiếm cho bạn ?</small>
                           </div>
                           <div class="ml-auto">
-                            <a class="btn btn-light btn-sm" href="property-list.html">Tìm Kiếm</a>
+                            <a class="btn btn-light btn-sm" href="/san-pham">Tất cả</a>
                           </div>
                         </div>
                       </div>

@@ -160,7 +160,7 @@ $(document).ready(function () {
 
     // summernote editor
     $('#summernote').summernote({
-        placeholder: 'Chi tiết sản phẩm',
+        placeholder: 'Chi tiết',
         tabsize: 2,
         height: 300
     });
@@ -179,7 +179,7 @@ $(document).ready(function () {
         var previewTemplate = previewNode.parentNode.innerHTML;
         previewNode.parentNode.removeChild(previewNode);
 
-        var myDropzone = new Dropzone(document.body, { // Make the whole body a dropzone
+        let myDropzone = new Dropzone(document.body, { // Make the whole body a dropzone
             url: "/admin/product/add-product-image", // Set the url
             method: 'POST',
             paramName: "product-images",
@@ -201,8 +201,8 @@ $(document).ready(function () {
 
         // thực hiện thêm hình ảnh
         $('#dropzoneSubmit').on('click', function (e) {
-            //e.preventDefault();
-            //console.log('Clicked');
+
+
             $("#product_form").validate({
                 rules: {
                     product_name: {
@@ -253,6 +253,59 @@ $(document).ready(function () {
                         $('.start').click();
                     }
                     $('#product_form').submit();
+                }
+            });
+        });
+        // thực hiện thêm hình ảnh
+        $('#dropzoneSubmitProject').on('click', function (e) {
+            var dropzoneUrlProject = $(this).attr('data-url');
+            myDropzone.options.url = dropzoneUrlProject
+            $("#project_form").validate({
+                rules: {
+                    product_name: {
+                        required: true,
+                    },
+                    product_price: {
+                        required: true,
+                    },
+                    poduct_slug: {
+                        required: true
+                    },
+                    propduct_description: {
+                        required: true
+                    }
+                },
+                messages: {
+                    product_name: {
+                        required: 'Vui lòng nhập tên dự án',
+                    },
+                    product_price: {
+                        required: "Vui lòng nhập giá dự án",
+                    },
+                    poduct_slug: {
+                        required: 'Vui lòng nhập đường dẫn SEO'
+                    },
+                    propduct_description: {
+                        required: "Vui lòng nhập nội dung mô tả dự án"
+                    },
+                },
+                invalidHandler: function (event, validator) {
+                    var errors = validator.numberOfInvalids();
+                    alert("Vui lòng nhập đủ thông tin " + errors);
+                },
+                submitHandler: function (element) {
+                    myDropzone.processQueue();
+                    var imgPathArrr = [];
+                    if (myDropzone.files != "") {
+                        for (var index = 0; index < myDropzone.files.length; index++) {
+                            imgPathArrr.push(myDropzone.files[index].upload.filename);
+                        }
+                        var ImageJson = Object.assign({}, imgPathArrr);
+                        // thiết lập dữ liệu cho input bên frontend để truyền lên server
+                        $('#image_path').val(JSON.stringify(ImageJson));
+                        $('.start').click();
+                    }
+                    $('#project_form').submit();
                 }
             });
         });
@@ -309,6 +362,7 @@ $(document).ready(function () {
                 submitHandler: function (element) {
                     myDropzone.processQueue();
                     var imgPathArrr = [];
+                    console.log(myDropzone.files);
                     if (myDropzone.files != "") {
                         for (var index = 0; index < myDropzone.files.length; index++) {
                             imgPathArrr.push(myDropzone.files[index].upload.filename);
@@ -322,6 +376,62 @@ $(document).ready(function () {
                 }
             });
         });
+
+        $('#dropzoneEditProjectSubmit').on('click', function (e) {
+            // e.preventDefault();
+            var dropzoneUrlProject = $(this).attr('data-url');
+            myDropzone.options.url = dropzoneUrlProject
+            $("#project-edit-form").validate({
+                rules: {
+                    product_name: {
+                        required: true,
+                    },
+                    product_price: {
+                        required: true,
+                    },
+                    poduct_slug: {
+                        required: true
+                    },
+                    propduct_description: {
+                        required: true
+                    }
+                },
+                messages: {
+                    product_name: {
+                        required: 'Vui lòng nhập tên dự án',
+                    },
+                    product_price: {
+                        required: "Vui lòng nhập giá dự án",
+                    },
+                    poduct_slug: {
+                        required: 'Vui lòng nhập đường dẫn SEO'
+                    },
+                    propduct_description: {
+                        required: "Vui lòng nhập nội dung mô tả dự án"
+                    },
+                },
+                invalidHandler: function (event, validator) {
+                    var errors = validator.numberOfInvalids();
+                    alert("Vui lòng Validate " + errors);
+                },
+                submitHandler: function (element) {
+                    myDropzone.processQueue();
+                    var imgPathArrr = [];
+                    console.log(myDropzone.files);
+                    if (myDropzone.files != "") {
+                        for (var index = 0; index < myDropzone.files.length; index++) {
+                            imgPathArrr.push(myDropzone.files[index].upload.filename);
+                        }
+                        var ImageJson = Object.assign({}, imgPathArrr);
+                        // thiết lập dữ liệu cho input bên frontend để truyền lên server
+                        $('#image_path').val(JSON.stringify(ImageJson));
+                        $('.start').click();
+                    }
+                    $("#project-edit-form").submit();
+                }
+            });
+        });
+
         // thực hiện update hoặc thêm hình ảnh.
         $('#save-button-product-image').on('click', function (param) {
             urlOption = $(this).attr('data-url');

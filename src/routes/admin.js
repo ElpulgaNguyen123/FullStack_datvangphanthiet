@@ -58,7 +58,15 @@ adminRouter.post('/product/check-sku', controller.checkloggedIn, controller.chec
 // project router // start
 adminRouter.get('/projects', controller.checkloggedIn, controller.getAllProject);
 adminRouter.get('/project/add-project', controller.checkloggedIn, controller.addProjectGet);
-
+adminRouter.post('/project/add-project', controller.checkloggedIn, controller.addProjectPost);
+adminRouter.post('/project/add-project-image', controller.checkloggedIn, controller.addProjectImage);
+adminRouter.post('/project/check-sku', controller.checkloggedIn,controller.checkSkuMatchProject);
+adminRouter.get('/project/search/:name', controller.checkloggedIn, controller.searchDataProject);
+adminRouter.get('/project/edit-project/:id', controller.checkloggedIn, controller.editProjectGet);
+adminRouter.post('/project/edit-project/:id', controller.checkloggedIn, controller.editProjectPost);
+adminRouter.get('/project/edit-project-image/:id', controller.checkloggedIn, controller.editProjectImage);
+adminRouter.post('/project/edit-project-image/:id', controller.checkloggedIn, controller.updateProjectImagePost);
+adminRouter.get('/project/delete-project-image/:id', controller.checkloggedIn, controller.deleteProjectImage);
 // project router // end
 
 // attribute start
@@ -75,11 +83,11 @@ adminRouter.get('/attribute/delete-attribute-value/:id', controller.checkloggedI
 // attribute value // end
 
 //brand start
-adminRouter.get('/brands', controller.checkloggedIn, controller.getAllBrand);
-adminRouter.post('/brand/add-brand', controller.checkloggedIn, controller.addBrandImage);
-adminRouter.get('/brand/edit-brand/:id', controller.checkloggedIn, controller.getEditBrand);
-adminRouter.post('/brand/edit-brand/:id', controller.checkloggedIn, controller.postEditBrand);
-adminRouter.get('/brand/delete-brand/:id', controller.checkloggedIn, controller.postDeleteBrand);
+// adminRouter.get('/brands', controller.checkloggedIn, controller.getAllBrand);
+// adminRouter.post('/brand/add-brand', controller.checkloggedIn, controller.addBrandImage);
+// adminRouter.get('/brand/edit-brand/:id', controller.checkloggedIn, controller.getEditBrand);
+// adminRouter.post('/brand/edit-brand/:id', controller.checkloggedIn, controller.postEditBrand);
+// adminRouter.get('/brand/delete-brand/:id', controller.checkloggedIn, controller.postDeleteBrand);
 //brand end
 
 //brand start

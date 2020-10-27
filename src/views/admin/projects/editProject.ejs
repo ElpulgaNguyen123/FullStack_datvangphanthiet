@@ -1,0 +1,300 @@
+<% extend("../../admin.ejs") %>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <div class="page-title-box">
+                <div class="page-title-right">
+                    <ol class="breadcrumb m-0">
+                        <li class="breadcrumb-item"><a href="/admin"><i class="mdi mdi-home-circle"></i></a></li>
+                        <li class="breadcrumb-item"><a href="/admin/projects">Dự án</a></li>
+                        <li class="breadcrumb-item active"><%= title %></li>
+                    </ol>
+                </div>
+                <h4 class="page-title"><%= title %></h4>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="card-box table-responsive">
+                <% if(errors != ""){%>
+                <% errors.forEach((item) => {%>
+                <script>toastr.error('<%- item %>', 'Lỗi !')</script>
+                <%})%>
+                <%}%>
+                    <% if(success != ""){%>
+                <% success.forEach((item) => {%>
+                <script>toastr.success('<%- item %>')</script>
+                <%})%>
+                <%}%>
+                  <!-- start product images -->
+                  <div class="col-sm-12 col-xl-12">
+                    <div class="row">
+                        <% if(imagearr.length > 0){ %>
+                <% for (var i = 0; i < imagearr.length ; i++ ) { %>
+                <div class="col-xs-12 col-sm-4 col-md-3">
+                    <div class="card">
+                        <img class="card-img-top" id="image_<%= project.id %>_<%= i %>"
+                            src="/public/uploads/projects/<%= images[imagearr[i]] %>" alt="Card image cap"
+                            data-index='<%= imagearr[i] %>'>
+                        <div class="card-body">
+                            <p class="text-center">
+                                <strong> Hình ảnh
+                                    <%= i + 1 %>
+                                </strong>
+                            </p>
+                            <div class="btn-group d-block m-auto text-center" role="group" aria-label="Basic example">
+                                <button type="button" class="btn btn-grey hor-grd edit-product-image"
+                                    title="Sửa hình ảnh" data-toggle="modal" data-id="image_<%= project.id %>_<%= i %>"
+                                    data-url="/admin/project/edit-project-image/<%= project.id %>?index=<%= imagearr[i] %>"
+                                    data-target="#image-edit-modal">
+                                    <i class="icofont icofont-edit"></i>
+                                </button>
+                                <a href="/admin/project/delete-project-image/<%= project.id%>?index=<%= imagearr[i] %>"
+                                    type="button" class="btn hor-grd" title="Xóa hình ảnh">
+                                    <i class="icofont icofont-ui-delete"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <% } %>
+                <% }else{ %>
+                <div class="col-xs-12 col-sm-12 col-md-12">
+                    <div class="alert alert-info" role="alert">
+                        Chưa có hình ảnh !
+                    </div>
+                </div>
+                <% } %>
+            </div>
+        </div>
+        <!-- end product images  -->
+        <!-- start add product images -->
+        <div class="col-xs-12 col-sm-12 col-md-12">
+            <div id="actions" class="row mb-4">
+                <div class="col-lg-7">
+                    <div class="control-button d-flex">
+                        <!-- The fileinput-button span is used to style the file input field as button -->
+                        <span class="btn mr-2 btn-success fileinput-button dz-clickable">
+                            <i class="glyphicon glyphicon-plus"></i>
+                            <span><i class="icofont icofont-plus-circle"></i>&nbsp;Thêm
+                                Ảnh...</span>
+                        </span>
+                    </div>
+                </div>
+                <div class="col-lg-5">
+                    <!-- The global file processing state -->
+                    <span class="fileupload-process">
+                        <div id="total-progress" class="progress progress-striped active" role="progressbar"
+                            aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" style="opacity: 0;">
+                            <div class="progress-bar progress-bar-success" style="width: 100%;"
+                                data-dz-uploadprogress="">
+                            </div>
+                        </div>
+                    </span>
+                </div>
+            </div>
+            <!-- HTML heavily inspired by http://blueimp.github.io/jQuery-File-Upload/ -->
+            <div class="table table-striped" class="files" id="previews">
+                <div class="template file-row d-flex">
+                    <!-- This is used as the file preview template -->
+                    <div class="flex-1">
+                        <span class="preview"><img data-dz-thumbnail /></span>
+                    </div>
+                    <div class="flex-1">
+                        <p class="name" data-dz-name></p>
+                        <strong class="error text-danger" data-dz-errormessage></strong>
+                    </div>
+                    <div class="flex-1">
+                        <p class="size" data-dz-size></p>
+                        <div class="progress progress-striped active" role="progressbar" aria-valuemin="0"
+                            aria-valuemax="100" aria-valuenow="0">
+                            <div class="progress-bar progress-bar-success" style="width:0%;" data-dz-uploadprogress>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex-3">
+                        <button hidden class="btn btn-primary start">
+                            <i class="glyphicon glyphicon-upload"></i>
+                            <span>Lưu</span>
+                        </button>
+                        <button data-dz-remove class="btn btn-danger delete">
+                            <i class="glyphicon glyphicon-trash"></i>
+                            <span>Xóa</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- end add product image -->
+        <!-- start add product info -->
+        <div class="col-md-12 col-xl-12">
+            <form action="/admin/project/edit-project/<%= project.id %>" id="project-edit-form" method="POST"
+                enctype="multipart/form-data">
+                <div class="row">
+                    <div class="col-xs-12 col-sm-12 col-md-12">
+                        <div class="form-group">
+                            <input type="hidden" name="image_path" id="image_path" class="form-control"
+                                placeholder="Đường dẫn sản phẩm">
+                        </div>
+                        <div class="form-group">
+                            <label class="font-weight-bold required-form" for="product_sku">
+                                Sku
+                            </label>
+                            <input type="text" value="<%= project.project_sku %>" name="product_sku" id="product_sku"
+                                class="form-control" placeholder="Sku" required>
+                            <small> Sku tương tự như mã sản phẩm </small>
+                        </div>
+                        <div class="form-group">
+                            <label class="font-weight-bold required-form" for="product_name">
+                                Tên Sản Phẩm
+                            </label>
+                            <input type="text" name="product_name" value="<%= project.project_name %>" class="form-control"
+                                placeholder="Tên sản phẩm">
+                        </div>
+                        <div class="form-group">
+                            <label class="font-weight-bold" for="product_slug">
+                                Đường dẫn slug
+                            </label>
+                            <input type="text" name="product_slug" id="product_slug" value="<%= project.project_slug %>"
+                                class="form-control" placeholder="Tên sản phẩm" readonly required>
+                            <small> Slug, đường dẫn tối ưu SEO </small>
+                        </div>
+                        <div class="form-group">
+                            <label class="font-weight-bold required-form" for="product_price">
+                                Giá sản phẩm
+                            </label>
+                            <input type="text" name="product_price" value="<%= project.project_price %>" id="product_price"
+                                class="form-control price-format" placeholder="giá sản phẩm">
+                        </div>
+                        <div class="form-group">
+                            <label class="font-weight-bold" for="propduct_description">
+                                Mô tả
+                            </label>
+                            <textarea id="summernote" name="propduct_description">
+                                    <%- project.project_description %> 
+                            </textarea>
+                        </div>
+                    </div>
+                    <!-- col end  -->
+                </div>
+                <button type="submit" id="dropzoneEditProjectSubmit" data-url="/admin/project/add-project-image" class="btn hor-grd btn-success mt-4 mb-4">
+                    <span><i class="icofont icofont-save"></i></span>
+                    Lưu lại
+                </button>
+            </form>
+        </div>
+        <!-- end add product info -->
+    </div>
+</div>
+</div>
+</div>
+<script>
+
+   
+    $(document).ready(function () {
+
+        var imageData = null;
+        var ProductAttrArr = [];
+        var id_attribues = [];
+
+     
+        // gửi thông tin hình ảnh lên cho server và đưa về model.
+        function updateProductImage(url) {
+            $.ajax({
+                url: url,
+                type: 'GET',
+                cache: false,
+                contentType: false, // kiểu dữ liệu được đửa lên
+                processData: false, // Set giá trị này là false nếu bạn không muốn dữ liệu được truyền vào thiết lập data sẽ được xử lý và biến thành một query kiểu chuỗi.
+                success: function (result) {
+                    $('#image-view').attr('src', `/public/uploads/projects/${result.imageName}`);
+                },
+                error: function (error) {
+                    console.log(error);
+                }
+            })
+        }
+        // thực hiện update hình ảnh của sản phẩm lên server
+        function postProductImageUpdate(url, data) {
+            $.ajax({
+                url: url,
+                type: 'POST',
+                cache: false,
+                contentType: false, // kiểu dữ liệu được đửa lên
+                processData: false, // Set giá trị này là false nếu bạn không muốn dữ liệu được truyền vào thiết lập data sẽ được xử lý và biến thành một query kiểu chuỗi.
+                data: data,
+                success: function (result) {
+                    var img = $(`#${result.idImage}`);
+                    $('#image-edit-modal').modal('hide');
+                    $('.theme-loader').fadeOut('slow', function () {
+                        $(this).remove();
+                    });
+                    setTimeout(function () {
+                        img.attr('src', `/public/uploads/products/${result.imageSrc}`);
+                    }, 2000);
+                    console.log('Cập nhật ảnh thành công', 'Thành công !');
+                    imageData = null;
+                },
+                error: function (error) {
+                    console.log(error);
+                }
+            })
+        }
+
+        // lấy đường link truyển cho ajax
+        $('.edit-product-image').bind('click', function () {
+            var url = $(this).attr('data-url');
+            $('#save-button-product-image-modal').attr('href', url);
+            updateProductImage(url);
+        });
+
+        $('#save-button-product-image-modal').on('click', function (e) {
+            e.preventDefault();
+            var url = $(this).attr('href');
+            postProductImageUpdate(url, imageData);
+        })
+
+        function getProductImageUpdate() {
+            $('#product_image').bind('change', function () {
+                let fileData = $(this)[0].files[0];
+                let math = ["image/png", "image/jpg", "image/jpeg", "image/webp"];
+                let limit = 1048576;  // 1 mb 
+
+                // hàm inArray là dùng để chekc dữ liệu coi có trùng hay không.
+                if ($.inArray(fileData.type, math) === -1) {
+                    toastr.error('Kiểu ảnh không hợp lệ, chỉ chấp nhận kiểu jpg hoặc png', 'Có lỗi xảy ra !');
+                    $(this).val(null);
+                    return false;
+                }
+                if (fileData.size > limit) {
+                    toastr.error('Dung lượng ảnh quá lớn', 'Có lỗi xảy ra !');
+                    $(this).val(null);
+                    return false;
+                }
+                // kiểm tra xem trình duyệt có hỗ trợ file reader hay không
+                if (typeof (FileReader) != 'undefine') {
+
+                    var fileReader = new FileReader();
+                    // hình ảnh preview sau khi chọn file;
+                    var image_preview = $('#image-view');
+                    fileReader.onload = function (element) {
+                        image_preview.attr('src', element.target.result);
+                    }
+                    var formData = new FormData(); // Currently empty
+                    formData.append('product-image', fileData);
+                    imageData = formData;
+
+                    fileReader.readAsDataURL(fileData);
+                }
+            });
+        }
+
+        $('#trigger_button').on('click', function () {
+            $('#product_image').trigger('click', getProductImageUpdate());
+        });
+    
+    });
+</script>
+
+<%- include("../modal/image-edit-modal.ejs") %>

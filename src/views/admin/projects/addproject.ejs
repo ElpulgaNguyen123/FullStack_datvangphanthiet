@@ -8,7 +8,7 @@
                 <div class="page-title-right">
                     <ol class="breadcrumb m-0">
                         <li class="breadcrumb-item"><a href="/admin"><i class="mdi mdi-home-circle"></i></a></li>
-                        <li class="breadcrumb-item"><a href="/admin/products">Sản phẩm</a></li>
+                        <li class="breadcrumb-item"><a href="/admin/projects">Dự án</a></li>
                         <li class="breadcrumb-item active"><%= title %></li>
                     </ol>
                 </div>
@@ -62,7 +62,8 @@
                                         <div class="progress progress-striped active" role="progressbar"
                                             aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
                                             <div class="progress-bar progress-bar-success" style="width:0%;"
-                                                data-dz-uploadprogress></div>
+                                                data-dz-uploadprogress>
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="flex-3">
@@ -100,9 +101,6 @@
                                 str = str.replace(/-+$/g, '');
                                 // return
                                 document.getElementById('product_slug').value = str;
-                                document.getElementById('product_meta_title').value = str;
-                                document.getElementById('product_meta_keyword').value = str;
-                                document.getElementById('product_meta_description').value = str;
                                 return str;
                             }
                         </script>
@@ -178,15 +176,10 @@
                                             <textarea id="summernote" id="propduct_description"
                                                 name="propduct_description"></textarea>
                                         </div>
-                                        <div class="form-group">
-                                            <label class="font-weight-bold" for="short_description">
-                                                Mô tả ngắn </label>
-                                            <input type="text" name="short_description" id="short_description"
-                                                class="form-control" placeholder="Mô tả ngắn">
-                                        </div>
                                     </div>
                                 </div>
-                                <button type="submit" id="dropzoneSubmit" class="btn hor-grd btn-success mt-4">
+                                <button type="submit" id="dropzoneSubmitProject"
+                                    data-url="/admin/project/add-project-image" class="btn hor-grd btn-success mt-4">
                                     <span><i class="icofont icofont-save"></i></span>
                                     Lưu lại
                                 </button>
@@ -194,46 +187,11 @@
                         </div>
                     </div>
                 </div>
-
             </div>
         </div>
     </div>
 </div>
 
 <script>
-
-    $(document).ready(function () {
-        $("#project_form").validate({
-            rules: {
-                product_name: {
-                    required: true,
-                },
-                product_price: {
-                    required: true,
-                },
-                poduct_slug: {
-                    required: true
-                },
-                propduct_description: {
-                    required: true
-                }
-            },
-            messages: {
-                product_name: {
-                    required: 'Vui lòng nhập tên dự án',
-                },
-                product_price: {
-                    required: "Vui lòng nhập giá sản phẩm",
-                },
-                poduct_slug: {
-                    required: 'Vui lòng nhập đường dẫn SEO'
-                },
-                propduct_description: {
-                    required: "Vui lòng nhập nội dung mô tả dự án"
-                },
-            }
-        });
-    });
-
 </script>
 © 2020 GitHub, Inc.

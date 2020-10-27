@@ -21,6 +21,9 @@ let FrBlogController = async (req, res, next) => {
             policies = policiess.slice(0, 6);
         }
 
+        var queryCategory = 'SELECT * FROM categories';        
+        const categories = await service.getAllCategoryProduct(queryCategory);
+
         const queryBlog = 'Select * from blog inner join blog_categories ON blog.blog_category_id = blog_categories.id';
         const blogs = await service.getAllBlog(queryBlog);
         // Lấy tất cả sản phẩm và hiển thị ra table
@@ -28,6 +31,7 @@ let FrBlogController = async (req, res, next) => {
             title: 'Blog',
             policies: policies,
             blog_categories : blog_categories,
+            categories : categories,
             userInfo: userInfo,
             blogs: blogs,
             newblogs : blogs.slice(0,3),
@@ -53,6 +57,11 @@ let FrBlogCategoryController = async (req, res, next) => {
         if (policies.length > 6) {
             policies = policies.slice(0, 6);
         }
+
+        var queryCategory = 'SELECT * FROM categories';        
+        const categories = await service.getAllCategoryProduct(queryCategory);
+
+
         let queryBlogCatgories = 'SELECT * FROM blog_categories';
         let blog_categories = await service.getAllBlogCategories(queryBlogCatgories);
         const queryBlog = `SELECT * FROM blog 
@@ -65,6 +74,7 @@ let FrBlogCategoryController = async (req, res, next) => {
             title: 'Blog',
             policies: policies,
             blog_categories : blog_categories,
+            categories : categories,
             userInfo: userInfo,
             blogs: blogs,
             newblogs : blogs.slice(0,3),
@@ -102,7 +112,12 @@ let FrBlogDetailController = async (req, res, next) => {
 
         let queryBlogCatgories = 'SELECT * FROM blog_categories';
         let blog_categories = await service.getAllBlogCategories(queryBlogCatgories);
+
+        var queryCategory = 'SELECT * FROM categories';        
+        const categories = await service.getAllCategoryProduct(queryCategory);
+
         const blogs = await service.getAllBlog(queryBlog);
+        
 
 
         if (blog[0]) {
@@ -111,7 +126,9 @@ let FrBlogDetailController = async (req, res, next) => {
                 title: 'Blog',
                 blog: blog[0],
                 policies : policies,
+                categories : categories,
                 blog_categories : blog_categories,
+                categories : categories,
                 newblogs : blogs.slice(0,3),
                 blogFeature: blogFeature,
                 userInfo: userInfo,

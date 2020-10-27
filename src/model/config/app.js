@@ -8,7 +8,7 @@ var app = {
     directory_endows : 'src/public/uploads/endows',
     directory_staffs : 'src/public/uploads/staffs',
     directory_locations : 'src/public/uploads/locations',
-    directory_project : 'src/public/uploads/projects',
+    directory_projects : 'src/public/uploads/projects',
     avatar_type :['image/png','image/jpg', 'image/jpeg','image/webp'],
     avatar_limit_size : 16388608,
 }

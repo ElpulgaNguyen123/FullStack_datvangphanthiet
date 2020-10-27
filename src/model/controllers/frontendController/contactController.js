@@ -21,10 +21,14 @@ let FrContactController = async (req, res, next) => {
         let queryBlogCatgories = 'SELECT * FROM blog_categories';
         let blog_categories = await service.getAllBlogCategories(queryBlogCatgories);
 
+        var queryCategory = 'SELECT * FROM categories';        
+        const categories = await service.getAllCategoryProduct(queryCategory);
+
         // Lấy tất cả sản phẩm và hiển thị ra table
         res.render('datvangphanthiet/contact/contact', {
             title: 'Liên hệ',
             policies : policies,
+            categories:categories,
             blog_categories : blog_categories,
             userInfo: userInfo,
             errors: req.flash('Errors'),

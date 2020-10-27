@@ -30,9 +30,6 @@ let homeController = async (req, res, next) => {
             slideCount++;
         }
 
-        console.log('Danh sách sản phẩm')
-        console.log(allProducts);
-
         res.render('admin/home/home', {
             title: 'Trang chủ',
             products : products,

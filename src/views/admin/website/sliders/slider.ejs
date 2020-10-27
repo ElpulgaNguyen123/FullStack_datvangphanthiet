@@ -25,9 +25,9 @@
                 <%}%>
                 <% if(success != ""){%>
                 <% success.forEach((item) => {%>
-                    <script>
-                        toastr.success('<%- item %>', 'Thành công !')
-                    </script>
+                <script>
+                    toastr.success('<%- item %>', 'Thành công !')
+                </script>
                 <%})%>
                 <%}%>
                 <form action="/admin/slide/add-slide" id="slide_form" method="POST" enctype="multipart/form-data">
@@ -48,15 +48,22 @@
                             </div>
                             <div class="form-group">
                                 <label class="font-weight-bold col-form-label" for="slide_name">
-                                    Tên <%= title %>
+                                    Tên <%= title %><span class="text-danger">*</span>
                 </label>
                 <input type="text" name="slide_name" id="slide_name" class="form-control" placeholder="Tên <%= title %>"
                     required>
 
             </div>
             <div class="form-group">
+                <label class="font-weight-bold col-form-label" for="slide_caption">
+                    Caption<span class="text-danger">*</span>
+                </label>
+                <input type="text" name="slide_caption" id="slide_caption" class="form-control"
+                    placeholder="Nhập caption cho slide" required>
+            </div>
+            <div class="form-group">
                 <label class="font-weight-bold col-form-label" for="slide_link">
-                    Link
+                    Link<span class="text-danger">*</span>
                 </label>
                 <input type="text" name="slide_link" id="slide_link" class="form-control"
                     placeholder="Nhập link cho slide" required>
@@ -171,7 +178,9 @@
                 },
                 slide_name: {
                     required: true,
-                    minlength: 2,
+                },
+                slide_caption: {
+                    required: true,
                 },
                 slide_link: {
                     required: true
@@ -181,9 +190,11 @@
                 slide_image: {
                     required: 'Bạn chưa chọn ảnh cho slide',
                 },
+                slide_caption: {
+                    required: 'Nhập mô tả cho slide',
+                },
                 slide_name: {
                     required: "Vui lòng nhập tên thương hiệu",
-                    minlength: "Tên thương hiệu phải có ít nhất 2 ký tự"
                 },
                 slide_link: {
                     required: "Vui lòng nhập đường dẫn cho slide"

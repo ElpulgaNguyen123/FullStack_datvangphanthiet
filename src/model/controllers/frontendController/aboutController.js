@@ -19,6 +19,10 @@ let FrAboutController = async (req, res, next) => {
         let queryBlogCatgories = 'SELECT * FROM blog_categories';
         let blog_categories = await service.getAllBlogCategories(queryBlogCatgories);
 
+        var queryCategory = 'SELECT * FROM categories';        
+        const categories = await service.getAllCategoryProduct(queryCategory);
+
+
 
 
         const company_features = await service.getAllEndow(queryCompanyFeatures);
@@ -35,6 +39,7 @@ let FrAboutController = async (req, res, next) => {
             userInfo : userInfo,
             staffs : staffs,
             policies : policies,
+            categories : categories,
             blog_categories : blog_categories,
             customers : customers,
             company_features :  company_features,
