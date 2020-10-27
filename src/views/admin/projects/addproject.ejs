@@ -1,0 +1,239 @@
+<% extend("../../admin.ejs") %>
+<!-- Start Content-->
+<div class="container-fluid">
+    <!-- start page title -->
+    <div class="row">
+        <div class="col-12">
+            <div class="page-title-box">
+                <div class="page-title-right">
+                    <ol class="breadcrumb m-0">
+                        <li class="breadcrumb-item"><a href="/admin"><i class="mdi mdi-home-circle"></i></a></li>
+                        <li class="breadcrumb-item"><a href="/admin/products">Sản phẩm</a></li>
+                        <li class="breadcrumb-item active"><%= title %></li>
+                    </ol>
+                </div>
+                <h4 class="page-title"><%= title %></h4>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="card-box table-responsive">
+                <div class="update-avatar-form">
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-12 col-md-12">
+                            <div id="actions" class="row mb-4">
+                                <div class="col-lg-7">
+                                    <div class="control-button d-flex">
+                                        <!-- The fileinput-button span is used to style the file input field as button -->
+                                        <span class="btn mr-2 btn-success fileinput-button dz-clickable">
+                                            <i class="glyphicon glyphicon-plus"></i>
+                                            <span><i class="icofont icofont-plus-circle"></i>&nbsp;Thêm
+                                                Ảnh...</span>
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="col-lg-5">
+                                    <!-- The global file processing state -->
+                                    <span class="fileupload-process">
+                                        <div id="total-progress" class="progress progress-striped active"
+                                            role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"
+                                            style="opacity: 0;">
+                                            <div class="progress-bar progress-bar-success" style="width: 100%;"
+                                                data-dz-uploadprogress="">
+                                            </div>
+                                        </div>
+                                    </span>
+                                </div>
+                            </div>
+                            <!-- HTML heavily inspired by http://blueimp.github.io/jQuery-File-Upload/ -->
+                            <div class="table table-striped" class="files" id="previews">
+                                <div class="template file-row d-flex">
+                                    <!-- This is used as the file preview template -->
+                                    <div class="flex-1">
+                                        <span class="preview"><img data-dz-thumbnail /></span>
+                                    </div>
+                                    <div class="flex-1">
+                                        <p class="name" data-dz-name></p>
+                                        <strong class="error text-danger" data-dz-errormessage></strong>
+                                    </div>
+                                    <div class="flex-1">
+                                        <p class="size" data-dz-size></p>
+                                        <div class="progress progress-striped active" role="progressbar"
+                                            aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+                                            <div class="progress-bar progress-bar-success" style="width:0%;"
+                                                data-dz-uploadprogress></div>
+                                        </div>
+                                    </div>
+                                    <div class="flex-3">
+                                        <button hidden class="btn btn-primary start">
+                                            <i class="glyphicon glyphicon-upload"></i>
+                                            <span>Lưu</span>
+                                        </button>
+                                        <button data-dz-remove class="btn btn-danger delete">
+                                            <i class="glyphicon glyphicon-trash"></i>
+                                            <span>Xóa</span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <script>
+                            function to_slug(str) {
+                                // Chuyển hết sang chữ thường
+                                str = str.toLowerCase();
+                                // xóa dấu
+                                str = str.replace(/(à|á|ạ|ả|ã|â|ầ|ấ|ậ|ẩ|ẫ|ă|ằ|ắ|ặ|ẳ|ẵ)/g, 'a');
+                                str = str.replace(/(è|é|ẹ|ẻ|ẽ|ê|ề|ế|ệ|ể|ễ)/g, 'e');
+                                str = str.replace(/(ì|í|ị|ỉ|ĩ)/g, 'i');
+                                str = str.replace(/(ò|ó|ọ|ỏ|õ|ô|ồ|ố|ộ|ổ|ỗ|ơ|ờ|ớ|ợ|ở|ỡ)/g, 'o');
+                                str = str.replace(/(ù|ú|ụ|ủ|ũ|ư|ừ|ứ|ự|ử|ữ)/g, 'u');
+                                str = str.replace(/(ỳ|ý|ỵ|ỷ|ỹ)/g, 'y');
+                                str = str.replace(/(đ)/g, 'd');
+                                // Xóa ký tự đặc biệt
+                                str = str.replace(/([^0-9a-z-\s])/g, '');
+                                // Xóa khoảng trắng thay bằng ký tự -
+                                str = str.replace(/(\s+)/g, '-');
+                                // xóa phần dự - ở đầu
+                                str = str.replace(/^-+/g, '');
+                                // xóa phần dư - ở cuối
+                                str = str.replace(/-+$/g, '');
+                                // return
+                                document.getElementById('product_slug').value = str;
+                                document.getElementById('product_meta_title').value = str;
+                                document.getElementById('product_meta_keyword').value = str;
+                                document.getElementById('product_meta_description').value = str;
+                                return str;
+                            }
+                        </script>
+                        <div class="col-xs-12 col-sm-12 col-md-12">
+                            <form action="/admin/project/add-project" id="project_form" method="POST"
+                                enctype="multipart/form-data">
+                                <div class="row">
+                                    <div class="form-group">
+                                        <input type="hidden" name="image_path" id="image_path" class="form-control"
+                                            placeholder="Đường dẫn hính ảnh dự án">
+                                    </div>
+                                    <div class="col-xs-12 col-md-12">
+                                        <div class="form-group">
+                                            <label class="font-weight-bold required-form" for="product_sku">
+                                                Mã dự án
+                                            </label>
+                                            <script>
+                                                var data = {};
+                                                function AjaxSkuMatch(sku) {
+                                                    data.sku = sku;
+                                                    $.ajax({
+                                                        url: '/admin/project/check-sku',
+                                                        type: 'POST',
+                                                        cache: false,
+                                                        data: JSON.stringify(data),
+                                                        contentType: 'application/json',
+                                                        processData: false,
+                                                        success: function (result) {
+                                                            toastr.success(result.success);
+                                                        },
+                                                        error: function (error) {
+                                                            toastr.error('Mã này đã được sử dụng, vui lòng chọn mã khác');
+                                                        }
+                                                    });
+                                                }
+                                                function checkSkuMatch(sku) {
+                                                    AjaxSkuMatch(sku);
+                                                }
+                                            </script>
+                                            <input type="text" name="product_sku" id="product_sku"
+                                                onchange="checkSkuMatch($(this).val())" class="form-control"
+                                                placeholder="Mã dự án" required>
+                                            <small> Mã dự án không được trùng nhau</small>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="font-weight-bold required-form" for="product_name"> Tên Sản
+                                                Phẩm
+                                            </label>
+                                            <input type="text" name="product_name" id="product_name"
+                                                class="form-control" onkeyup="to_slug($(this).val())"
+                                                placeholder="Tên sản phẩm" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="font-weight-bold" for="product_slug">
+                                                Đường dẫn slug
+                                            </label>
+                                            <input type="text" name="product_slug" id="product_slug"
+                                                class="form-control" placeholder="Đường dẫn tối ưu SEO" readonly>
+                                            <small> Slug, đường dẫn tối ưu SEO </small>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="font-weight-bold required-form" for="product_price"> Giá sản
+                                                phẩm
+                                            </label>
+                                            <input type="text" name="product_price" id=" product_price"
+                                                class="form-control price-format" placeholder="giá sản phẩm" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="font-weight-bold" for="propduct_description">
+                                                Mô tả
+                                            </label>
+                                            <textarea id="summernote" id="propduct_description"
+                                                name="propduct_description"></textarea>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="font-weight-bold" for="short_description">
+                                                Mô tả ngắn </label>
+                                            <input type="text" name="short_description" id="short_description"
+                                                class="form-control" placeholder="Mô tả ngắn">
+                                        </div>
+                                    </div>
+                                </div>
+                                <button type="submit" id="dropzoneSubmit" class="btn hor-grd btn-success mt-4">
+                                    <span><i class="icofont icofont-save"></i></span>
+                                    Lưu lại
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+
+    $(document).ready(function () {
+        $("#project_form").validate({
+            rules: {
+                product_name: {
+                    required: true,
+                },
+                product_price: {
+                    required: true,
+                },
+                poduct_slug: {
+                    required: true
+                },
+                propduct_description: {
+                    required: true
+                }
+            },
+            messages: {
+                product_name: {
+                    required: 'Vui lòng nhập tên dự án',
+                },
+                product_price: {
+                    required: "Vui lòng nhập giá sản phẩm",
+                },
+                poduct_slug: {
+                    required: 'Vui lòng nhập đường dẫn SEO'
+                },
+                propduct_description: {
+                    required: "Vui lòng nhập nội dung mô tả dự án"
+                },
+            }
+        });
+    });
+
+</script>
+© 2020 GitHub, Inc.

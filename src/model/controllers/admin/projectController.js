@@ -11,7 +11,7 @@ var fsExtras = require('fs-extra');
 var storage = multer.diskStorage({
     destination: function (req, file, cb) {
         // cb(null, app.directory_products);
-        cb(null, app.directory_products);
+        cb(null, app.directory_project);
     },
     filename: function (req, file, cb) {
         // let match = app.avatar_type;
@@ -30,10 +30,10 @@ var productUpdateFile = multer({ storage: storage }).single('project-image', 1);
 let getAllProject = async (req, res, next) => {
     try {
         // Lấy tất cả sản phẩm và hiển thị ra table
-        const queryProject = `SELECT * FROM projects`;
+        const queryProject = `SELECT * FROM project`;
         pool.query(queryProject, function (error, results, fields) {
             if (error) throw error;
-            res.render('admin/project/project', {
+            res.render('admin/projects/project', {
                 title: 'Dự án',
                 projects: results.slice(0, 10),
                 errors: req.flash('Errors'),
@@ -52,24 +52,18 @@ let getAllProject = async (req, res, next) => {
 // chuyển qua trang thêm sản phẩm   
 let addProjectGet = async (req, res, next) => {
     try {
-        var queryattributes = 'SELECT * FROM attributes';
-        var querycategories = 'SELECT * FROM categories';
-        var attributes = await service.queryActionNoParams(queryattributes);
-        var categories = await service.queryActionNoParams(querycategories);
-        pool.query('SELECT * FROM brand', function (error, results, fields) {
-            res.render('admin/products/addproduct', {
-                title: 'Thêm sản phẩm',
-                brands: results,
-                attributes: attributes,
-                categories: categories,
+        pool.query('SELECT * FROM project', function (error, results, fields) {
+            res.render('admin/projects/addproject', {
+                title: 'Thêm dự án',
+                errors: req.flash('Errors'),
+                success: req.flash('Success'),
                 user: req.user
             });
         });
-
     } catch (error) {
         arrayError.push('Có lỗi xảy ra');
         req.flash('errors', arrayError);
-        res.redirect('/admin/products');
+        res.redirect('/admin/projects');
     }
 }
 
