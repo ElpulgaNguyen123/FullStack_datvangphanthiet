@@ -43,6 +43,9 @@ var { getAllPolicies } = require('./policiesService');
 var { getStaffService,
     getAllStaffService } = require('./staffService');
 
+    var { getAllLocations,
+        queryActionLocationsParams } = require('./locationService');
+
 
 module.exports = {
     register_service,
@@ -102,6 +105,10 @@ module.exports = {
 
     // staff
     getStaffService,
-    getAllStaffService
+    getAllStaffService,
+
+    //location
+    getAllLocations,
+    queryActionLocationsParams
 
 }

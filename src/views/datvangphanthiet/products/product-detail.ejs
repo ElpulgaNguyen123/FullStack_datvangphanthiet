@@ -1,397 +1,372 @@
 <% extend("../../datvangphanthiet") %>
-  <!--=================================
+<!--=================================
 Breadcrumb -->
 <div class="bg-light">
-    <div class="container">
-      <div class="row">
-        <div class="col-12">
-          <ol class="breadcrumb mb-0">
-            <li class="breadcrumb-item"><a href="index.html"> <i class="fas fa-home"></i> </a></li>
-            <li class="breadcrumb-item"> <i class="fas fa-chevron-right"></i> <a href="#">Pages</a></li>
-            <li class="breadcrumb-item active"> <i class="fas fa-chevron-right"></i> <span> Stunning 2 bedroom home in
-                village</span></li>
-          </ol>
-        </div>
+  <div class="container">
+    <div class="row">
+      <div class="col-12">
+        <ol class="breadcrumb mb-0">
+          <li class="breadcrumb-item"><a href="index.html"> <i class="fas fa-home"></i> </a></li>
+          <li class="breadcrumb-item"> <i class="fas fa-chevron-right"></i> <a href="/san-pham">Bất động sản</a></li>
+          <li class="breadcrumb-item active"> <i class="fas fa-chevron-right"></i> <span> <%= product.name %> </span>
+          </li>
+        </ol>
       </div>
     </div>
   </div>
-  <!--=================================
+</div>
+<!--=================================
 Breadcrumb -->
-  <div class="wrapper">
-    <!--=================================
-  Property details -->
-    <section class="space-pt">
-      <div class="container">
-        <div class="row">
-          <div class="col-lg-4 mb-5 mb-lg-0 order-lg-2">
-            <div class="sticky-top">
-              <div class="mb-4">
-                <h3>Nhà Phố Khu Đô Thị Nam Phan Thiết</h3>
-                <span class="d-block mb-3"><i class="fas fa-map-marker-alt fa-xs pr-2"></i>Nam Phan Thiết</span>
-                <span class="price font-xll text-primary d-block">600tr</span>
-                <span class="sub-price font-lg text-dark d-block"><b>100m2</b> </span>
-              </div>
-              <div class="agent-contact">
-                <div class="d-flex align-items-center p-4 border border-bottom-0">
-                  <div class="agent-contact-avatar mr-3">
-                    <img class="img-fluid rounded-circle avatar avatar-xl" src="/public/datvangphanthiet/images/avatar/01.jpg" alt="">
-                  </div>
-                  <div class="agent-contact-name">
-                    <h6>Luân Vũ</h6>
-                    <a href="#">Giám đốc</a>
-                    <span class="d-block"><i class="fas fa-phone-volume pr-2 mt-2"></i>(123) 345-6789</span>
-                  </div>
-                </div>
-                <div class="d-flex">
-                  <a href="#" class="btn btn-primary col ml-0 b-radius-none">facebook</a>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-8 order-lg-1">
-            <div class="property-detail-img popup-gallery">
-              <div class="owl-carousel" data-animateOut="fadeOut" data-nav-arrow="true" data-items="1" data-md-items="1"
-                data-sm-items="1" data-xs-items="1" data-xx-items="1" data-space="0">
-                <div class="item">
-                  <a class="portfolio-img" href="/public/datvangphanthiet/images/property/big-img-01.jpg"><img class="img-fluid"
-                      src="/public/datvangphanthiet/images/property/big-img-01.jpg" alt=""></a>
-                </div>
-                <div class="item">
-                  <a class="portfolio-img" href="/public/datvangphanthiet/images/property/big-img-02.jpg"><img class="img-fluid"
-                      src="/public/datvangphanthiet/images/property/big-img-02.jpg" alt=""></a>
-                </div>
-              </div>
-            </div>
-            <hr class="mt-4 mb-4 mb-sm-5 mt-sm-5">
-            <div class="property-description">
-              <div class="row">
-                <div class="col-sm-3 mb-3 mb-sm-0">
-                  <h5>Mô tả</h5>
-                </div>
-                <div class="col-sm-9">
-                  <p>
-                    Cần bán nhanh căn hộ dịch vụ HXH Xd kiên cố Hồ Biểu Chánh, Phường 11 Quận Phú Nhuận.
-                    - Diện tích: 7m x 12m.
-                    - DTXD 68.8m.
-                    - DTS 316,2m.
-                    - Hiện trạng 1 trệt, 1 lửng, 3 lầu, 8 phòng, 8 wc.
-                    - Phòng được thiết kế thoáng mát nội thất full từng phòng, các phòng đều có ban công đang kinh doanh
-                    rất tốt.
-                    - Pháp lý sổ hồng đầy đủ khu vực yên tĩnh dân trí cao.
-                    - Giá 21 tỷ
-                  </p>
-                </div>
-              </div>
-            </div>
-            <hr class="mt-4 mb-4 mb-sm-5 mt-sm-5">
-            <div class="property-features">
-              <div class="row">
-                <div class="col-sm-3 mb-3 mb-sm-0">
-                  <h5>Chi tiết</h5>
-                </div>
-                <div class="col-sm-9">
-                  <div class="row">
-                    <div class="col-sm-6">
-                      <ul class="property-list-style-2 list-unstyled mb-0">
-                        <li>TV Cable</li>
-                        <li>Air Conditioning</li>
-                        <li>Barbeque</li>
-                        <li>Gym</li>
-                        <li>Swimming Pool</li>
-                        <li>Laundry</li>
-                        <li>Microwave</li>
-                        <li>Outdoor Shower</li>
-                      </ul>
-                    </div>
-                    <div class="col-sm-6">
-                      <ul class="property-list-style-2 list-unstyled mb-0">
-                        <li>Lawn</li>
-                        <li>Refrigerator</li>
-                        <li>Sauna</li>
-                        <li>Washer</li>
-                        <li>Dryer</li>
-                        <li>WiFi</li>
-                        <li>Window Coverings</li>
-                      </ul>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <hr class="mt-4 mb-4 mb-sm-5 mt-sm-5">
-            <div class="property-address">
-              <div class="row">
-                <div class="col-sm-3 mb-3 mb-sm-0">
-                  <h5>Đia chỉ</h5>
-                </div>
-                <div class="col-sm-9">
-                  <div class="row">
-                    <div class="col-sm-6">
-                      <ul class="property-list list-unstyled mb-0">
-                        <li><b>Địa chỉ:</b> 127 Phong nẫm </li>
-                        <li><b>Vị trí:</b> Phong Nẫm</li>
-                      </ul>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <hr class="mt-4 mb-4 mb-sm-5 mt-sm-5">
-            <div class="property-schedule">
-              <div class="row">
-                <div class="col-sm-3 mb-3 mb-sm-0">
-                  <h5>Đặt lịch tham quan</h5>
-                </div>
-                <div class="col-sm-9">
-                  <div class="form-row">
-                    <div class="form-group col-sm-6 datetimepickers">
-                      <div class="input-group date" id="datetimepicker-01" data-target-input="nearest">
-                        <input type="text" class="form-control datetimepicker-input" placeholder="Ngày tháng"
-                          data-target="#datetimepicker-01">
-                        <div class="input-group-append" data-target="#datetimepicker-01" data-toggle="datetimepicker">
-                          <div class="input-group-text"><i class="far fa-calendar-alt"></i></div>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="form-group col-sm-6 datetimepickers">
-                      <div class="input-group date" id="datetimepicker-03" data-target-input="nearest">
-                        <input type="text" class="form-control datetimepicker-input" placeholder="Thời gian"
-                          data-target="#datetimepicker-03" />
-                        <div class="input-group-append" data-target="#datetimepicker-03" data-toggle="datetimepicker">
-                          <div class="input-group-text"><i class="far fa-clock"></i></div>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="form-group col-sm-12">
-                      <input type="text" class="form-control" placeholder="Họ và tên">
-                    </div>
-                    <div class="form-group col-sm-12">
-                      <input type="email" class="form-control" placeholder="Email">
-                    </div>
-                    <div class="form-group col-sm-12">
-                      <input type="Text" class="form-control" placeholder="Điện thoại">
-                    </div>
-                    <div class="form-group col-sm-12">
-                      <textarea class="form-control" rows="4" placeholder="Lời nhắn"></textarea>
-                    </div>
-                    <div class="form-group col-sm-12">
-                      <button type="submit" class="btn btn-primary">Đăng ký</button>
-                    </div>
-                    <div class="col-sm-6"></div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-    <section class="space-pt">
-      <div class="container">
-        <hr class="mb-5 mt-0">
-        <h5 class="mb-4">BĐS tương tự</h5>
-        <div class="row">
-          <div class="col-sm-6 col-md-4">
-            <div class="property-item wow fadeInUp" data-wow-delay="0.5" data-wow-duration="2s">
-              <div class="property-image bg-overlay-gradient-04">
-                <img class="img-fluid" src="/public/datvangphanthiet/images/property/grid/01.jpg" alt="">
-                <div class="property-lable">
-                  <span class="badge badge-md badge-primary">Nhà phố</span>
-                  <span class="badge badge-md badge-info">Giảm giá 2% </span>
-                </div>
-                <span class="property-trending" title="trending"><i class="fas fa-bolt"></i></span>
-                <div class="property-agent">
-                  <div class="property-agent-image">
-                    <img class="img-fluid" src="/public/datvangphanthiet/images/avatar/01.jpg" alt="">
-                  </div>
-                  <div class="property-agent-info">
-                    <a class="property-agent-name" href="#">Alice Williams</a>
-                    <span class="d-block">Company Agent</span>
-                    <ul class="property-agent-contact list-unstyled">
-                      <li><a href="#"><i class="fas fa-mobile-alt"></i> </a></li>
-                      <li><a href="#"><i class="fas fa-envelope"></i> </a></li>
-                    </ul>
-                  </div>
-                </div>
-                <div class="property-agent-popup">
-                  <a href="#"><i class="fas fa-camera"></i>06</a>
-                </div>
-              </div>
-              <div class="property-details wow fadeInDown" data-wow-delay="0.5" data-wow-duration="2s">
-                <div class="property-details-inner">
-                  <h5 class="property-title"><a href="property-detail-style-01.html">Nhà Phố khu đô thị Nam Phan Thiết</a>
-                  </h5>
-                  <span class="property-address"><i class="fas fa-map-marker-alt fa-xs"></i>Nam Phan Thiết</span>
-                  <span class="property-agent-date"><i class="far fa-clock fa-md"></i>10 ngày trước</span>
-                  <div class="property-price">650 triệu<span> / căn</span> </div>
-                  <ul class="property-info list-unstyled d-flex">
-                    <li class="flex-fill property-bed"><i class="fas fa-bed"></i>Phòng ngủ<span>1</span></li>
-                    <li class="flex-fill property-bath"><i class="fas fa-bath"></i>Phòng tắm<span>2</span></li>
-                    <li class="flex-fill property-m-sqft"><i class="far fa-square"></i>Diện tích<span>145m</span></li>
-                  </ul>
-                </div>
-                <div class="property-btn">
-                  <a class="property-link" href="property-detail-style-01.html">Xem chi tiết</a>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-sm-6 col-md-4">
-            <div class="property-item wow fadeInUp" data-wow-delay="0.5" data-wow-duration="3s">
-              <div class="property-image bg-overlay-gradient-04">
-                <img class="img-fluid" src="/public/datvangphanthiet/images/property/grid/02.jpg" alt="">
-                <div class="property-lable">
-                  <span class="badge badge-md badge-primary">Resort Mũi Né Soha</span>
-                  <span class="badge badge-md badge-info">Mới</span>
-                </div>
-                <div class="property-agent">
-                  <div class="property-agent-image">
-                    <img class="img-fluid" src="/public/datvangphanthiet/images/avatar/02.jpg" alt="">
-                  </div>
-                  <div class="property-agent-info">
-                    <a class="property-agent-name" href="#">John doe</a>
-                    <span class="d-block">Company Agent</span>
-                    <ul class="property-agent-contact list-unstyled">
-                      <li><a href="#"><i class="fas fa-mobile-alt"></i> </a></li>
-                      <li><a href="#"><i class="fas fa-envelope"></i> </a></li>
-                    </ul>
-                  </div>
-                </div>
-                <div class="property-agent-popup">
-                  <a href="#"><i class="fas fa-camera"></i> 12</a>
-                </div>
-              </div>
-              <div class="property-details">
-                <div class="property-details-inner">
-                  <h5 class="property-title"><a href="property-detail-style-01.html">Resort Soha (Mũi Né)</a></h5>
-                  <span class="property-address"><i class="fas fa-map-marker-alt fa-xs"></i>Vermont dr. hephzibah</span>
-                  <span class="property-agent-date"><i class="far fa-clock fa-md"></i>2 tháng trước</span>
-                  <div class="property-price">32 tỷ<span></span> </div>
-                  <ul class="property-info list-unstyled d-flex">
-                    <li class="flex-fill property-bed"><i class="fas fa-bed"></i>Phòng<span>50</span></li>
-                    <li class="flex-fill property-bath"><i class="fas fa-bath"></i>Bath<span>3</span></li>
-                    <li class="flex-fill property-m-sqft"><i class="far fa-square"></i>diện tích<span>1000m</span></li>
-                  </ul>
-                </div>
-                <div class="property-btn">
-                  <a class="property-link" href="property-detail-style-01.html">Xem chi tiết</a>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-sm-6 col-md-4">
-            <div class="property-item wow fadeInUp" data-wow-delay="0.5" data-wow-duration="4s">
-              <div class="property-image bg-overlay-gradient-04">
-                <img class="img-fluid" src="/public/datvangphanthiet/images/property/grid/03.jpg" alt="">
-                <div class="property-lable">
-                  <span class="badge badge-md badge-primary">Nhà phố</span>
-                  <span class="badge badge-md badge-info">Hot </span>
-                </div>
-                <span class="property-trending" title="trending"><i class="fas fa-bolt"></i></span>
-                <div class="property-agent">
-                  <div class="property-agent-image">
-                    <img class="img-fluid" src="/public/datvangphanthiet/images/avatar/03.jpg" alt="">
-                  </div>
-                  <div class="property-agent-info">
-                    <a class="property-agent-name" href="#">Felica queen</a>
-                    <span class="d-block">Investment</span>
-                    <ul class="property-agent-contact list-unstyled">
-                      <li><a href="#"><i class="fas fa-mobile-alt"></i> </a></li>
-                      <li><a href="#"><i class="fas fa-envelope"></i> </a></li>
-                    </ul>
-                  </div>
-                </div>
-                <div class="property-agent-popup">
-                  <a href="#"><i class="fas fa-camera"></i> 03</a>
-                </div>
-              </div>
-              <div class="property-details">
-                <div class="property-details-inner">
-                  <h5 class="property-title"><a href="property-detail-style-01.html">Khu đô thị bắc Phan Thiết</a></h5>
-                  <span class="property-address"><i class="fas fa-map-marker-alt fa-xs"></i>Newport st. mebane, nc</span>
-                  <span class="property-agent-date"><i class="far fa-clock fa-md"></i>6 tháng trước</span>
-                  <div class="property-price">858tr<span> / căn</span> </div>
-                  <ul class="property-info list-unstyled d-flex">
-                    <li class="flex-fill property-bed"><i class="fas fa-bed"></i>Phòng Ngủ<span>2</span></li>
-                    <li class="flex-fill property-bath"><i class="fas fa-bath"></i>Phòng tắm<span>3</span></li>
-                    <li class="flex-fill property-m-sqft"><i class="far fa-square"></i>Diện tích<span>100m2</span></li>
-                  </ul>
-                </div>
-                <div class="property-btn">
-                  <a class="property-link" href="property-detail-style-01.html">Xem chi tiết</a>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-    <!--=================================
-  Property details -->
-
-    <!--=================================
-Review -->
-    <section class="space-pb">
-      <div class="container">
-        <div class="row">
-          <div class="col-12">
-            <div class="section-title">
-              <h4>Để lại bình luận</h4>
-            </div>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-12">
-            <div class="review d-flex">
-              <div class="review-avatar avatar avatar-xl mr-3">
-                <img class="img-fluid rounded-circle" src="/public/datvangphanthiet/images/avatar/01.jpg" alt="">
-              </div>
-              <div class="review-info flex-grow-1">
-                <span class="mb-2 d-block">Rating:</span>
-                <ul class="list-unstyled list-inline">
-                  <li class="list-inline-item m-0 text-warning"><i class="fas fa-star"></i></li>
-                  <li class="list-inline-item m-0 text-warning"><i class="fas fa-star"></i></li>
-                  <li class="list-inline-item m-0 text-warning"><i class="fas fa-star"></i></li>
-                  <li class="list-inline-item m-0 text-warning"><i class="fas fa-star-half-alt"></i></li>
-                  <li class="list-inline-item m-0 text-warning"><i class="far fa-star"></i></li>
-                </ul>
-                <div class="mb-3">
-                  <span class="mb-2 d-block">Rating comment:</span>
-                  <div class="form-group">
-                    <textarea class="form-control" rows="3"></textarea>
-                  </div>
-                </div>
-                <span> <a href="login.html"> <b>Login</b> </a> to leave a review</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-    <!--=================================
-Review -->
-  </div>
-
+<div class="wrapper">
   <!--=================================
-newsletter -->
-  <section class="py-5 bg-primary">
+  Property details -->
+  <section class="space-pt">
     <div class="container">
       <div class="row">
-        <div class="col-md-5">
-          <h3 class="text-white mb-0">Đăng ký nhận bản tin của chúng tôi để nhận những tin tức và ưu đãi mới nhất.</h3>
-        </div>
-        <div class="col-md-7 mt-3 mt-md-0">
-          <div class="newsletter">
-            <form>
-              <div class="form-group mb-0">
-                <input type="email" class="form-control" placeholder="Enter email">
+        <div class="col-lg-4 mb-5 mb-lg-0 order-lg-2">
+          <div class="sticky-top">
+            <div class="mb-4">
+              <h3><%= product.name %></h3>
+              <span class="d-block mb-3"><i class="fas fa-map-marker-alt fa-xs pr-2"></i><%= product.address %></span>
+              <span class="price font-xll text-primary d-block"><%= product.price %></span>
+              <span class="sub-price font-lg text-dark d-block"><b><%= product.square %></b> </span>
+            </div>
+            <div class="agent-contact">
+              <div class="d-flex align-items-center p-4 border border-bottom-0">
+                <div class="agent-contact-avatar mr-3">
+                  <img class="img-fluid rounded-circle avatar avatar-xl"
+                    src="/public/datvangphanthiet/images/avatar/01.jpg" alt="">
+                </div>
+                <div class="agent-contact-name">
+                  <h6><%= userInfo.user_name %></h6>
+                  <span>Giám đốc</span>
+                  <span class="d-block"><i class="fas fa-phone-volume pr-2 mt-2"></i><%= userInfo.phone %></span>
+                </div>
               </div>
-              <button type="submit" class="btn btn-dark b-radius-left-none">Nhận tin nhắn</button>
-            </form>
+              <div class="d-flex">
+                <a href="<%= userInfo.facebook %>" class="btn btn-primary col ml-0 b-radius-none">facebook</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-8 order-lg-1">
+          <div class="property-detail-img popup-gallery">
+            <div class="owl-carousel" data-animateOut="fadeOut" data-nav-arrow="true" data-items="1" data-md-items="1"
+              data-sm-items="1" data-xs-items="1" data-xx-items="1" data-space="0">
+              <% if(imagearr.length > 0){ %>
+              <% for (var i = 0; i < imagearr.length ; i++ ) { %>
+              <div class="item">
+                <img class="img-fluid" src="/public/uploads/products/<%= images[imagearr[i]] %>" alt="">
+              </div>
+              <% } %>
+              <% }else{ %>
+              <div class="col-xs-12 col-sm-12 col-md-12">
+                <div class="alert alert-info" role="alert">
+                  Chưa có hình ảnh !
+                </div>
+              </div>
+              <% } %>
+
+            </div>
+          </div>
+          <hr class="mt-4 mb-4 mb-sm-5 mt-sm-5">
+          <div class="property-description">
+            <div class="row">
+              <div class="col-sm-3 mb-3 mb-sm-0">
+                <h5>Mô tả</h5>
+              </div>
+              <div class="col-sm-9">
+                <p>
+                  <%- userInfo.description %>
+                </p>
+              </div>
+            </div>
+          </div>
+          <hr class="mt-4 mb-4 mb-sm-5 mt-sm-5">
+          <div class="property-features">
+            <div class="row">
+              <div class="col-sm-3 mb-3 mb-sm-0">
+                <h5>Chi tiết</h5>
+              </div>
+              <div class="col-sm-9">
+                <%- userInfo.description_details %>
+              </div>
+            </div>
+          </div>
+          <hr class="mt-4 mb-4 mb-sm-5 mt-sm-5">
+          <div class="property-address">
+            <div class="row">
+              <div class="col-sm-3 mb-3 mb-sm-0">
+                <h5>Đia chỉ</h5>
+              </div>
+              <div class="col-sm-9">
+                <div class="row">
+                  <div class="col-sm-6">
+                    <ul class="property-list list-unstyled mb-0">
+                      <li><b>Địa chỉ:</b> 127 Phong nẫm </li>
+                      <li><b>Vị trí:</b> Phong Nẫm</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <hr class="mt-4 mb-4 mb-sm-5 mt-sm-5">
+          <div class="property-schedule">
+            <div class="row">
+              <div class="col-sm-3 mb-3 mb-sm-0">
+                <h5>Đặt lịch tham quan</h5>
+              </div>
+              <div class="col-sm-9">
+                <div class="form-row">
+                  <div class="form-group col-sm-6 datetimepickers">
+                    <div class="input-group date" id="datetimepicker-01" data-target-input="nearest">
+                      <input type="text" class="form-control datetimepicker-input" placeholder="Ngày tháng"
+                        data-target="#datetimepicker-01">
+                      <div class="input-group-append" data-target="#datetimepicker-01" data-toggle="datetimepicker">
+                        <div class="input-group-text"><i class="far fa-calendar-alt"></i></div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-group col-sm-6 datetimepickers">
+                    <div class="input-group date" id="datetimepicker-03" data-target-input="nearest">
+                      <input type="text" class="form-control datetimepicker-input" placeholder="Thời gian"
+                        data-target="#datetimepicker-03" />
+                      <div class="input-group-append" data-target="#datetimepicker-03" data-toggle="datetimepicker">
+                        <div class="input-group-text"><i class="far fa-clock"></i></div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-group col-sm-12">
+                    <input type="text" class="form-control" placeholder="Họ và tên">
+                  </div>
+                  <div class="form-group col-sm-12">
+                    <input type="email" class="form-control" placeholder="Email">
+                  </div>
+                  <div class="form-group col-sm-12">
+                    <input type="Text" class="form-control" placeholder="Điện thoại">
+                  </div>
+                  <div class="form-group col-sm-12">
+                    <textarea class="form-control" rows="4" placeholder="Lời nhắn"></textarea>
+                  </div>
+                  <div class="form-group col-sm-12">
+                    <button type="submit" class="btn btn-primary">Đăng ký</button>
+                  </div>
+                  <div class="col-sm-6"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="space-pt">
+    <div class="container">
+      <hr class="mb-5 mt-0">
+      <h5 class="mb-4">BĐS tương tự</h5>
+      <div class="row">
+        <div class="col-sm-6 col-md-4">
+          <div class="property-item wow fadeInUp" data-wow-delay="0.5" data-wow-duration="2s">
+            <div class="property-image bg-overlay-gradient-04">
+              <img class="img-fluid" src="/public/datvangphanthiet/images/property/grid/01.jpg" alt="">
+              <div class="property-lable">
+                <span class="badge badge-md badge-primary">Nhà phố</span>
+                <span class="badge badge-md badge-info">Giảm giá 2% </span>
+              </div>
+              <span class="property-trending" title="trending"><i class="fas fa-bolt"></i></span>
+              <div class="property-agent">
+                <div class="property-agent-image">
+                  <img class="img-fluid" src="/public/datvangphanthiet/images/avatar/01.jpg" alt="">
+                </div>
+                <div class="property-agent-info">
+                  <a class="property-agent-name" href="#">Alice Williams</a>
+                  <span class="d-block">Company Agent</span>
+                  <ul class="property-agent-contact list-unstyled">
+                    <li><a href="#"><i class="fas fa-mobile-alt"></i> </a></li>
+                    <li><a href="#"><i class="fas fa-envelope"></i> </a></li>
+                  </ul>
+                </div>
+              </div>
+              <div class="property-agent-popup">
+                <a href="#"><i class="fas fa-camera"></i>06</a>
+              </div>
+            </div>
+            <div class="property-details wow fadeInDown" data-wow-delay="0.5" data-wow-duration="2s">
+              <div class="property-details-inner">
+                <h5 class="property-title"><a href="property-detail-style-01.html">Nhà Phố khu đô thị Nam Phan Thiết</a>
+                </h5>
+                <span class="property-address"><i class="fas fa-map-marker-alt fa-xs"></i>Nam Phan Thiết</span>
+                <span class="property-agent-date"><i class="far fa-clock fa-md"></i>10 ngày trước</span>
+                <div class="property-price">650 triệu<span> / căn</span> </div>
+                <ul class="property-info list-unstyled d-flex">
+                  <li class="flex-fill property-bed"><i class="fas fa-bed"></i>Phòng ngủ<span>1</span></li>
+                  <li class="flex-fill property-bath"><i class="fas fa-bath"></i>Phòng tắm<span>2</span></li>
+                  <li class="flex-fill property-m-sqft"><i class="far fa-square"></i>Diện tích<span>145m</span></li>
+                </ul>
+              </div>
+              <div class="property-btn">
+                <a class="property-link" href="property-detail-style-01.html">Xem chi tiết</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-6 col-md-4">
+          <div class="property-item wow fadeInUp" data-wow-delay="0.5" data-wow-duration="3s">
+            <div class="property-image bg-overlay-gradient-04">
+              <img class="img-fluid" src="/public/datvangphanthiet/images/property/grid/02.jpg" alt="">
+              <div class="property-lable">
+                <span class="badge badge-md badge-primary">Resort Mũi Né Soha</span>
+                <span class="badge badge-md badge-info">Mới</span>
+              </div>
+              <div class="property-agent">
+                <div class="property-agent-image">
+                  <img class="img-fluid" src="/public/datvangphanthiet/images/avatar/02.jpg" alt="">
+                </div>
+                <div class="property-agent-info">
+                  <a class="property-agent-name" href="#">John doe</a>
+                  <span class="d-block">Company Agent</span>
+                  <ul class="property-agent-contact list-unstyled">
+                    <li><a href="#"><i class="fas fa-mobile-alt"></i> </a></li>
+                    <li><a href="#"><i class="fas fa-envelope"></i> </a></li>
+                  </ul>
+                </div>
+              </div>
+              <div class="property-agent-popup">
+                <a href="#"><i class="fas fa-camera"></i> 12</a>
+              </div>
+            </div>
+            <div class="property-details">
+              <div class="property-details-inner">
+                <h5 class="property-title"><a href="property-detail-style-01.html">Resort Soha (Mũi Né)</a></h5>
+                <span class="property-address"><i class="fas fa-map-marker-alt fa-xs"></i>Vermont dr. hephzibah</span>
+                <span class="property-agent-date"><i class="far fa-clock fa-md"></i>2 tháng trước</span>
+                <div class="property-price">32 tỷ<span></span> </div>
+                <ul class="property-info list-unstyled d-flex">
+                  <li class="flex-fill property-bed"><i class="fas fa-bed"></i>Phòng<span>50</span></li>
+                  <li class="flex-fill property-bath"><i class="fas fa-bath"></i>Bath<span>3</span></li>
+                  <li class="flex-fill property-m-sqft"><i class="far fa-square"></i>diện tích<span>1000m</span></li>
+                </ul>
+              </div>
+              <div class="property-btn">
+                <a class="property-link" href="property-detail-style-01.html">Xem chi tiết</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-6 col-md-4">
+          <div class="property-item wow fadeInUp" data-wow-delay="0.5" data-wow-duration="4s">
+            <div class="property-image bg-overlay-gradient-04">
+              <img class="img-fluid" src="/public/datvangphanthiet/images/property/grid/03.jpg" alt="">
+              <div class="property-lable">
+                <span class="badge badge-md badge-primary">Nhà phố</span>
+                <span class="badge badge-md badge-info">Hot </span>
+              </div>
+              <span class="property-trending" title="trending"><i class="fas fa-bolt"></i></span>
+              <div class="property-agent">
+                <div class="property-agent-image">
+                  <img class="img-fluid" src="/public/datvangphanthiet/images/avatar/03.jpg" alt="">
+                </div>
+                <div class="property-agent-info">
+                  <a class="property-agent-name" href="#">Felica queen</a>
+                  <span class="d-block">Investment</span>
+                  <ul class="property-agent-contact list-unstyled">
+                    <li><a href="#"><i class="fas fa-mobile-alt"></i> </a></li>
+                    <li><a href="#"><i class="fas fa-envelope"></i> </a></li>
+                  </ul>
+                </div>
+              </div>
+              <div class="property-agent-popup">
+                <a href="#"><i class="fas fa-camera"></i> 03</a>
+              </div>
+            </div>
+            <div class="property-details">
+              <div class="property-details-inner">
+                <h5 class="property-title"><a href="property-detail-style-01.html">Khu đô thị bắc Phan Thiết</a></h5>
+                <span class="property-address"><i class="fas fa-map-marker-alt fa-xs"></i>Newport st. mebane, nc</span>
+                <span class="property-agent-date"><i class="far fa-clock fa-md"></i>6 tháng trước</span>
+                <div class="property-price">858tr<span> / căn</span> </div>
+                <ul class="property-info list-unstyled d-flex">
+                  <li class="flex-fill property-bed"><i class="fas fa-bed"></i>Phòng Ngủ<span>2</span></li>
+                  <li class="flex-fill property-bath"><i class="fas fa-bath"></i>Phòng tắm<span>3</span></li>
+                  <li class="flex-fill property-m-sqft"><i class="far fa-square"></i>Diện tích<span>100m2</span></li>
+                </ul>
+              </div>
+              <div class="property-btn">
+                <a class="property-link" href="property-detail-style-01.html">Xem chi tiết</a>
+              </div>
+            </div>
           </div>
         </div>
       </div>
     </div>
   </section>
   <!--=================================
+  Property details -->
+
+  <!--=================================
+Review -->
+  <section class="space-pb">
+    <div class="container">
+      <div class="row">
+        <div class="col-12">
+          <div class="section-title">
+            <h4>Để lại bình luận</h4>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12">
+          <div class="review d-flex">
+            <div class="review-avatar avatar avatar-xl mr-3">
+              <img class="img-fluid rounded-circle" src="/public/datvangphanthiet/images/avatar/01.jpg" alt="">
+            </div>
+            <div class="review-info flex-grow-1">
+              <span class="mb-2 d-block">Rating:</span>
+              <ul class="list-unstyled list-inline">
+                <li class="list-inline-item m-0 text-warning"><i class="fas fa-star"></i></li>
+                <li class="list-inline-item m-0 text-warning"><i class="fas fa-star"></i></li>
+                <li class="list-inline-item m-0 text-warning"><i class="fas fa-star"></i></li>
+                <li class="list-inline-item m-0 text-warning"><i class="fas fa-star-half-alt"></i></li>
+                <li class="list-inline-item m-0 text-warning"><i class="far fa-star"></i></li>
+              </ul>
+              <div class="mb-3">
+                <span class="mb-2 d-block">Rating comment:</span>
+                <div class="form-group">
+                  <textarea class="form-control" rows="3"></textarea>
+                </div>
+              </div>
+              <span> <a href="login.html"> <b>Login</b> </a> to leave a review</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!--=================================
+Review -->
+</div>
+
+<!--=================================
+newsletter -->
+<section class="py-5 bg-primary">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-5">
+        <h3 class="text-white mb-0">Đăng ký nhận bản tin của chúng tôi để nhận những tin tức và ưu đãi mới nhất.</h3>
+      </div>
+      <div class="col-md-7 mt-3 mt-md-0">
+        <div class="newsletter">
+          <form>
+            <div class="form-group mb-0">
+              <input type="email" class="form-control" placeholder="Enter email">
+            </div>
+            <button type="submit" class="btn btn-dark b-radius-left-none">Nhận tin nhắn</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!--=================================
 newsletter -->

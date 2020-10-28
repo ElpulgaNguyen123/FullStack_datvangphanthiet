@@ -18,18 +18,7 @@ let FrhomeController = async (req, res, next) => {
         var queryBlog = 'Select * from blog';
         let queryStaff = 'SELECT * FROM staffs';
         var queyProduct =`
-        SELECT product.id as product_id, product.name, product.short_description, 
-        product.image, 
-        product.sku,
-        product.slug, 
-        product.quantity,
-        product.price,
-        categories.category_name,
-        categories.category_name,
-        categories.category_slug,
-        categories.id  
-        FROM product 
-        INNER JOIN categories ORDER BY ID DESC LIMIT 6`;
+        SELECT * FROM product ORDER BY ID DESC LIMIT 6`;
         let userInfo = {};
         var queryUser = 'SELECT * FROM user';
         var user = await service.getAllUser(queryUser);

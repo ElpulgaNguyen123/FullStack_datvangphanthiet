@@ -26,6 +26,8 @@ let FrBlogController = async (req, res, next) => {
 
         const queryBlog = 'Select * from blog inner join blog_categories ON blog.blog_category_id = blog_categories.id';
         const blogs = await service.getAllBlog(queryBlog);
+
+
         // Lấy tất cả sản phẩm và hiển thị ra table
         res.render('datvangphanthiet/blogs/blogs', {
             title: 'Blog',
@@ -115,10 +117,8 @@ let FrBlogDetailController = async (req, res, next) => {
 
         var queryCategory = 'SELECT * FROM categories';        
         const categories = await service.getAllCategoryProduct(queryCategory);
-
         const blogs = await service.getAllBlog(queryBlog);
         
-
 
         if (blog[0]) {
             //Lấy tất cả sản phẩm và hiển thị ra table
@@ -143,7 +143,6 @@ let FrBlogDetailController = async (req, res, next) => {
         return res.status(500).send(error);
     }
 }
-
 
 module.exports = {
     FrBlogController,

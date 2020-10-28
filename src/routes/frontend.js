@@ -15,8 +15,8 @@ frontendRouter.get('/blog/*.:id', controller.FrBlogDetailController);
 
 // product / start
 frontendRouter.get('/san-pham', controller.FrProductController);
-frontendRouter.get('/san-pham/danh-muc/*.:iddanhmuc', controller.getAllProductCategory);
-frontendRouter.get('/san-pham/thuong-hieu/*.:idthuonghieu', controller.getAllBikeBrand);
+frontendRouter.get('/danh-muc/*.:iddanhmuc', controller.getAllProductCategory);
+frontendRouter.get('/san-pham/dia-diem/*.:idlocation', controller.getAllProductLocation);
 frontendRouter.get('/san-pham/giam-dan', controller.getAllBikeDesc);
 frontendRouter.get('/san-pham/*.:id', controller.FrProductDetailController);
 frontendRouter.get('/san-pham/search/:name', controller.searchData);

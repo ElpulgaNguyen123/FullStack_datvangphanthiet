@@ -6,9 +6,8 @@ breadcrumb -->
     <div class="row">
       <div class="col-12">
         <ol class="breadcrumb mb-0">
-          <li class="breadcrumb-item"><a href="index.html"> <i class="fas fa-home"></i> </a></li>
-          <li class="breadcrumb-item"> <i class="fas fa-chevron-right"></i> <a href="#">Library</a></li>
-          <li class="breadcrumb-item active"> <i class="fas fa-chevron-right"></i> <span> Property grid </span></li>
+          <li class="breadcrumb-item"><a href="/"> <i class="fas fa-home"></i> </a></li>
+          <li class="breadcrumb-item active"> <i class="fas fa-chevron-right"></i> <span> <%= title %> </span></li>
         </ol>
       </div>
     </div>
@@ -69,12 +68,11 @@ breadcrumb -->
             </div>
             <div class="collapse show" id="type-property">
               <ul class="list-unstyled mb-0 pt-3">
-                <li><a href="#">Khu dân dư<span class="ml-auto">(12)</span></a></li>
-                <li><a href="#">Thương mại<span class="ml-auto">(45)</span></a></li>
-                <li><a href="#">Công nghiệp<span class="ml-auto">(23)</span></a></li>
-                <li><a href="#">Căn hộ<span class="ml-auto">(05)</span></a></li>
-                <li><a href="#">Đất<span class="ml-auto">(47)</span></a></li>
-                <li><a href="#">Đất huyện xã<span class="ml-auto">(32)</span></a></li>
+                <% locations.forEach((location) => { %>
+                <li><a href="/san-pham/dia-diem/<%= location.location_slug %>.<%= location.id %>"
+                    title="<%= location.loction_name %>"><%= location.location_name %><span
+                      class="ml-auto"><%- location.location_icon %></span></a></li>
+                <% }); %>
               </ul>
             </div>
           </div>
@@ -99,34 +97,20 @@ breadcrumb -->
             <div class="widget-title">
               <h6>BĐS mới nhất</h6>
             </div>
+            <% newproducts.forEach((newproduct) => { %>
             <div class="recent-list-item">
-              <img class="img-fluid" src="/public/datvangphanthiet/images/property/list/01.jpg" alt="">
+              <% if(newproduct.image.length > 0){ %>
+              <img class="img-fluid" src="/public/uploads/products/<%=JSON.parse(newproduct.image)[0] %>" alt="">
+              <% } else{ %>
+              <img class="img-fluid" src="https://via.placeholder.com/500x300" alt="">
+              <% } %>
               <div class="recent-list-item-info">
-                <a class="address mb-2" href="property-detail-style-01.html">Awesome family home</a>
-                <span class="text-primary">$1,456,233 </span>
+                <a class="address mb-2" href="/san-pham/<%= newproduct.slug %>.<%= newproduct.id %>"
+                  title="<%= newproduct.name %>"><%= newproduct.name %></a>
+                <span class="text-primary"><%= newproduct.price %>vnđ</span>
               </div>
             </div>
-            <div class="recent-list-item">
-              <img class="img-fluid" src="/public/datvangphanthiet/images/property/list/02.jpg" alt="">
-              <div class="recent-list-item-info">
-                <a class="address mb-2" href="property-detail-style-01.html">Contemporary apartment</a>
-                <span class="text-primary">$2,496,454 </span>
-              </div>
-            </div>
-            <div class="recent-list-item">
-              <img class="img-fluid" src="/public/datvangphanthiet/images/property/list/03.jpg" alt="">
-              <div class="recent-list-item-info">
-                <a class="address mb-2" href="property-detail-style-01.html">Family home for sale</a>
-                <span class="text-primary">$4,662,457 </span>
-              </div>
-            </div>
-            <div class="recent-list-item">
-              <img class="img-fluid" src="/public/datvangphanthiet/images/property/list/04.jpg" alt="">
-              <div class="recent-list-item-info">
-                <a class="address mb-2" href="property-detail-style-01.html">184 lexington avenue</a>
-                <span class="text-primary">$2,456,452 </span>
-              </div>
-            </div>
+            <%})%>
           </div>
         </div>
       </div>
@@ -140,6 +124,7 @@ breadcrumb -->
           </div>
         </div>
         <div class="row mt-4" id="products_search_main">
+          <% if(products.length > 0){ %>
           <% products.forEach((product) => { %>
           <div class="col-sm-6 col-md-6">
             <div class="property-item">
@@ -157,40 +142,49 @@ breadcrumb -->
               </div>
               <div class="property-details">
                 <div class="property-details-inner">
-                  <h5 class="property-title"><a href="property-detail-style-01.html"><%= product.name %></a>
+                  <h5 class="property-title"><a href="/san-pham/<%= product.slug %>.<%= product.id %>"
+                    title="<%= product.name %>"><%= product.name %></a>
                   </h5>
-                  <span class="property-address"><i class="fas fa-map-marker-alt fa-xs"></i><%= product.address %></span>
+                  <span class="property-address"><i
+                      class="fas fa-map-marker-alt fa-xs"></i><%= product.address %></span>
                   <span class="property-agent-date"><i class="far fa-clock fa-md"></i><%= product.create_at %></span>
                   <div class="property-price"><%= product.price %><span> vnđ</span> </div>
                   <ul class="property-info list-unstyled">
-                    <li class="flex-fill property-bed"><i class="fa fa-eye" aria-hidden="true"></i><span><%= product.view %></span></li>
-                    <li class="flex-fill property-bath"><i class="fas fa-map-marker-alt fa-xs"></i><span><%= product.address %></span></li>
-                    <li class="flex-fill property-m-sqft"><i class="far fa-square"></i><span><%= product.square %></span></li>
+                    <li class="flex-fill property-bed"><i class="fa fa-eye"
+                        aria-hidden="true"></i><span><%= product.view %></span></li>
+                    <li class="flex-fill property-bath"><i
+                        class="fas fa-map-marker-alt fa-xs"></i><span><%= product.address %></span></li>
+                    <li class="flex-fill property-m-sqft"><i
+                        class="far fa-square"></i><span><%= product.square %></span></li>
                   </ul>
                 </div>
                 <div class="property-btn">
-                  <a class="property-link" href="/san-pham/<%= product.slug %>.<%= product.id %>" title="<%= product.name %>">Xem chi tiết</a>
+                  <a class="property-link" href="/san-pham/<%= product.slug %>.<%= product.id %>"
+                    title="<%= product.name %>">Xem chi tiết</a>
                 </div>
               </div>
             </div>
           </div>
           <%  }) %>
+          <%}else{ %>
+          <div class="col-md-12">
+            <span class="badge badge-primary">Chưa có sản phẩm bạn tìm kiếm !</span>
+          </div>
+          <%} %>
         </div>
         <div class="row mt-4" id="products_search"></div>
+        <input hidden value="<%= query %>" class="query" id="query_id"></input>
         <div class="row">
           <div class="col-12">
-            <ul class="pagination mt-3">
-              <li class="page-item disabled mr-auto">
-                <span class="page-link b-radius-none">Prev</span>
-              </li>
-              <li class="page-item active" aria-current="page"><span class="page-link">1 </span> <span
-                  class="sr-only">(current)</span></li>
-              <li class="page-item"><a class="page-link" href="#">2</a></li>
-              <li class="page-item"><a class="page-link" href="#">3</a></li>
-              <li class="page-item ml-auto">
-                <a class="page-link b-radius-none" href="#">Next</a>
-              </li>
-            </ul>
+            <button class="btn btn-primary buttonload" id="loaddata">
+              <div class="load-wrapp">
+                <div class="load-3">
+                  <div class="line"></div>
+                  <div class="line"></div>
+                  <div class="line"></div>
+                </div>
+              </div>
+            </button>
           </div>
         </div>
       </div>
@@ -223,3 +217,77 @@ breadcrumb -->
 </section>
 <!--=================================
   newsletter -->
+<script>
+
+  var product_table = $('#product_table');
+  var trItem = function (value, index) {
+    return `<div class="col-6 col-sm-6 col-md-4">
+    <div class="soph__it">
+        <div class="soph__img">
+            <a href="/xe-dap/${value.slug}.${value.id}" title="${value.name}">
+                <img src="/public/uploads/products/${JSON.parse(value.image)[0]}" alt="${value.name}">
+            </a>
+        </div>
+        <div class="soph__ct">
+            <span class="badge badge-info mb-3">SKU : PD20203</span>
+            <h3 class="soph__tt ut_bold"> <a href="/xe-dap/${value.slug}.${value.id}">${value.name}</a>
+            </h3>
+            <p class="line-clamp">${value.short_description}</p>
+            <div class="soph-box d-flex">
+                <div class="price ut_bold text-secondary">${value.price}<sup>đ</sup>
+                </div>
+                <span class="status text-right"><i class="icofont-cube"></i> còn
+                    (${value.quantity})
+                </span>
+            </div>
+        </div>
+    </div>
+</div>`;
+  }
+  $(function () {
+    const footer = document.querySelector('#loaddata');
+    var page = 2;
+    var query = $('#query_id').val();
+    var data = {};
+    data.query = query;
+    let callback = (entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          $.ajax({
+            url: '/san-pham/get-more/' + page,
+            type: 'POST',
+            cache: false,
+            data: JSON.stringify(data),
+            contentType: 'application/json',
+            processData: false,
+            success: function (result) {
+              page++;
+              console.log(result.products)
+              if (result.products.length > 0) {
+                setTimeout(function () {
+                  result.products.forEach((value, index) => {
+                    product_table.append(trItem(value, index));
+                    entry.target.src = entry.target.dataset.src;
+                    observer.unobserve(entry.target);
+                  });
+                }, 1500);
+              }
+              if (result.products.length == 0) {
+                $('.buttonload').css('display', 'none');
+              }
+            },
+            error: function (error) {
+              console.log(error);
+            }
+          });
+        }
+      });
+    };
+
+    let observer = new IntersectionObserver(callback);
+    observer.observe(footer);
+
+    document.querySelectorAll('img').forEach(img => { observer.observe(img) });
+
+  });
+</script>
