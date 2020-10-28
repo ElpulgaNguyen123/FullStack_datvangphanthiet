@@ -38,7 +38,7 @@ Breadcrumb -->
                     src="/public/datvangphanthiet/images/avatar/01.jpg" alt="">
                 </div>
                 <div class="agent-contact-name">
-                  <h6><%= userInfo.user_name %></h6>
+                  <h6><%= userInfo.name %></h6>
                   <span>Giám đốc</span>
                   <span class="d-block"><i class="fas fa-phone-volume pr-2 mt-2"></i><%= userInfo.phone %></span>
                 </div>
@@ -66,7 +66,6 @@ Breadcrumb -->
                 </div>
               </div>
               <% } %>
-
             </div>
           </div>
           <hr class="mt-4 mb-4 mb-sm-5 mt-sm-5">
@@ -77,7 +76,7 @@ Breadcrumb -->
               </div>
               <div class="col-sm-9">
                 <p>
-                  <%- userInfo.description %>
+                  <%- product.description %>
                 </p>
               </div>
             </div>
@@ -89,7 +88,7 @@ Breadcrumb -->
                 <h5>Chi tiết</h5>
               </div>
               <div class="col-sm-9">
-                <%- userInfo.description_details %>
+                <%- product.description_details %>
               </div>
             </div>
           </div>
@@ -103,8 +102,7 @@ Breadcrumb -->
                 <div class="row">
                   <div class="col-sm-6">
                     <ul class="property-list list-unstyled mb-0">
-                      <li><b>Địa chỉ:</b> 127 Phong nẫm </li>
-                      <li><b>Vị trí:</b> Phong Nẫm</li>
+                      <li><b>Địa chỉ:</b> <%= product.address %> </li>
                     </ul>
                   </div>
                 </div>
@@ -166,138 +164,39 @@ Breadcrumb -->
       <hr class="mb-5 mt-0">
       <h5 class="mb-4">BĐS tương tự</h5>
       <div class="row">
+        <% relateProducts.forEach((relateProduct) => { %>
         <div class="col-sm-6 col-md-4">
           <div class="property-item wow fadeInUp" data-wow-delay="0.5" data-wow-duration="2s">
             <div class="property-image bg-overlay-gradient-04">
-              <img class="img-fluid" src="/public/datvangphanthiet/images/property/grid/01.jpg" alt="">
-              <div class="property-lable">
-                <span class="badge badge-md badge-primary">Nhà phố</span>
-                <span class="badge badge-md badge-info">Giảm giá 2% </span>
+              <% if(relateProduct.image.length > 0){ %>
+                <img class="img-fluid" src="/public/uploads/products/<%=JSON.parse(relateProduct.image)[0] %>" alt="">
+                <% } else{ %>
+                <img class="img-fluid" src="https://via.placeholder.com/500x300" alt="">
+                <% } %>              <div class="property-lable">
+                <span class="badge badge-md badge-info"><%= relateProduct.sku %></span>
               </div>
               <span class="property-trending" title="trending"><i class="fas fa-bolt"></i></span>
-              <div class="property-agent">
-                <div class="property-agent-image">
-                  <img class="img-fluid" src="/public/datvangphanthiet/images/avatar/01.jpg" alt="">
-                </div>
-                <div class="property-agent-info">
-                  <a class="property-agent-name" href="#">Alice Williams</a>
-                  <span class="d-block">Company Agent</span>
-                  <ul class="property-agent-contact list-unstyled">
-                    <li><a href="#"><i class="fas fa-mobile-alt"></i> </a></li>
-                    <li><a href="#"><i class="fas fa-envelope"></i> </a></li>
-                  </ul>
-                </div>
-              </div>
-              <div class="property-agent-popup">
-                <a href="#"><i class="fas fa-camera"></i>06</a>
-              </div>
             </div>
             <div class="property-details wow fadeInDown" data-wow-delay="0.5" data-wow-duration="2s">
               <div class="property-details-inner">
-                <h5 class="property-title"><a href="property-detail-style-01.html">Nhà Phố khu đô thị Nam Phan Thiết</a>
+                <h5 class="property-title"><a href="/san-pham/<%= relateProduct.slug %>.<%= relateProduct.id %>" title="<%= product.name %>"><%= relateProduct.name %></a>
                 </h5>
-                <span class="property-address"><i class="fas fa-map-marker-alt fa-xs"></i>Nam Phan Thiết</span>
-                <span class="property-agent-date"><i class="far fa-clock fa-md"></i>10 ngày trước</span>
-                <div class="property-price">650 triệu<span> / căn</span> </div>
-                <ul class="property-info list-unstyled d-flex">
-                  <li class="flex-fill property-bed"><i class="fas fa-bed"></i>Phòng ngủ<span>1</span></li>
-                  <li class="flex-fill property-bath"><i class="fas fa-bath"></i>Phòng tắm<span>2</span></li>
-                  <li class="flex-fill property-m-sqft"><i class="far fa-square"></i>Diện tích<span>145m</span></li>
+                <span class="property-address"><i class="fas fa-map-marker-alt fa-xs"></i><%= relateProduct.address %></span>
+                <span class="property-agent-date"><i class="far fa-clock fa-md"></i><%= relateProduct.create_at %></span>
+                <div class="property-price"><%= relateProduct.price %><span>vnđ</span> </div>
+                <ul class="property-info list-unstyled">
+                  <li class="flex-fill property-bed"><i class="fas fa-bed"></i><span><%= relateProduct.view %></span></li>
+                  <li class="flex-fill property-bath"><i class="fas fa-bath"></i><span><%= relateProduct.address %></span></li>
+                  <li class="flex-fill property-m-sqft"><i class="far fa-square"></i><span><%= relateProduct.square %></span></li>
                 </ul>
               </div>
               <div class="property-btn">
-                <a class="property-link" href="property-detail-style-01.html">Xem chi tiết</a>
+                <a class="property-link" href="/san-pham/<%= relateProduct.slug %>.<%= relateProduct.id %>" title="<%= product.name %>">Xem chi tiết</a>
               </div>
             </div>
           </div>
         </div>
-        <div class="col-sm-6 col-md-4">
-          <div class="property-item wow fadeInUp" data-wow-delay="0.5" data-wow-duration="3s">
-            <div class="property-image bg-overlay-gradient-04">
-              <img class="img-fluid" src="/public/datvangphanthiet/images/property/grid/02.jpg" alt="">
-              <div class="property-lable">
-                <span class="badge badge-md badge-primary">Resort Mũi Né Soha</span>
-                <span class="badge badge-md badge-info">Mới</span>
-              </div>
-              <div class="property-agent">
-                <div class="property-agent-image">
-                  <img class="img-fluid" src="/public/datvangphanthiet/images/avatar/02.jpg" alt="">
-                </div>
-                <div class="property-agent-info">
-                  <a class="property-agent-name" href="#">John doe</a>
-                  <span class="d-block">Company Agent</span>
-                  <ul class="property-agent-contact list-unstyled">
-                    <li><a href="#"><i class="fas fa-mobile-alt"></i> </a></li>
-                    <li><a href="#"><i class="fas fa-envelope"></i> </a></li>
-                  </ul>
-                </div>
-              </div>
-              <div class="property-agent-popup">
-                <a href="#"><i class="fas fa-camera"></i> 12</a>
-              </div>
-            </div>
-            <div class="property-details">
-              <div class="property-details-inner">
-                <h5 class="property-title"><a href="property-detail-style-01.html">Resort Soha (Mũi Né)</a></h5>
-                <span class="property-address"><i class="fas fa-map-marker-alt fa-xs"></i>Vermont dr. hephzibah</span>
-                <span class="property-agent-date"><i class="far fa-clock fa-md"></i>2 tháng trước</span>
-                <div class="property-price">32 tỷ<span></span> </div>
-                <ul class="property-info list-unstyled d-flex">
-                  <li class="flex-fill property-bed"><i class="fas fa-bed"></i>Phòng<span>50</span></li>
-                  <li class="flex-fill property-bath"><i class="fas fa-bath"></i>Bath<span>3</span></li>
-                  <li class="flex-fill property-m-sqft"><i class="far fa-square"></i>diện tích<span>1000m</span></li>
-                </ul>
-              </div>
-              <div class="property-btn">
-                <a class="property-link" href="property-detail-style-01.html">Xem chi tiết</a>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col-sm-6 col-md-4">
-          <div class="property-item wow fadeInUp" data-wow-delay="0.5" data-wow-duration="4s">
-            <div class="property-image bg-overlay-gradient-04">
-              <img class="img-fluid" src="/public/datvangphanthiet/images/property/grid/03.jpg" alt="">
-              <div class="property-lable">
-                <span class="badge badge-md badge-primary">Nhà phố</span>
-                <span class="badge badge-md badge-info">Hot </span>
-              </div>
-              <span class="property-trending" title="trending"><i class="fas fa-bolt"></i></span>
-              <div class="property-agent">
-                <div class="property-agent-image">
-                  <img class="img-fluid" src="/public/datvangphanthiet/images/avatar/03.jpg" alt="">
-                </div>
-                <div class="property-agent-info">
-                  <a class="property-agent-name" href="#">Felica queen</a>
-                  <span class="d-block">Investment</span>
-                  <ul class="property-agent-contact list-unstyled">
-                    <li><a href="#"><i class="fas fa-mobile-alt"></i> </a></li>
-                    <li><a href="#"><i class="fas fa-envelope"></i> </a></li>
-                  </ul>
-                </div>
-              </div>
-              <div class="property-agent-popup">
-                <a href="#"><i class="fas fa-camera"></i> 03</a>
-              </div>
-            </div>
-            <div class="property-details">
-              <div class="property-details-inner">
-                <h5 class="property-title"><a href="property-detail-style-01.html">Khu đô thị bắc Phan Thiết</a></h5>
-                <span class="property-address"><i class="fas fa-map-marker-alt fa-xs"></i>Newport st. mebane, nc</span>
-                <span class="property-agent-date"><i class="far fa-clock fa-md"></i>6 tháng trước</span>
-                <div class="property-price">858tr<span> / căn</span> </div>
-                <ul class="property-info list-unstyled d-flex">
-                  <li class="flex-fill property-bed"><i class="fas fa-bed"></i>Phòng Ngủ<span>2</span></li>
-                  <li class="flex-fill property-bath"><i class="fas fa-bath"></i>Phòng tắm<span>3</span></li>
-                  <li class="flex-fill property-m-sqft"><i class="far fa-square"></i>Diện tích<span>100m2</span></li>
-                </ul>
-              </div>
-              <div class="property-btn">
-                <a class="property-link" href="property-detail-style-01.html">Xem chi tiết</a>
-              </div>
-            </div>
-          </div>
-        </div>
+        <% }) %>
       </div>
     </div>
   </section>

@@ -29,7 +29,7 @@ adminRouter.post('/change-password/:token', controller.checkloggedOut, validateC
 
 // userupdate data ===========
 adminRouter.get('/user/:id', controller.checkloggedIn, controller.getUser);
-adminRouter.post('/ update-user/:id', controller.checkloggedIn, controller.updateUserData);
+adminRouter.post('/update-user/:id', controller.checkloggedIn, controller.updateUserData);
 adminRouter.post('/update-avatar/:id', controller.checkloggedIn, controller.updateUserAvatar);
 // userupdate data ===========
 

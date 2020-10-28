@@ -5,9 +5,6 @@ const service = require('../../../services');
 let FrhomeController = async (req, res, next) => {
     try {
         // Lấy tất cả sản phẩm và hiển thị ra table
-        let streets = [];
-        let racestype = []; 
-        let childstype = [];
         let products = [];
         var slideQuery = 'SELECT * FROM slide';
         var brandQuery = 'SELECT * FROM brand';
@@ -17,77 +14,44 @@ let FrhomeController = async (req, res, next) => {
         let queryBlogCatgories = 'SELECT * FROM blog_categories';
         var queryBlog = 'Select * from blog';
         let queryStaff = 'SELECT * FROM staffs';
-        var queyProduct =`
-        SELECT * FROM product ORDER BY ID DESC LIMIT 6`;
+        var queyProduct =`SELECT * FROM product ORDER BY ID DESC LIMIT 6`;
         let userInfo = {};
         var queryUser = 'SELECT * FROM user';
         var user = await service.getAllUser(queryUser);
+
         if(user[0]){
             userInfo = user[0];
         }
         const categories = await service.getAllCategoryProduct(queryCategory);
-        var productStreetQuery = '';
-        var productRaceQuery = '';
-        var productChildQuery = '';
 
-        if(categories[0].id){
-            productStreetQuery = `
-            SELECT product.id as product_id, product.name, product.short_description, 
-            product.image, 
-            product.sku,
-            product.slug, 
-            product.quantity,
-            product.price,
-            categories.category_name,
-            categories.category_name,
-            categories.category_slug,
-            categories.id  
-            FROM product 
-            INNER JOIN categories ON product.category_id = categories.id 
-            WHERE categories.id = ${categories[0].id}`;
-            streets = await service.getAllCategoryProduct(productStreetQuery);
-        }
-        if(categories[1].id){
-            productRaceQuery = `SELECT product.id as product_id, product.name, product.short_description, 
-            product.image, 
-            product.sku,
-            product.slug, 
-            product.quantity,
-            product.price,
-            categories.category_name,
-            categories.category_slug,
-            categories.id 
-            FROM product 
-            INNER JOIN categories ON product.category_id = categories.id 
-            WHERE categories.id = ${categories[1].id}`;
-            racestype = await service.getAllCategoryProduct(productRaceQuery);
-        }
-        if(categories[2].id){
-            productChildQuery = `SELECT product.id as product_id, product.name, product.short_description, 
-            product.image, 
-            product.sku,
-            product.slug, 
-            product.quantity,
-            product.price,
-            categories.category_name,
-            categories.category_slug,
-            categories.id  
-            FROM product 
-            INNER JOIN categories ON product.category_id = categories.id 
-            WHERE categories.id = ${categories[2].id}`;
-            childstype = await service.getAllCategoryProduct(productChildQuery);
-        }
-        
         const slide = await service.getAllSlide(slideQuery);
         const brand = await service.getAllBrand(brandQuery);
         const company_features = await service.getAllEndow(queryCompanyFeatures);
         const blogs = await service.getAllBlog(queryBlog);
         const staffs = await service.getAllStaffService(queryStaff);
+
+
         let blog_categories = await service.getAllBlogCategories(queryBlogCatgories);
         let policies = await service.getAllPolicies(queryPolicies);
         if(policies.length > 6){
             policies = policies.slice(0,6);
         }
+
+        let queryProject = 'SELECT * FROM project';
+        let projects = await service.getAllProject(queryProject);
+
+        // locations
+        let queryLocation ='SELECT * FROM locations';
+        let locations = await service.getAllLocations(queryLocation);
+
+        //query new blog 
+        let queryNewBlog =`SELECT * 
+        FROM blog 
+        INNER JOIN blog_categories 
+        ON blog.blog_category_id = blog_categories.id
+        ORDER BY blog.id DESC LIMIT 3`;
+        let newBlogs = await service.getAllBlog(queryNewBlog);
+
         products = await service.queryActionNoParams(queyProduct);
         pool.query('SELECT * FROM user', function (error, results, fields) {
             if (error) throw error;
@@ -95,18 +59,15 @@ let FrhomeController = async (req, res, next) => {
                 title: 'Trang chủ',
                 slides: slide,
                 products : products,
+                newBlogs:newBlogs,
+                locations:locations,
+                projects : projects,
                 policies : policies,
                 categories : categories,
                 blog_categories : blog_categories,
                 company_features : company_features,
                 brands: brand.slice(0, 8),
                 staffs : staffs.slice(0,4),
-                streets: streets.slice(0, 6),
-                streetsTitle: streets[0],
-                raceTitle: racestype[0],
-                childTitle: childstype[0],
-                races: racestype.slice(0, 6),
-                childs: childstype.slice(0, 6),
                 blogs: blogs,
                 userInfo : userInfo,
                 errors: req.flash('Errors'),

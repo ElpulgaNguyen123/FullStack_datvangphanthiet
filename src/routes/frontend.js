@@ -24,7 +24,7 @@ frontendRouter.get('/san-pham/giam-dan',controller.getAllBikeDesc);
 frontendRouter.post('/san-pham/get-more/:page',controller.getPageLoad);
 // product / end
 
-frontendRouter.get('/du-an',controller.FrProjectController);
+frontendRouter.get('/du-an/*.:id',controller.FrProjectDetailController);
 
 
 // chinh sach và phap ly / start

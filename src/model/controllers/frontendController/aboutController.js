@@ -33,10 +33,16 @@ let FrAboutController = async (req, res, next) => {
         if(user[0]){
             userInfo = user[0];
         }
+
+
+        let queryProject = 'SELECT * FROM project';
+        let projects = await service.getAllProject(queryProject);
+
         // Lấy tất cả sản phẩm và hiển thị ra table
         res.render('datvangphanthiet/about/about', {
             title: 'Giới thiệu',
             userInfo : userInfo,
+            projects:projects,
             staffs : staffs,
             policies : policies,
             categories : categories,

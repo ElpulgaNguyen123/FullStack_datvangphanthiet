@@ -9,10 +9,31 @@ let notFoundController = async (req, res, next) => {
         if (user[0]) {
             userInfo = user[0];
         }
+
+        
+        let queryPolicies = 'SELECT * FROM policies';
+        let policies = await service.getAllPolicies(queryPolicies);
+        if(policies.length > 6){
+            policies = policies.slice(0,6);
+        }
+        let queryBlogCatgories = 'SELECT * FROM blog_categories';
+        let blog_categories = await service.getAllBlogCategories(queryBlogCatgories);
+
+        var queryCategory = 'SELECT * FROM categories';        
+        const categories = await service.getAllCategoryProduct(queryCategory);
+
+        
+        let queryProject = 'SELECT * FROM project';
+        let projects = await service.getAllProject(queryProject);
+
         await pool.query('SELECT * FROM endow', function (error, rows, fields) {
             if (error) throw error;
             res.render('datvangphanthiet/notfound/notfound', {
                 title: 'Trang Không tìm thấy',
+                projects:projects,
+                policies : policies,
+                categories:categories,
+                blog_categories : blog_categories,
                 userInfo : userInfo,
                 errors: req.flash('Errors'),
                 success: req.flash('Success'),

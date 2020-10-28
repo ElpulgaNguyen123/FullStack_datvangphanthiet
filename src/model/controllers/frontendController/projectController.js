@@ -23,7 +23,6 @@ let FrProjectController = async (req, res, next) => {
         var queryCategory = 'SELECT * FROM categories';        
         const categories = await service.getAllCategoryProduct(queryCategory);
         
-
         // Lấy tất cả sản phẩm và hiển thị ra table
         pool.query('SELECT * FROM user', function (error, results, fields) {
             if (error) throw error;
@@ -43,4 +42,64 @@ let FrProjectController = async (req, res, next) => {
         return res.status(500).send(error);
     }
 }
-module.exports = FrProjectController;
+
+let FrProjectDetailController = async (req, res, next) => {
+
+    try {
+        let userInfo = {};
+        var queryUser = 'SELECT * FROM user';
+        var user = await service.getAllUser(queryUser);
+        if(user[0]){
+            userInfo = user[0];
+        }
+        const getAllProjectFrs = 'SELECT * from project WHERE id = ?';
+        let project = await service.getAllProductFr(getAllProjectFrs, req.params.id);
+
+        var images = '';
+        var imagesArr = [];
+        if (project[0]) {
+            images = JSON.parse(project[0].project_image);
+            imagesArr = Object.keys(images);
+        }
+
+        let queryPolicies = 'SELECT * FROM policies';
+        let policies = await service.getAllPolicies(queryPolicies);
+        let queryBlogCatgories = 'SELECT * FROM blog_categories';
+        let blog_categories = await service.getAllBlogCategories(queryBlogCatgories);
+
+        if (policies.length > 6) {
+            policies = policiess.slice(0, 6);
+        }
+
+        var queryCategory = 'SELECT * FROM categories';        
+        const categories = await service.getAllCategoryProduct(queryCategory);
+
+        let queryProject = 'SELECT * FROM project';
+        let projects = await service.getAllProject(queryProject);
+
+        //Lấy tất cả sản phẩm và hiển thị ra table
+        res.render('datvangphanthiet/projects/project-details', {
+            title: project[0].project_name,
+            project: project[0],
+            userInfo : userInfo,
+            projects:projects,
+            policies : policies,
+            blog_categories : blog_categories,
+            categories : categories,
+            images: images,
+            imagearr: imagesArr,
+            errors: req.flash('Errors'),
+            success: req.flash('Success'),
+        });
+
+    } catch (error) {
+        return res.status(500).send(error);
+    }
+}
+
+
+
+module.exports = {
+    FrProjectController,
+    FrProjectDetailController
+};

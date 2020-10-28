@@ -530,6 +530,9 @@ ul.result_rows {
     background-color: #fff;
     border-color: #dee2e6 #dee2e6 #fff;
 }
+.logo-box img {
+    max-width: 160px;
+}
 button.buttonload {
     width: 100%;
     border: 0px;

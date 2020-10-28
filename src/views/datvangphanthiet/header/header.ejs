@@ -56,13 +56,15 @@ header -->
                 </div>
                 <div class="row">
                   <% categories.forEach(function(category){ %>
-                    <div class="col-sm-4">
-                      <h6 class="mb-3 nav-title"> <a class="d-block text-md-center pd-badge badge badge-danger color-red"
-                          href="/danh-muc/<%= category.category_slug %>.<%= category.id %>" title="<%= category.category_name %>"><%= category.category_name %></a></h6>
-                    </div>
-                    <% }); %>
+                  <div class="col-sm-4">
+                    <h6 class="mb-3 nav-title"> <a class="d-block text-md-center pd-badge badge badge-danger color-red"
+                        href="/danh-muc/<%= category.category_slug %>.<%= category.id %>"
+                        title="<%= category.category_name %>"><%= category.category_name %></a></h6>
+                  </div>
+                  <% }); %>
                   <div class="col-12 mt-4 d-none d-lg-block">
-                    <div class="p-4 bg-holder bg-overlay-black-70" style="background-image: url(/public/datvangphanthiet/images/banner-01.jpg);">
+                    <div class="p-4 bg-holder bg-overlay-black-70"
+                      style="background-image: url(/public/datvangphanthiet/images/banner-01.jpg);">
                       <div class="position-relative">
                         <div class="position-relative d-flex align-items-center">
                           <div class="pr-1">
@@ -86,8 +88,9 @@ header -->
               Dự án <i class="fas fa-chevron-down fa-xs"></i>
             </a>
             <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="/du-an">Khu đô thị mới nam Phan Thiết</a></li>
-              <li><a class="dropdown-item" href="/du-an">NovaWorld</a></li>
+              <% projects.forEach(function(project){ %>
+              <li><a class="dropdown-item" href="/du-an/<%= project.project_slug %>.<%= project.id %>" title="<%= project.project_name %>"><%= project.project_name %></a></li>
+              <% }); %>
             </ul>
           </li>
           <li class="nav-item dropdown">
@@ -111,7 +114,9 @@ header -->
             <ul class="dropdown-menu">
               <li><a class="dropdown-item" href="/blogs" title="Tất cả">Tất cả</a></li>
               <% blog_categories.forEach(function(blog_category){ %>
-                <li><a class="dropdown-item" href="/blog/blog-category/<%= blog_category.blog_category_slug %>.<%= blog_category.id %>" title="<%= blog_category.blog_category_name %>"><%= blog_category.blog_category_name %></a></li>
+              <li><a class="dropdown-item"
+                  href="/blog/blog-category/<%= blog_category.blog_category_slug %>.<%= blog_category.id %>"
+                  title="<%= blog_category.blog_category_name %>"><%= blog_category.blog_category_name %></a></li>
               <% }); %>
             </ul>
           </li>

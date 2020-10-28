@@ -21,22 +21,26 @@ let FrBlogController = async (req, res, next) => {
             policies = policiess.slice(0, 6);
         }
 
-        var queryCategory = 'SELECT * FROM categories';        
+        var queryCategory = 'SELECT * FROM categories';
         const categories = await service.getAllCategoryProduct(queryCategory);
 
         const queryBlog = 'Select * from blog inner join blog_categories ON blog.blog_category_id = blog_categories.id';
         const blogs = await service.getAllBlog(queryBlog);
 
+        let queryProject = 'SELECT * FROM project';
+        let projects = await service.getAllProject(queryProject);
+
 
         // Lấy tất cả sản phẩm và hiển thị ra table
         res.render('datvangphanthiet/blogs/blogs', {
             title: 'Blog',
+            projects: projects,
             policies: policies,
-            blog_categories : blog_categories,
-            categories : categories,
+            blog_categories: blog_categories,
+            categories: categories,
             userInfo: userInfo,
             blogs: blogs,
-            newblogs : blogs.slice(0,3),
+            newblogs: blogs.slice(0, 3),
             errors: req.flash('Errors'),
             success: req.flash('Success'),
         })
@@ -60,8 +64,11 @@ let FrBlogCategoryController = async (req, res, next) => {
             policies = policies.slice(0, 6);
         }
 
-        var queryCategory = 'SELECT * FROM categories';        
+        var queryCategory = 'SELECT * FROM categories';
         const categories = await service.getAllCategoryProduct(queryCategory);
+
+        let queryProject = 'SELECT * FROM project';
+        let projects = await service.getAllProject(queryProject);
 
 
         let queryBlogCatgories = 'SELECT * FROM blog_categories';
@@ -75,11 +82,12 @@ let FrBlogCategoryController = async (req, res, next) => {
         res.render('datvangphanthiet/blogs/blogs', {
             title: 'Blog',
             policies: policies,
-            blog_categories : blog_categories,
-            categories : categories,
+            projects: projects,
+            blog_categories: blog_categories,
+            categories: categories,
             userInfo: userInfo,
             blogs: blogs,
-            newblogs : blogs.slice(0,3),
+            newblogs: blogs.slice(0, 3),
             errors: req.flash('Errors'),
             success: req.flash('Success'),
         })
@@ -106,6 +114,15 @@ let FrBlogDetailController = async (req, res, next) => {
         const blogFeature = await service.getAllBlog(queryFeature);
         const blog = await service.getBlog(queryBlogDetail, req.params.id);
 
+        var queryRelateBlog = '';
+
+        if (blog[0].blog_category_id == '') {
+            queryRelateBlog = `SELECT * FROM blog WHERE blog_category_id = 1 ORDER BY id DESC LIMIT 8`
+        }else{
+            queryRelateBlog = `SELECT * FROM blog WHERE blog_category_id = ${blog[0].blog_category_id} ORDER BY id DESC LIMIT 8`
+        }
+
+
         let queryPolicies = 'SELECT * FROM policies';
         let policies = await service.getAllPolicies(queryPolicies);
         if (policies.length > 6) {
@@ -115,26 +132,32 @@ let FrBlogDetailController = async (req, res, next) => {
         let queryBlogCatgories = 'SELECT * FROM blog_categories';
         let blog_categories = await service.getAllBlogCategories(queryBlogCatgories);
 
-        var queryCategory = 'SELECT * FROM categories';        
+        var queryCategory = 'SELECT * FROM categories';
         const categories = await service.getAllCategoryProduct(queryCategory);
         const blogs = await service.getAllBlog(queryBlog);
-        
+        const relateBlogs = await service.getAllBlog(queryRelateBlog);
+
+        let queryProject = 'SELECT * FROM project';
+        let projects = await service.getAllProject(queryProject);
 
         if (blog[0]) {
             //Lấy tất cả sản phẩm và hiển thị ra table
             res.render('datvangphanthiet/blogs/blog-detail', {
                 title: 'Blog',
                 blog: blog[0],
-                policies : policies,
-                categories : categories,
-                blog_categories : blog_categories,
-                categories : categories,
-                newblogs : blogs.slice(0,3),
+                projects: projects,
+                policies: policies,
+                categories: categories,
+                blog_categories: blog_categories,
+                categories: categories,
+                newblogs: blogs.slice(0, 3),
                 blogFeature: blogFeature,
+                relateBlogs:relateBlogs,
                 userInfo: userInfo,
                 errors: req.flash('Errors'),
                 success: req.flash('Success'),
             });
+
         } else {
             res.send('Lỗi không tìm thấy');
         }

@@ -43,8 +43,11 @@ var { getAllPolicies } = require('./policiesService');
 var { getStaffService,
     getAllStaffService } = require('./staffService');
 
-    var { getAllLocations,
-        queryActionLocationsParams } = require('./locationService');
+var { getAllLocations,
+    queryActionLocationsParams } = require('./locationService');
+
+
+var { getAllProject } = require('./projectService');
 
 
 module.exports = {
@@ -109,6 +112,9 @@ module.exports = {
 
     //location
     getAllLocations,
-    queryActionLocationsParams
+    queryActionLocationsParams,
+
+    //project
+    getAllProject
 
 }

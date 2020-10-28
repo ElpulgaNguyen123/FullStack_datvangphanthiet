@@ -36,11 +36,17 @@ let FrProductController = async (req, res, next) => {
         let newproducts = await service.getAllProductFr(querynewestPro);
 
 
+        let queryProject = 'SELECT * FROM project';
+        let projects = await service.getAllProject(queryProject);
+
+
+
         // Lấy tất cả sản phẩm và hiển thị ra table
         res.render('datvangphanthiet/products/products', {
             title: 'Sản phẩm',
             userInfo : userInfo,
             products: products.slice(0,9),
+            projects:projects,
             locations: locations,
             query : query,
             policies : policies,
@@ -87,6 +93,10 @@ let getAllProductCategory = async (req, res, next) => {
         let querynewestPro ='SELECT * FROM product ORDER BY ID DESC LIMIT 4';
         let newproducts = await service.getAllProductFr(querynewestPro);
 
+
+        let queryProject = 'SELECT * FROM project';
+        let projects = await service.getAllProject(queryProject);
+
         pool.query(queryProduct, req.params.iddanhmuc, async function (error, results, fields) {
             if (error) throw error;
             var title = '';
@@ -100,6 +110,7 @@ let getAllProductCategory = async (req, res, next) => {
                 userInfo : userInfo,
                 query : query,
                 products: results,
+                projects:projects,
                 policies : policies,
                 categories : categories,
                 blog_categories : blog_categories,
@@ -146,6 +157,10 @@ let getAllProductLocation = async (req, res, next) => {
         let querynewestPro ='SELECT * FROM product ORDER BY ID DESC LIMIT 4';
         let newproducts = await service.getAllProductFr(querynewestPro);
 
+
+        let queryProject = 'SELECT * FROM project';
+        let projects = await service.getAllProject(queryProject);
+
         pool.query(queryproduct, req.params.idlocation, async function (error, results, fields) {
             if (error) throw error;
             var title = '';
@@ -159,6 +174,7 @@ let getAllProductLocation = async (req, res, next) => {
                 userInfo : userInfo,
                 query:query,
                 products: results,
+                projects:projects,
                 policies: policies,
                 blog_categories : blog_categories,
                 categories: categories,
@@ -186,7 +202,7 @@ let FrProductDetailController = async (req, res, next) => {
         }
         const getAllProductFrs = 'SELECT * from product WHERE id = ?';
         const queryFeature = `SELECT * FROM blog ORDER BY id DESC LIMIT 10`;
-        const queryproductRelate = `SELECT * FROM product WHERE category_id = ? ORDER BY id DESC LIMIT 8        `
+        const queryproductRelate = `SELECT * FROM product WHERE category_id = ? ORDER BY id DESC LIMIT 8`
         const blogFeature = await service.getAllBlog(queryFeature);
         let product = await service.getAllProductFr(getAllProductFrs, req.params.id);
         let relateProducts = [];
@@ -202,10 +218,8 @@ let FrProductDetailController = async (req, res, next) => {
             imagesArr = Object.keys(images);
         }
 
-
         let queryPolicies = 'SELECT * FROM policies';
         let policies = await service.getAllPolicies(queryPolicies);
-
         let queryBlogCatgories = 'SELECT * FROM blog_categories';
         let blog_categories = await service.getAllBlogCategories(queryBlogCatgories);
 
@@ -216,11 +230,15 @@ let FrProductDetailController = async (req, res, next) => {
         var queryCategory = 'SELECT * FROM categories';        
         const categories = await service.getAllCategoryProduct(queryCategory);
 
+        let queryProject = 'SELECT * FROM project';
+        let projects = await service.getAllProject(queryProject);
+
         //Lấy tất cả sản phẩm và hiển thị ra table
         res.render('datvangphanthiet/products/product-detail', {
             title: '',
             product: product[0],
             userInfo : userInfo,
+            projects:projects,
             policies : policies,
             blog_categories : blog_categories,
             categories : categories,

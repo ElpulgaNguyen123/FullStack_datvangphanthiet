@@ -17,7 +17,6 @@ breadcrumb -->
 </div>
 <!--=================================
 breadcrumb -->
-
 <!--=================================
 blog-detail -->
 <section class="space-ptb">
@@ -46,110 +45,43 @@ blog-detail -->
             <div class="blog-post-content border-0">
               <%- blog.content %>
               <div class="mt-4">
-                <h5 class="mb-4">Related Post</h5>
+                <h5 class="mb-4">Bài viết liên quan</h5>
                 <div class="row">
                   <div class="col-12">
                     <div class="owl-carousel " data-nav-dots="true" data-items="2" data-md-items="2" data-sm-items="1"
                       data-xs-items="1" data-xx-items="1" data-space="15">
+                      <% relateBlogs.forEach((relateBlog) => { %>
                       <div class="item">
                         <div class="blog-post">
                           <div class="blog-post-image">
-                            <img class="img-fluid" src="images/blog/01.jpg" alt="">
+                            <img class="img-fluid" src="/public/uploads/blogs/<%= relateBlog.image %>" alt="">
                           </div>
                           <div class="blog-post-content">
                             <div class="blog-post-details">
-                              <div class="blog-post-category">
-                                <a class="mb-3" href="#"><strong>Home improvement</strong></a>
-                              </div>
                               <div class="blog-post-title">
-                                <h5><a href="blog-detail.html">7 pieces of advice to newbies</a></h5>
+                                <h5><a href="/blog/<%= relateBlog.slug %>.<%= relateBlog.id %>" title="<%= relateBlog.title %>"><%= relateBlog.title %>
+                                </a></h5>
                               </div>
                               <div class="blog-post-description">
-                                <p class="mb-0">So, how can we stay on course with all the distractions in our lives?
-                                  Willpower.</p>
+                                <p class="mb-0"><%= relateBlog.short_description %></p>
+                              </div>
+                              <div class="blog-post-link text-center mt-4">
+                                <a class="btn btn-link p-0" href="/blog/<%= relateBlog.slug %>.<%= relateBlog.id %>" title="<%= relateBlog.title %>">
+                                  Đọc thêm</a>
                               </div>
                             </div>
                             <div class="blog-post-footer">
                               <div class="blog-post-time">
-                                <span href="#"> <i class="far fa-clock"></i>02 Jan 2019</span>
+                                <span> <i class="far fa-clock"></i><%= relateBlog.create_at %></span>
                               </div>
                               <div class="blog-post-author">
-                                <span> By <a href="#"> <img class="img-fluid" src="images/avatar/01.jpg" alt="">Sara
-                                    lisbon </a> </span>
-                              </div>
-                              <div class="blog-post-comment">
-                                <a href="#"> <i class="far fa-comment"></i>(12) </a>
+                                <span> <%= relateBlog.author %> </span>
                               </div>
                             </div>
                           </div>
                         </div>
                       </div>
-                      <div class="item">
-                        <div class="blog-post">
-                          <div class="blog-post-image">
-                            <img class="img-fluid" src="images/blog/02.jpg" alt="">
-                          </div>
-                          <div class="blog-post-content">
-                            <div class="blog-post-details">
-                              <div class="blog-post-category">
-                                <a class="mb-3" href="#"><strong>Tips and advice</strong></a>
-                              </div>
-                              <div class="blog-post-title">
-                                <h5><a href="blog-detail.html">Where to Invest in Real Estate</a></h5>
-                              </div>
-                              <div class="blog-post-description">
-                                <p class="mb-0">Is a good start, but it’s very difficult to stay on track simply through
-                                  willpower.</p>
-                              </div>
-                            </div>
-                            <div class="blog-post-footer">
-                              <div class="blog-post-time">
-                                <a href="#"> <i class="far fa-clock"></i>14 Feb 2019</a>
-                              </div>
-                              <div class="blog-post-author">
-                                <span> By <a href="#"> <img class="img-fluid" src="images/avatar/02.jpg" alt="">Anne
-                                    Smith</a> </span>
-                              </div>
-                              <div class="blog-post-comment">
-                                <a href="#"> <i class="far fa-comment"></i>(32) </a>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="item">
-                        <div class="blog-post">
-                          <div class="blog-post-image">
-                            <img class="img-fluid" src="images/blog/03.jpg" alt="">
-                          </div>
-                          <div class="blog-post-content">
-                            <div class="blog-post-details">
-                              <div class="blog-post-category">
-                                <a class="mb-3" href="#"><strong>Market trends</strong></a>
-                              </div>
-                              <div class="blog-post-title">
-                                <h5><a href="blog-detail.html">Cutting your losses in Real Estate</a></h5>
-                              </div>
-                              <div class="blog-post-description">
-                                <p class="mb-0">The best way is to develop and follow a plan. Start with your goals in
-                                  mind.</p>
-                              </div>
-                            </div>
-                            <div class="blog-post-footer">
-                              <div class="blog-post-time">
-                                <a href="#"> <i class="far fa-clock"></i>30 March 2019</a>
-                              </div>
-                              <div class="blog-post-author">
-                                <span> By <a href="#"> <img class="img-fluid" src="images/avatar/03.jpg" alt="">Alice
-                                    Williams</a> </span>
-                              </div>
-                              <div class="blog-post-comment">
-                                <a href="#"> <i class="far fa-comment"></i>(45) </a>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
+                      <% }); %>
                     </div>
                   </div>
                 </div>

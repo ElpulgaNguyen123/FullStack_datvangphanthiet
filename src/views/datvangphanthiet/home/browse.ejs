@@ -5,8 +5,8 @@ Browse properties -->
     <div class="row justify-content-center">
       <div class="col-lg-8">
         <div class="section-title text-center">
-          <h2>Browse by category</h2>
-          <p>To browse and buy in your areas of interest, look for properties by category.</p>
+          <h2>Tìm kiếm theo địa điểm</h2>
+          <p>Tìm kiếm bất động sản mà bạn muốn !</p>
         </div>
       </div>
     </div>
@@ -14,87 +14,17 @@ Browse properties -->
       <div class="col-12">
         <div class="category">
           <ul class="list-unstyled mb-0">
+            <% locations.forEach((location) => { %>
             <li class="category-item">
-              <a href="property-list.html">
+              <a href="/san-pham/dia-diem/<%= location.location_slug %>.<%= location.id %>"
+                title="<%= location.loction_name %>">
                 <div class="category-icon">
-                  <i class="flaticon-building-2"></i>
+                  <%- location.location_icon %>
                 </div>
-                <h6 class="mb-0">Residential</h6>
-                <span>(457)</span>
+                <h6 class="mb-0"><%= location.location_name %></h6>
               </a>
             </li>
-            <li class="category-item">
-              <a href="property-list.html">
-                <div class="category-icon">
-                  <i class="flaticon-skyline"></i>
-                </div>
-                <h6 class="mb-0">Commercial</h6>
-                <span>(659)</span>
-              </a>
-            </li>
-            <li class="category-item">
-              <a href="property-list.html">
-                <div class="category-icon">
-                  <i class="flaticon-apartment"></i>
-                </div>
-                <h6 class="mb-0">Industrial</h6>
-                <span>(298)</span>
-              </a>
-            </li>
-            <li class="category-item">
-              <a href="property-list.html">
-                <div class="category-icon">
-                  <i class="flaticon-apartment-1"></i>
-                </div>
-                <h6 class="mb-0">Apartment</h6>
-                <span>(235)</span>
-              </a>
-            </li>
-            <li class="category-item">
-              <a href="property-list.html">
-                <div class="category-icon">
-                  <i class="flaticon-real-estate"></i>
-                </div>
-                <h6 class="mb-0">Land</h6>
-                <span>(478)</span>
-              </a>
-            </li>
-            <li class="category-item">
-              <a href="property-list.html">
-                <div class="category-icon">
-                  <i class="flaticon-building-1"></i>
-                </div>
-                <h6 class="mb-0">Building code</h6>
-                <span>(698)</span>
-              </a>
-            </li>
-            <li class="category-item">
-              <a href="property-list.html">
-                <div class="category-icon">
-                  <i class="flaticon-building"></i>
-                </div>
-                <h6 class="mb-0">Communal land</h6>
-                <span>(152)</span>
-              </a>
-            </li>
-            <li class="category-item">
-              <a href="property-list.html">
-                <div class="category-icon">
-                  <i class="flaticon-pin"></i>
-                </div>
-                <h6 class="mb-0">Floor area</h6>
-                <span>(256)</span>
-              </a>
-            </li>
-            <li class="category-item">
-              <a href="property-list.html">
-                <div class="category-icon">
-                  <i class="flaticon-building-3"></i>
-                </div>
-                <h6 class="mb-0">Insurability</h6>
-                <span>(145)</span>
-              </a>
-            </li>
+            <% }); %>
           </ul>
         </div>
       </div>

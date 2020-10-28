@@ -307,6 +307,12 @@ let addProductPost = (req, res, next) => {
             productItem[15] = req.body.product_address;
             productItem[16] = req.body.product_square;
             productItem[17] = req.body.product_view;
+            let current_datetime = new Date()
+            let formatted_date = current_datetime.
+            getDate() + "-" + (current_datetime.
+                getMonth() + 1) + "-" + current_datetime.
+                getFullYear();
+            productItem[18] = formatted_date;
 
             var queryNewProduct = `
             INSERT INTO 
@@ -328,8 +334,9 @@ let addProductPost = (req, res, next) => {
                 location_id,
                 address,
                 square,
-                view)
-            VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)`;
+                view,
+                create_at)
+            VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)`;
 
             // tạo mới sản phẩm
             await service.newProduct(queryNewProduct, productItem);
@@ -459,7 +466,8 @@ let editProductPost = (req, res, next) => {
             location_id = ?,
             address = ?,
             square = ?,
-            view = ?
+            view = ?,
+            create_at = ?
             WHERE id = ?`;
 
             productItem[0] = req.body.product_sku
@@ -509,7 +517,13 @@ let editProductPost = (req, res, next) => {
             productItem[15] = req.body.product_address;
             productItem[16] = req.body.product_square;
             productItem[17] = req.body.product_view;
-            productItem[18] = req.params.id;
+            let current_datetime = new Date()
+            let formatted_date = current_datetime.
+            getDate() + "-" + (current_datetime.
+                getMonth() + 1) + "-" + current_datetime.
+                getFullYear();
+            productItem[18] = formatted_date;
+            productItem[19] = req.params.id;
 
             await pool.query(queryUpdate, productItem, function (error, results, fields) {
                 if (error) throw error;

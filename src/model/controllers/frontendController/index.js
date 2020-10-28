@@ -2,7 +2,8 @@
 // Frontend controller start
 const FrhomeController = require('./homeController');
 const FrAboutController = require('./aboutController');
-const FrProjectController = require('./projectController');
+const {FrProjectController,
+    FrProjectDetailController} = require('./projectController');
 const {FrgetAllPolicy,
     FrgetPolicyDetails} = require('./policiesController');
 const { FrContactController,
@@ -23,6 +24,8 @@ const { FrProductController,
 const {notFoundController } = require('./notFoundController');
 
 
+
+
 module.exports = {
     FrhomeController,
     FrAboutController,
@@ -41,7 +44,10 @@ module.exports = {
     searchData,
     getAllBikeDesc,
     getPageLoad,
+
+
     FrProjectController,
+    FrProjectDetailController,
 
 
     // policy

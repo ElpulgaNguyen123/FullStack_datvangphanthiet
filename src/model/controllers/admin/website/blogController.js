@@ -72,7 +72,6 @@ let addBlogGet = async (req, res, next) => {
 let addBlogPost = (req, res, next) => {
     productUploadFile(req, res, (error) => {
         try {
-
             var arrayError = [],
                 successArr = [];
             var generatecode = uuid();
@@ -89,7 +88,10 @@ let addBlogPost = (req, res, next) => {
                 filename = `${req.file.filename}-${generatecode}.webp`;
             }
             let current_datetime = new Date()
-            let formatted_date = current_datetime.getFullYear() + "-" + (current_datetime.getMonth() + 1) + "-" + current_datetime.getDate();
+            let formatted_date = current_datetime.
+            getDate() + "-" + (current_datetime.
+                getMonth() + 1) + "-" + current_datetime.
+                getFullYear();
             var queryNew = `INSERT INTO blog (title,slug,
                 blog_category_id, 
                 content, 

@@ -21,10 +21,15 @@ let FrgetAllPolicy = async (req, res, next) => {
         var queryCategory = 'SELECT * FROM categories';        
         const categories = await service.getAllCategoryProduct(queryCategory);
 
+        let queryProject = 'SELECT * FROM project';
+        let projects = await service.getAllProject(queryProject);
+
+
         await pool.query('SELECT * FROM policies', function (error, rows, fields) {
             if (error) throw error;
             res.render('datvangphanthiet/policies/policies', {
                 title: 'Chính sách',
+                projects:projects,
                 policies: policies,
                 blog_categories : blog_categories,
                 categories : categories,
@@ -61,12 +66,16 @@ let FrgetPolicyDetails = async (req, res, next) => {
         var queryCategory = 'SELECT * FROM categories';        
         const categories = await service.getAllCategoryProduct(queryCategory);
 
+        let queryProject = 'SELECT * FROM project';
+        let projects = await service.getAllProject(queryProject);
+
         // Lấy tất cả sản phẩm và hiển thị ra table
         await pool.query(query, policy_id, function (error, rows, fields) {
             if (error) throw error;
             res.render('datvangphanthiet/policies/policy', {
                 title: 'Chi tiết chính sách',
                 policy: rows[0],
+                projects:projects,
                 policies : policies,
                 categories : categories,
                 blog_categories : blog_categories,
