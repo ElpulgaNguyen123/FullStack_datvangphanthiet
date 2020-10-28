@@ -49,7 +49,7 @@
                                             <div class="left-side">
                                                 <img src="/public/uploads/projects/${image}"/> 
                                             </div>
-                                            <div class="right-side"> 
+                                            <div class="right-side">
                                                 sku : ${sku} <span> ${name} </span>
                                             </div>
                                         </div>
@@ -106,8 +106,8 @@
                         <i class="ti-angle-down"></i>
                     </button>
                     <div class="dropdown-menu">
-                        <a class="dropdown-item" href="/admin/products">Thứ tự Tăng dần</a>
-                        <a class="dropdown-item" href="/admin/products/giam-dan">Thứ tự Giảm dần</a>
+                        <a class="dropdown-item" href="/admin/projects">Thứ tự Tăng dần</a>
+                        <a class="dropdown-item" href="/admin/project/giam-dan">Thứ tự Giảm dần</a>
                     </div>
                 </div>
                 <div class="ml-3 btn-group">
@@ -158,8 +158,9 @@
                                     <a href="/admin/project/edit-project/<%= project.id %>" type="button"
                                         class="btn hor-grd btn-grd-warning " title="Sửa dự án">
                                         <i class="icofont icofont-edit"></i> </a>
-                                    <a href="/admin/project/delete-project/<%= project.id %>" type="button"
-                                        class="btn hor-grd btn-grd-danger "> <i class="icofont icofont-ui-delete"
+                                    <a href="#slide-delete-modal" type="button" class="delete-project-confirm btn hor-grd btn-grd-danger"
+                                        data-url="/admin/project/delete-project/<%= project.id %>" title="Xóa slide"
+                                        data-target="#slide-delete-modal" data-toggle="modal"> <i class="icofont icofont-ui-delete"
                                             title="Xóa dự án"></i>
                                     </a>
                                 </div>
@@ -179,6 +180,14 @@
 </div>
 <!-- end container-fluid -->
 <script>
+
+
+    $('.delete-product-confirm').on('click', function (e) {
+        e.preventDefault();
+        var url = $(this).attr('data-url');
+        $('#delete-slide-link').attr('href', url);
+    });
+
     var product_table = $('#product_table');
     var trItem = function (value, index) {
         return `<tr>
@@ -224,7 +233,7 @@
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     $.ajax({
-                        url: '/admin/product/get-more/' + page,
+                        url: '/admin/project/get-more/' + page,
                         type: 'POST',
                         cache: false,
                         data: JSON.stringify(data),
@@ -254,3 +263,6 @@
         observer.observe(footer);
     });
 </script>
+
+
+<%- include("../modal/slide-delete-modal.ejs") %>

@@ -11,7 +11,7 @@ var configviewEngine = require('./src/model/config/viewEngine');
 var passport = require('passport');
 var path = require('path');
 require('dotenv').config();
-import lodash from "lodash";
+
 
 // db
 var pool = require('./src/model/config/connectDb');

@@ -30,9 +30,9 @@ var productUpdateFile = multer({ storage: storage }).single('product-image', 1);
 let getAllProduct = async (req, res, next) => {
     try {
         // Lấy tất cả sản phẩm và hiển thị ra table
-        const queryBrands = 'SELECT * FROM brand';
+        const querylocations = 'SELECT * FROM locations';
+        const locations = await service.getAllLocations(querylocations);
         const queryCategories = 'SELECT * FROM categories';
-        const brands = await service.getAllBrand(queryBrands);
         const categories = await service.getAllCategoryProduct(queryCategories);
         const query = `SELECT * FROM product`;
         pool.query('SELECT * FROM product', function (error, results, fields) {
@@ -41,7 +41,7 @@ let getAllProduct = async (req, res, next) => {
                 title: 'Sản phẩm',
                 query: query,
                 products: results.slice(0, 10),
-                brands: brands,
+                locations: locations,
                 categories: categories,
                 errors: req.flash('Errors'),
                 success: req.flash('Success'),
@@ -72,11 +72,9 @@ let getPageLoad = async (req, res, next) => {
             let start = (page - 1) * perPage;
             let end = page * perPage;
             let result = {};
-
             result.products = results.slice(start, end);
             results.count = req.params.page;
             result.page = req.params.page;
-
             return res.status(200).send(result);
 
         });
@@ -91,9 +89,8 @@ let getPageLoad = async (req, res, next) => {
 let getAllProductCategory = async (req, res, next) => {
     try {
         // Lấy tất cả sản phẩm và hiển thị ra table
-        const queryBrands = 'SELECT * FROM brand';
-        const queryCategories = 'SELECT * FROM categories';
-        const brands = await service.getAllBrand(queryBrands);
+        const querylocations = 'SELECT * FROM locations';
+        const locations = await service.getAllLocations(querylocations);        const queryCategories = 'SELECT * FROM categories';
         const categories = await service.getAllCategoryProduct(queryCategories);
         const query = `SELECT * FROM product WHERE category_id = ${req.params.idcategory}`;
         pool.query(`SELECT * FROM product WHERE category_id = ${req.params.idcategory}`, function (error, results, fields) {
@@ -102,7 +99,7 @@ let getAllProductCategory = async (req, res, next) => {
                 title: 'Sản phẩm',
                 products: results.slice(0, 10),
                 query: query,
-                brands: brands,
+                locations: locations,
                 categories: categories,
                 errors: req.flash('Errors'),
                 success: req.flash('Success'),
@@ -117,21 +114,21 @@ let getAllProductCategory = async (req, res, next) => {
     }
 }
 
-let getAllProductBrand = async (req, res, next) => {
+let getAllProductLocation = async (req, res, next) => {
     try {
         // Lấy tất cả sản phẩm và hiển thị ra table
-        const queryBrands = 'SELECT * FROM brand';
+        const querylocations = 'SELECT * FROM locations';
+        const locations = await service.getAllLocations(querylocations);        
         const queryCategories = 'SELECT * FROM categories';
-        const brands = await service.getAllBrand(queryBrands);
         const categories = await service.getAllCategoryProduct(queryCategories);
-        const query = `SELECT * FROM product WHERE brand_id = ${req.params.idbrand}`;
-        pool.query(`SELECT * FROM product WHERE brand_id = ${req.params.idbrand}`, function (error, results, fields) {
+        const query = `SELECT * FROM product WHERE location_id = ${req.params.idlocation}`;
+        pool.query(`SELECT * FROM product WHERE location_id = ${req.params.idlocation}`, function (error, results, fields) {
             if (error) throw error;
             res.render('admin/products/products', {
                 title: 'Sản phẩm',
                 products: results.slice(0, 10),
                 query: query,
-                brands: brands,
+                locations: locations,
                 categories: categories,
                 errors: req.flash('Errors'),
                 success: req.flash('Success'),
@@ -149,9 +146,9 @@ let getAllProductBrand = async (req, res, next) => {
 let getAllProductDesc = async (req, res, next) => {
     try {
         // Lấy tất cả sản phẩm và hiển thị ra table
-        const queryBrands = 'SELECT * FROM brand';
+        const querylocations = 'SELECT * FROM locations';
+        const locations = await service.getAllLocations(querylocations);        
         const queryCategories = 'SELECT * FROM categories';
-        const brands = await service.getAllBrand(queryBrands);
         const categories = await service.getAllCategoryProduct(queryCategories);
         const query = `SELECT * FROM product ORDER BY id DESC`;
 
@@ -161,7 +158,7 @@ let getAllProductDesc = async (req, res, next) => {
                 title: 'Sản phẩm',
                 products: results.slice(0, 10),
                 query, query,
-                brands: brands,
+                locations: locations,
                 categories: categories,
                 errors: req.flash('Errors'),
                 success: req.flash('Success'),
@@ -722,7 +719,7 @@ module.exports = {
     deleteProductController,
     searchData,
     getAllProductCategory,
-    getAllProductBrand,
+    getAllProductLocation,
     getAllProductDesc,
     getPageLoad,
     checkSkuMatch

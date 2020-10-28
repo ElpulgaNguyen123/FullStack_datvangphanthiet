@@ -34,6 +34,7 @@ let FrBlogController = async (req, res, next) => {
         // Lấy tất cả sản phẩm và hiển thị ra table
         res.render('datvangphanthiet/blogs/blogs', {
             title: 'Blog',
+            query : queryBlog,
             projects: projects,
             policies: policies,
             blog_categories: blog_categories,
@@ -81,6 +82,7 @@ let FrBlogCategoryController = async (req, res, next) => {
         // Lấy tất cả sản phẩm và hiển thị ra table
         res.render('datvangphanthiet/blogs/blogs', {
             title: 'Blog',
+            query : queryBlog,
             policies: policies,
             projects: projects,
             blog_categories: blog_categories,
@@ -96,9 +98,6 @@ let FrBlogCategoryController = async (req, res, next) => {
         return res.status(500).send(error);
     }
 }
-
-
-
 let FrBlogDetailController = async (req, res, next) => {
     try {
 
@@ -166,9 +165,60 @@ let FrBlogDetailController = async (req, res, next) => {
         return res.status(500).send(error);
     }
 }
+let searchBlogData = async (req, res, next) => {
+    let successArr = [];
+    try {
+        var blog_name = req.params.name;
+        var queryBlog = `
+        SELECT * FROM blog WHERE title LIKE 
+        '%${blog_name}%' 
+        ORDER BY ID DESC LIMIT 6`;
+        var result = {};
+        await pool.query(queryBlog, function (error, results, fields) {
+            if (error) throw error;
+            result.results = results;
+            return res.status(200).send(result);
+        });
 
+    } catch (error) {
+        console.log(error);
+        return res.status(500).send('Lôi');
+    }
+}
+let getPageLoadBlog = async (req, res, next) => {
+    try {
+        // Lấy tất cả sản phẩm và hiển thị ra table
+        var query = req.body.query;
+        pool.query(query, function (error, results, fields) {
+            if (error) throw error;
+            let count = 0;
+            for (var i = 0; i < results.length; i++) {
+                count++;
+            }
+            let page = parseInt(req.params.page) || 1;
+            // số sản phẩm trên 1 trang.
+            let perPage = 10;
+            let start = (page - 1) * perPage;
+            let end = page * perPage;
+            let result = {};
+
+            result.products = results.slice(start, end);
+            results.count = req.params.page;
+            result.page = req.params.page;
+
+            return res.status(200).send(result);
+
+        });
+
+    } catch (error) {
+        console.log(error);
+        return res.status(500).send(error);
+    }
+}
 module.exports = {
     FrBlogController,
     FrBlogDetailController,
-    FrBlogCategoryController
+    FrBlogCategoryController,
+    searchBlogData,
+    getPageLoadBlog
 };

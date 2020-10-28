@@ -190,11 +190,12 @@ newsletter -->
       </div>
       <div class="col-md-7 mt-3 mt-md-0">
         <div class="newsletter">
-          <form>
+          <form action="/lien-he/send-mail" id="contact_form" method="post" class="has-validation-callback">
             <div class="form-group mb-0">
-              <input type="email" class="form-control" placeholder="Nhập Email của bạn">
+              <input type="email" name="customer_email" class="form-control" required placeholder="Nhập Email của bạn">
             </div>
-            <button type="submit" class="btn btn-dark b-radius-left-none">Nhận thông báo</button>
+            <button type="button" id="sendmailSubmit" class="btn aloha btn-dark b-radius-left-none">Nhận thông
+              báo</button>
           </form>
         </div>
       </div>

@@ -126,17 +126,16 @@ let postEditSlide = (req, res, next) => {
                 // resize image before uploads.
                 sharp(`${req.file.destination}/${req.file.filename}`)
                     .resize(1920, 625)
-                    .toFile(`${req.file.destination}/${req.file.filename}-${generatecode}.webp`, async (err, info) => {
+                    .toFile(`${req.file.destination}/${generatecode}.jpg`, async (err, info) => {
                         fs.unlinkSync(req.file.path);
                         if (req.body.slide_old_image) {
                             await fsExtras.remove(`${app.directory_slides}/${req.body.slide_old_image}`);
                         }
                     });
             }
-
             var filename = '';
             if (req.file) {
-                filename = `${req.file.filename}-${generatecode}.webp`;
+                filename = `${generatecode}.jpg`;
             }
             else if (req.body.slide_old_image) {
                 filename = `${req.body.slide_old_image}`;

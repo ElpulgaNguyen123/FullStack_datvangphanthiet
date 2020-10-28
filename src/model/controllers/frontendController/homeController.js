@@ -44,6 +44,9 @@ let FrhomeController = async (req, res, next) => {
         let queryLocation ='SELECT * FROM locations';
         let locations = await service.getAllLocations(queryLocation);
 
+        var queryCustomer = 'SELECT * FROM customers';
+        const customers = await service.getAllCustomer(queryCustomer);
+
         //query new blog 
         let queryNewBlog =`SELECT * 
         FROM blog 
@@ -61,6 +64,7 @@ let FrhomeController = async (req, res, next) => {
                 products : products,
                 newBlogs:newBlogs,
                 locations:locations,
+                customers:customers,
                 projects : projects,
                 policies : policies,
                 categories : categories,

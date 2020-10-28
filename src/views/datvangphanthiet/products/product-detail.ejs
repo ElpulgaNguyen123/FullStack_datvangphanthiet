@@ -35,7 +35,7 @@ Breadcrumb -->
               <div class="d-flex align-items-center p-4 border border-bottom-0">
                 <div class="agent-contact-avatar mr-3">
                   <img class="img-fluid rounded-circle avatar avatar-xl"
-                    src="/public/datvangphanthiet/images/avatar/01.jpg" alt="">
+                    src="/public/uploads/auth/<%= userInfo.avatar %>" alt="">
                 </div>
                 <div class="agent-contact-name">
                   <h6><%= userInfo.name %></h6>
@@ -116,135 +116,83 @@ Breadcrumb -->
                 <h5>Đặt lịch tham quan</h5>
               </div>
               <div class="col-sm-9">
-                <div class="form-row">
-                  <div class="form-group col-sm-6 datetimepickers">
-                    <div class="input-group date" id="datetimepicker-01" data-target-input="nearest">
-                      <input type="text" class="form-control datetimepicker-input" placeholder="Ngày tháng"
-                        data-target="#datetimepicker-01">
-                      <div class="input-group-append" data-target="#datetimepicker-01" data-toggle="datetimepicker">
-                        <div class="input-group-text"><i class="far fa-calendar-alt"></i></div>
-                      </div>
+                <form action="/lien-he/send-mail" id="contact_form" method="post" class="has-validation-callback">
+                  <div class="form-row">
+                    <div class="form-group col-sm-12">
+                      <input type="text" name="customer_name" class="form-control" placeholder="Họ và tên">
                     </div>
-                  </div>
-                  <div class="form-group col-sm-6 datetimepickers">
-                    <div class="input-group date" id="datetimepicker-03" data-target-input="nearest">
-                      <input type="text" class="form-control datetimepicker-input" placeholder="Thời gian"
-                        data-target="#datetimepicker-03" />
-                      <div class="input-group-append" data-target="#datetimepicker-03" data-toggle="datetimepicker">
-                        <div class="input-group-text"><i class="far fa-clock"></i></div>
-                      </div>
+                    <div class="form-group col-sm-12">
+                      <input type="email" name="customer_email" class="form-control" placeholder="Email">
                     </div>
+                    <div class="form-group col-sm-12">
+                      <input type="Text" name="customer_phone" class="form-control" placeholder="Điện thoại">
+                    </div>
+                    <div class="form-group col-sm-12">
+                      <textarea name="customer_content" class="form-control" rows="4" placeholder="Lời nhắn"></textarea>
+                    </div>
+                    <div class="form-group col-sm-12">
+                      <button type="submit" class="btn btn-primary">Đăng ký</button>
+                    </div>
+                    <div class="col-sm-6"></div>
                   </div>
-                  <div class="form-group col-sm-12">
-                    <input type="text" class="form-control" placeholder="Họ và tên">
-                  </div>
-                  <div class="form-group col-sm-12">
-                    <input type="email" class="form-control" placeholder="Email">
-                  </div>
-                  <div class="form-group col-sm-12">
-                    <input type="Text" class="form-control" placeholder="Điện thoại">
-                  </div>
-                  <div class="form-group col-sm-12">
-                    <textarea class="form-control" rows="4" placeholder="Lời nhắn"></textarea>
-                  </div>
-                  <div class="form-group col-sm-12">
-                    <button type="submit" class="btn btn-primary">Đăng ký</button>
-                  </div>
-                  <div class="col-sm-6"></div>
-                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-  </section>
-  <section class="space-pt">
-    <div class="container">
-      <hr class="mb-5 mt-0">
-      <h5 class="mb-4">BĐS tương tự</h5>
-      <div class="row">
-        <% relateProducts.forEach((relateProduct) => { %>
-        <div class="col-sm-6 col-md-4">
-          <div class="property-item wow fadeInUp" data-wow-delay="0.5" data-wow-duration="2s">
-            <div class="property-image bg-overlay-gradient-04">
-              <% if(relateProduct.image.length > 0){ %>
-                <img class="img-fluid" src="/public/uploads/products/<%=JSON.parse(relateProduct.image)[0] %>" alt="">
-                <% } else{ %>
-                <img class="img-fluid" src="https://via.placeholder.com/500x300" alt="">
-                <% } %>              <div class="property-lable">
-                <span class="badge badge-md badge-info"><%= relateProduct.sku %></span>
-              </div>
-              <span class="property-trending" title="trending"><i class="fas fa-bolt"></i></span>
+</div>
+</section>
+<section class="space-pt">
+  <div class="container">
+    <hr class="mb-5 mt-0">
+    <h5 class="mb-4">BĐS tương tự</h5>
+    <div class="row">
+      <% relateProducts.forEach((relateProduct) => { %>
+      <div class="col-sm-6 col-md-4">
+        <div class="property-item wow fadeInUp" data-wow-delay="0.5" data-wow-duration="2s">
+          <div class="property-image bg-overlay-gradient-04">
+            <% if(relateProduct.image.length > 0){ %>
+            <img class="img-fluid" src="/public/uploads/products/<%=JSON.parse(relateProduct.image)[0] %>" alt="">
+            <% } else{ %>
+            <img class="img-fluid" src="https://via.placeholder.com/500x300" alt="">
+            <% } %> <div class="property-lable">
+              <span class="badge badge-md badge-info"><%= relateProduct.sku %></span>
             </div>
-            <div class="property-details wow fadeInDown" data-wow-delay="0.5" data-wow-duration="2s">
-              <div class="property-details-inner">
-                <h5 class="property-title"><a href="/san-pham/<%= relateProduct.slug %>.<%= relateProduct.id %>" title="<%= product.name %>"><%= relateProduct.name %></a>
-                </h5>
-                <span class="property-address"><i class="fas fa-map-marker-alt fa-xs"></i><%= relateProduct.address %></span>
-                <span class="property-agent-date"><i class="far fa-clock fa-md"></i><%= relateProduct.create_at %></span>
-                <div class="property-price"><%= relateProduct.price %><span>vnđ</span> </div>
-                <ul class="property-info list-unstyled">
-                  <li class="flex-fill property-bed"><i class="fas fa-bed"></i><span><%= relateProduct.view %></span></li>
-                  <li class="flex-fill property-bath"><i class="fas fa-bath"></i><span><%= relateProduct.address %></span></li>
-                  <li class="flex-fill property-m-sqft"><i class="far fa-square"></i><span><%= relateProduct.square %></span></li>
-                </ul>
-              </div>
-              <div class="property-btn">
-                <a class="property-link" href="/san-pham/<%= relateProduct.slug %>.<%= relateProduct.id %>" title="<%= product.name %>">Xem chi tiết</a>
-              </div>
+            <span class="property-trending" title="trending"><i class="fas fa-bolt"></i></span>
+          </div>
+          <div class="property-details wow fadeInDown" data-wow-delay="0.5" data-wow-duration="2s">
+            <div class="property-details-inner">
+              <h5 class="property-title"><a href="/san-pham/<%= relateProduct.slug %>.<%= relateProduct.id %>"
+                  title="<%= product.name %>"><%= relateProduct.name %></a>
+              </h5>
+              <span class="property-address"><i
+                  class="fas fa-map-marker-alt fa-xs"></i><%= relateProduct.address %></span>
+              <span class="property-agent-date"><i class="far fa-clock fa-md"></i><%= relateProduct.create_at %></span>
+              <div class="property-price"><%= relateProduct.price %><span>vnđ</span> </div>
+              <ul class="property-info list-unstyled">
+                <li class="flex-fill property-bed"><i class="fas fa-bed"></i><span><%= relateProduct.view %></span></li>
+                <li class="flex-fill property-bath"><i class="fas fa-bath"></i><span><%= relateProduct.address %></span>
+                </li>
+                <li class="flex-fill property-m-sqft"><i
+                    class="far fa-square"></i><span><%= relateProduct.square %></span></li>
+              </ul>
+            </div>
+            <div class="property-btn">
+              <a class="property-link" href="/san-pham/<%= relateProduct.slug %>.<%= relateProduct.id %>"
+                title="<%= product.name %>">Xem chi tiết</a>
             </div>
           </div>
         </div>
-        <% }) %>
       </div>
+      <% }) %>
     </div>
-  </section>
-  <!--=================================
+  </div>
+</section>
+<!--=================================
   Property details -->
 
-  <!--=================================
-Review -->
-  <section class="space-pb">
-    <div class="container">
-      <div class="row">
-        <div class="col-12">
-          <div class="section-title">
-            <h4>Để lại bình luận</h4>
-          </div>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-12">
-          <div class="review d-flex">
-            <div class="review-avatar avatar avatar-xl mr-3">
-              <img class="img-fluid rounded-circle" src="/public/datvangphanthiet/images/avatar/01.jpg" alt="">
-            </div>
-            <div class="review-info flex-grow-1">
-              <span class="mb-2 d-block">Rating:</span>
-              <ul class="list-unstyled list-inline">
-                <li class="list-inline-item m-0 text-warning"><i class="fas fa-star"></i></li>
-                <li class="list-inline-item m-0 text-warning"><i class="fas fa-star"></i></li>
-                <li class="list-inline-item m-0 text-warning"><i class="fas fa-star"></i></li>
-                <li class="list-inline-item m-0 text-warning"><i class="fas fa-star-half-alt"></i></li>
-                <li class="list-inline-item m-0 text-warning"><i class="far fa-star"></i></li>
-              </ul>
-              <div class="mb-3">
-                <span class="mb-2 d-block">Rating comment:</span>
-                <div class="form-group">
-                  <textarea class="form-control" rows="3"></textarea>
-                </div>
-              </div>
-              <span> <a href="login.html"> <b>Login</b> </a> to leave a review</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-  <!--=================================
-Review -->
-</div>
+
 
 <!--=================================
 newsletter -->
@@ -252,15 +200,16 @@ newsletter -->
   <div class="container">
     <div class="row">
       <div class="col-md-5">
-        <h3 class="text-white mb-0">Đăng ký nhận bản tin của chúng tôi để nhận những tin tức và ưu đãi mới nhất.</h3>
+        <h3 class="text-white mb-0">Đăng Ký Bản Tin Của Chúng Tôi Để Nhận Các Tin Tức Và Ưu Đãi Mới Nhất.</h3>
       </div>
       <div class="col-md-7 mt-3 mt-md-0">
         <div class="newsletter">
-          <form>
+          <form action="/lien-he/send-mail" id="contact_form" method="post" class="has-validation-callback">
             <div class="form-group mb-0">
-              <input type="email" class="form-control" placeholder="Enter email">
+              <input type="email" name="customer_email" class="form-control" required placeholder="Nhập Email của bạn">
             </div>
-            <button type="submit" class="btn btn-dark b-radius-left-none">Nhận tin nhắn</button>
+            <button type="button" id="sendmailSubmit" class="btn aloha btn-dark b-radius-left-none">Nhận thông
+              báo</button>
           </form>
         </div>
       </div>

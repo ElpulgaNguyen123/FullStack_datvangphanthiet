@@ -77,6 +77,11 @@ let FrProjectDetailController = async (req, res, next) => {
         let queryProject = 'SELECT * FROM project';
         let projects = await service.getAllProject(queryProject);
 
+
+        var queryCompanyFeatures = 'SELECT * FROM feature_company';
+        const company_features = await service.getAllEndow(queryCompanyFeatures);
+
+
         //Lấy tất cả sản phẩm và hiển thị ra table
         res.render('datvangphanthiet/projects/project-details', {
             title: project[0].project_name,
@@ -86,6 +91,7 @@ let FrProjectDetailController = async (req, res, next) => {
             policies : policies,
             blog_categories : blog_categories,
             categories : categories,
+            company_features : company_features,
             images: images,
             imagearr: imagesArr,
             errors: req.flash('Errors'),

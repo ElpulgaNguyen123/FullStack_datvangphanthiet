@@ -8,7 +8,7 @@
   "scripts": {
     "webpack": "webpack",
     "start": "nodemon --exec babel-node app.js",
-    "server": "babel-node pm2 start app.js --name xedapphanthietoptimize --watch"
+    "server": "pm2 start app.js --name datvangphanthiet --watch"
   },
   "dependencies": {
     "babel-preset-es2015": "^6.24.1",

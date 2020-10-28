@@ -22,29 +22,17 @@ about -->
   <div class="container">
     <div class="row">
       <div class="col-lg-6">
-        <img class="img-fluid" src="/public/datvangphanthiet/images/projects/gioi-thieu-novaworld-phan-thiet.jpg"
-          alt="">
+        <% if(project.project_image.length > 0){ %>
+          <img class="img-fluid" src="/public/uploads/projects/<%=JSON.parse(project.project_image)[0] %>" alt="">
+          <% } else{ %>
+          <img class="img-fluid" src="https://via.placeholder.com/500x300" alt="">
+          <% } %>
       </div>
       <div class="col-lg-6 mt-4 mt-lg-0">
         <div class="section-title mb-3">
-          <h2>ĐẠI ĐÔ THỊ DU LỊCH NGHỈ DƯỠNG GIẢI TRÍ NOVAWORLD PHAN THIẾT</h2>
+          <h2><%= project.project_name  %></h2>
         </div>
-        <p>Dự án Novaworld Phan Thiết sẽ là đại đô thị đầu tiên mà chủ đầu tư Novaland sẽ triển khai trước dự án Aqua,
-          dự án có vị trí tọa lạc đắc địa tại xã Tiến Thành, Phan Thiết, Bình Thuận, Việt Nam. Điểm nhấn mạnh và ấn
-          tượng đầu tiên khi nói đến đại đô thị Novaworld Tiến Thành Phan Thiết là dự án có quy mô rất lớn với tổng...
-        </p>
-        <ul class="pl-3">
-          <li class="mb-2"><strong>Vị trí dự án : </strong>Mặt tiền đường Lạc Long Quân, Xã Tiến Thành, Thành Phố Phan
-            Thiết, Bình
-            Thuận, Việt Nam.</li>
-          <li class="mb-2"><strong>Chủ đầu tư :</strong>Tập đoàn Novaland</li>
-          <li class="mb-2"><strong>Tổng diện tích : </strong>1.000 ha</li>
-          <li class="mb-2"><strong>Tên chính thức : </strong>NovaWorld Phan Thiết Integrate Resort</li>
-          <li class="mb-2"><strong>Loại hình đầu tư :</strong>Khu đô thị phức hợp Nghỉ Dưỡng – Du Lịch – Giải Trí kết
-            hợp nhà ở với hơn
-            10.000 sản phẩm. Dự án được phân chia ra nhiều khu, mỗi 1 khu sẽ có một phong cách thiết kế kiến trúc
-            riêng tương xứng với 1 chủ đề chính độc đáo được lấy ý tưởng từ các nền văn hóa kiến trúc đặc sắc trên thế
-            giới.</li>
+        <%- project.project_description %>
         </ul>
       </div>
     </div>
@@ -79,71 +67,38 @@ portfolio -->
 portfolio -->
 
 <!--=================================
-benefits  -->
-<section class="space-pb">
+about -->
+<section class="space-ptb bg-holder" style="background-image: url(/public/datvangphanthiet/images/pattern-bg.jpg);">
   <div class="container">
-    <div class="row">
-      <div class="col-12">
-        <div class="section-title text-center">
-          <h2>Đây chỉ là một số lý do bạn sẽ chọn NovaWorld</h2>
-          <p>Cơ sở dữ liệu toàn diện của chúng tôi về danh sách và thông tin thị trường cung cấp cái nhìn chính xác nhất
-            về thị trường và
-            giá trị nhà.</p>
+    <div class="row align-items-center">
+      <div class="col-lg-12">
+        <div class="section-title text-center mb-0">
+          <h2>Lý do nên chọn mua dự án tại Đất Vàng Phan Thiết</h2>
+          <p>Đại lý của chúng tôi có nhiều lĩnh vực chuyên môn, nhưng KHÁCH HÀNG là chuyên môn thực sự của chúng tôi.
+          </p>
         </div>
       </div>
     </div>
-    <div class="row no-gutters">
+    <div class="row no-gutters mt-4">
+      <% company_features.forEach(function(company_features){ %>
       <div class="col-lg-3 col-sm-6">
-        <div class="feature-info">
+        <div class="feature-info h-100">
           <div class="feature-info-icon">
-            <i class="flaticon-bed-1"></i>
+            <%- company_features.icon %>
           </div>
           <div class="feature-info-content">
-            <h6 class="mb-3 feature-info-title">Đến sân bay nhanh chóng</h6>
-            <p class="mb-0">Chỉ mất khoảng 12 - 15 phút từ khu đô thị đến sân bay quốc tế Phan Thiết</p>
+            <h6 class="mb-3 feature-info-title"><%= company_features.title %></h6>
+            <p class="mb-0"><%= company_features.feature_describe %></p>
           </div>
         </div>
       </div>
-      <div class="col-lg-3 col-sm-6">
-        <div class="feature-info">
-          <div class="feature-info-icon">
-            <i class="flaticon-home-2"></i>
-          </div>
-          <div class="feature-info-content">
-            <h6 class="mb-3 feature-info-title">Gần cao tốc</h6>
-            <p class="mb-0">Mất từ 10 - 12 phút kết nối trức tiếp đến Cao tốc Dầu Giây - Phan Thiết.</p>
-          </div>
-        </div>
-      </div>
-      <div class="col-lg-3 col-sm-6">
-        <div class="feature-info">
-          <div class="feature-info-icon">
-            <i class="flaticon-home-1"></i>
-          </div>
-          <div class="feature-info-content">
-            <h6 class="mb-3 feature-info-title">Gần khu nghỉ dưỡng</h6>
-            <p class="mb-0">Mất từ 15 - 20 phút kết nối đến tất cả khu du lịch, Resort, danh lam thắng cảnh tại Phan
-              Thiết (Bình Thuận).</p>
-          </div>
-        </div>
-      </div>
-      <div class="col-lg-3 col-sm-6">
-        <div class="feature-info">
-          <div class="feature-info-icon">
-            <i class="flaticon-workout"></i>
-          </div>
-          <div class="feature-info-content">
-            <h6 class="mb-3 feature-info-title">Di chuyển dễ dàng</h6>
-            <p class="mb-0">Cao tốc Phan Thiết – Dầu Giây khởi công trong quý 3/2020 dễ dàng kết nối du lịch 3 vùng
-              TP.HCM – Phan Thiết – Nha Trang.</p>
-          </div>
-        </div>
-      </div>
+      <% }); %>
     </div>
   </div>
 </section>
 <!--=================================
-benefits-->
+about -->
+
 
 <!--=================================
 Faq -->
@@ -153,32 +108,27 @@ Faq -->
       <div class="col-lg-8 col-ms-10">
         <div class="section-title text-center">
           <h2>NHẬN THÔNG TIN DỰ ÁN VÀ BẢNG BÁO GIÁ TẠI ĐÂY</h2>
-          <p>Có thể nói dự án khu đô thị Novaworld Tiến Thành Phan Thiết có 1 vị thế tọa lạc vàng, đắc địa ngay Trung
-            tâm Khu du lịch Phan Thiết. Hơn nữa nếu xét theo Phong Thủy, thì thế đất mà dự án tọa lạc chính là “Tựa
-            Sơn Hướng Thủy” nơi vượng khí và tài lộc. Địa chỉ cụ thể của dự án ngay mặt tiền đường Lạc Long Quân,
-            thuộc Phường...
+          <p>Đăng ký email để nhận được thông tin mới nhất về dự án !
           </p>
         </div>
         <div class="col-sm-12">
-          <form>
+          <form action="/lien-he/send-mail" method="post">
             <div class="form-group">
-              <input type="email" class="form-control" placeholder="Nhập địa chỉ email">
+              <input type="email" name="customer_email" class="form-control" placeholder="Nhập địa chỉ email">
               <small id="emailHelp" class="form-text text-muted">Chúng tôi sẽ không bao giờ chia sẻ email của bạn với
                 bất kỳ ai.</small>
             </div>
             <div class="form-group">
-              <input type="Number" class="form-control" id="exampleInputPassword1" placeholder="Số điện thoại">
+              <input type="Number" name="customer_phone" class="form-control" id="exampleInputPassword1" placeholder="Số điện thoại">
             </div>
             <div class="form-group">
-              <textarea class="form-control" placeholder="Ghi chú" id="exampleFormControlTextarea1" rows="5"></textarea>
+              <textarea class="form-control" name="customer_content" placeholder="Ghi chú" id="exampleFormControlTextarea1" rows="5"></textarea>
+            </div>
+            <div class="col-md-12 mt-5">
+              <button type="submit" class="btn btn-primary">Gửi tin nhắn</button>
             </div>
           </form>
         </div>
-      </div>
-    </div>
-    <div class="row mt-5 text-center">
-      <div class="col-12">
-        <a class="btn btn-primary" href="#">Nhận thông tin</a>
       </div>
     </div>
   </div>
@@ -192,15 +142,16 @@ newsletter -->
   <div class="container">
     <div class="row">
       <div class="col-md-5">
-        <h3 class="text-white mb-0">Đăng ký nhận bản tin của chúng tôi để nhận những tin tức và ưu đãi mới nhất.</h3>
+        <h3 class="text-white mb-0">Đăng Ký Bản Tin Của Chúng Tôi Để Nhận Các Tin Tức Và Ưu Đãi Mới Nhất.</h3>
       </div>
       <div class="col-md-7 mt-3 mt-md-0">
         <div class="newsletter">
-          <form>
+          <form action="/lien-he/send-mail" id="contact_form" method="post" class="has-validation-callback">
             <div class="form-group mb-0">
-              <input type="email" class="form-control" placeholder="Enter email">
+              <input type="email" name="customer_email" class="form-control" required placeholder="Nhập Email của bạn">
             </div>
-            <button type="submit" class="btn btn-dark b-radius-left-none">Nhận tin nhắn</button>
+            <button type="button" id="sendmailSubmit" class="btn aloha btn-dark b-radius-left-none">Nhận thông
+              báo</button>
           </form>
         </div>
       </div>

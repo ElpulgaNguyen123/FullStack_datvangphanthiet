@@ -10,7 +10,9 @@ const { FrContactController,
     FrSendmailController } = require('./contactController');
 const { FrBlogController,
     FrBlogDetailController,
-    FrBlogCategoryController } = require('./blogController');
+    FrBlogCategoryController,
+    searchBlogData,
+    getPageLoadBlog } = require('./blogController');
 
 
 const { FrProductController,
@@ -18,15 +20,14 @@ const { FrProductController,
     getAllProductCategory,
     getAllProductLocation,
     searchData,
-    getAllBikeDesc,
+    getAllProductDesc,
     getPageLoad } = require('./productController');
 
-const {notFoundController } = require('./notFoundController');
-
-
-
+const {notFoundController,
+    successController } = require('./notFoundController');
 
 module.exports = {
+    
     FrhomeController,
     FrAboutController,
 
@@ -36,13 +37,15 @@ module.exports = {
     FrBlogController,
     FrBlogDetailController,
     FrBlogCategoryController,
+    searchBlogData,
+    getPageLoadBlog,
 
     FrProductController,
     FrProductDetailController,
     getAllProductCategory,
     getAllProductLocation,
     searchData,
-    getAllBikeDesc,
+    getAllProductDesc,
     getPageLoad,
 
 
@@ -55,5 +58,6 @@ module.exports = {
     FrgetPolicyDetails,
 
 
-    notFoundController
+    notFoundController,
+    successController
 }

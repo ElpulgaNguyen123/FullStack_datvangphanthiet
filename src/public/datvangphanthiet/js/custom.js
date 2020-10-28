@@ -406,4 +406,48 @@ NOTE: This file contains all scripts for the actual Template.
       POTENZA.streetviewtabs(),
       POTENZA.carousel();
   });
+
+
+  
+  // let dataEmail = {};
+
+  // $('#profile-username').bind('change', function () {
+  //     dataEmail.name = $(this).val();
+  // })
+  // $('#customer_email').bind('change', function () {
+  //     dataEmail.email = $(this).val();
+  //     alert(dataEmail.email);
+  // })
+  // $('#profile-phone').bind('change', function () {
+  //     dataEmail.phone = $(this).val();
+  // })
+  // $('#profile-address').bind('change', function () {
+  //     dataEmail.address = $(this).val();
+  // });
+
+
+  // function sendmailRequest() {
+  //     // $.ajax({
+  //     //     url: '/lien-he/send-mail',
+  //     //     type: 'POST',
+  //     //     cache: false,
+  //     //     data: JSON.stringify(dataEmail),
+  //     //     contentType: 'application/json',
+  //     //     processData: false,
+  //     //     success: function (result) {
+  //     //         $('#successModel').show();
+  //     //     },
+  //     //     error: function (error) {
+  //     //         $('#ErrorModel').show();
+  //     //     }
+  //     // });
+  //     alert(dataEmail);
+  // }
+
+  // $('#sendmailSubmit').on('click', function () {
+  //     alert(dataEmail.email);
+  //     sendmailRequest();
+  // })
+
+
 })(jQuery);

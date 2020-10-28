@@ -46,7 +46,7 @@ adminRouter.get('/product/edit-product-image/:id', controller.checkloggedIn, con
 adminRouter.post('/product/edit-product-image/:id', controller.checkloggedIn, controller.updateProductImagePost);
 adminRouter.get('/product/delete-product-image/:id', controller.checkloggedIn, controller.deleteProductImage);
 adminRouter.get('/product-category/:idcategory', controller.checkloggedIn, controller.getAllProductCategory);
-adminRouter.get('/product-brand/:idbrand', controller.checkloggedIn, controller.getAllProductBrand);
+adminRouter.get('/product-location/:idlocation', controller.checkloggedIn, controller.getAllProductLocation);
 adminRouter.get('/products/giam-dan', controller.checkloggedIn, controller.getAllProductDesc);
 adminRouter.get('/product/search/:name', controller.checkloggedIn, controller.searchData);
 adminRouter.get('/product/delete-product/:iddelete', controller.checkloggedIn, controller.deleteProductController);
@@ -61,12 +61,17 @@ adminRouter.get('/project/add-project', controller.checkloggedIn, controller.add
 adminRouter.post('/project/add-project', controller.checkloggedIn, controller.addProjectPost);
 adminRouter.post('/project/add-project-image', controller.checkloggedIn, controller.addProjectImage);
 adminRouter.post('/project/check-sku', controller.checkloggedIn,controller.checkSkuMatchProject);
+adminRouter.post('/project/get-more/:page', controller.checkloggedIn, controller.getProjectPageLoad);
 adminRouter.get('/project/search/:name', controller.checkloggedIn, controller.searchDataProject);
 adminRouter.get('/project/edit-project/:id', controller.checkloggedIn, controller.editProjectGet);
 adminRouter.post('/project/edit-project/:id', controller.checkloggedIn, controller.editProjectPost);
 adminRouter.get('/project/edit-project-image/:id', controller.checkloggedIn, controller.editProjectImage);
 adminRouter.post('/project/edit-project-image/:id', controller.checkloggedIn, controller.updateProjectImagePost);
 adminRouter.get('/project/delete-project-image/:id', controller.checkloggedIn, controller.deleteProjectImage);
+adminRouter.get('/project/delete-project/:iddelete', controller.checkloggedIn, controller.deleteProjectController);
+adminRouter.get('/project/giam-dan', controller.checkloggedIn, controller.getAllProjectDesc);
+
+
 // project router // end
 
 // attribute start

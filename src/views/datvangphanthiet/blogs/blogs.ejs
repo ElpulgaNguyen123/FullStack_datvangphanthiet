@@ -31,7 +31,7 @@ Blog -->
     <div class="row">
       <div class="col-lg-8">
         <% if(blogs[0]){ %>
-        <div class="row">
+        <div class="row" id="blogs_search_main">
           <% blogs.forEach((blog) => { %>
           <div class="blog-post col-lg-6 mb-3">
             <div class="blog-post-image">
@@ -67,22 +67,7 @@ Blog -->
           </div>
           <% }); %>
         </div>
-        <div class="row">
-          <div class="col-12">
-            <ul class="pagination mt-5">
-              <li class="page-item disabled mr-auto">
-                <span class="page-link b-radius-none">Trở lại</span>
-              </li>
-              <li class="page-item active" aria-current="page"><span class="page-link">1 </span> <span
-                  class="sr-only">(current)</span></li>
-              <li class="page-item"><a class="page-link" href="#">2</a></li>
-              <li class="page-item"><a class="page-link" href="#">3</a></li>
-              <li class="page-item ml-auto">
-                <a class="page-link b-radius-none" href="#">Tiếp theo</a>
-              </li>
-            </ul>
-          </div>
-        </div>
+        <div class="row" id="blogs_search"></div>
         <% }else{ %>
         <p>Chưa có bài viết nào !</p>
         <% }%>
@@ -95,7 +80,7 @@ Blog -->
             </div>
             <div class="search">
               <i class="fas fa-search"></i>
-              <input type="text" class="form-control" placeholder="Tìm kiếm bài viết...">
+              <input type="text" id="searchBlogInput" class="form-control" placeholder="Tìm kiếm bài viết...">
               <input hidden value="<%= query %>" class="query" id="query_id"></input>
             </div>
           </div>
@@ -132,8 +117,8 @@ Blog -->
             </div>
             <ul class="list-unstyled list-style mb-0">
               <% blog_categories.forEach(function(blog_category){ %>
-              <li><a
-                  href="/blog/blog-category/<%= blog_category.blog_category_slug %>.<%= blog_category.id %>" title="<%= blog_category.blog_category_name %>"><%= blog_category.blog_category_name %></a>
+              <li><a href="/blog/blog-category/<%= blog_category.blog_category_slug %>.<%= blog_category.id %>"
+                  title="<%= blog_category.blog_category_name %>"><%= blog_category.blog_category_name %></a>
               </li>
               <% }); %>
             </ul>
@@ -165,15 +150,16 @@ newsletter -->
   <div class="container">
     <div class="row">
       <div class="col-md-5">
-        <h3 class="text-white mb-0">Đăng ký nhận bản tin của chúng tôi để nhận những tin tức và ưu đãi mới nhất.</h3>
+        <h3 class="text-white mb-0">Đăng Ký Bản Tin Của Chúng Tôi Để Nhận Các Tin Tức Và Ưu Đãi Mới Nhất.</h3>
       </div>
       <div class="col-md-7 mt-3 mt-md-0">
         <div class="newsletter">
-          <form>
+          <form action="/lien-he/send-mail" id="contact_form" method="post" class="has-validation-callback">
             <div class="form-group mb-0">
-              <input type="email" class="form-control" placeholder="Enter email">
+              <input type="email" name="customer_email" class="form-control" required placeholder="Nhập Email của bạn">
             </div>
-            <button type="submit" class="btn btn-dark b-radius-left-none">Nhận tin nhắn</button>
+            <button type="button" id="sendmailSubmit" class="btn aloha btn-dark b-radius-left-none">Nhận thông
+              báo</button>
           </form>
         </div>
       </div>
@@ -219,7 +205,7 @@ newsletter -->
       entries.forEach(entry => {
         if (entry.isIntersecting) {
           $.ajax({
-            url: '/san-pham/get-more/' + page,
+            url: '/blog/get-more/' + page,
             type: 'POST',
             cache: false,
             data: JSON.stringify(data),

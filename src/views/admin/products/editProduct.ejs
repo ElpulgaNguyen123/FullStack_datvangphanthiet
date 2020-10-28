@@ -80,18 +80,6 @@
                             <span><i class="icofont icofont-plus-circle"></i>&nbsp;Thêm
                                 Ảnh...</span>
                         </span>
-                        <button type="submit" class="btn btn-primary mr-2 start">
-                            <i class="glyphicon glyphicon-upload"></i>
-                            <span><i class="icofont icofont-upload"></i>&nbsp;Upload
-                                tất
-                                cả</span>
-                        </button>
-                        <button type="reset" class="btn btn-warning cancel" disabled>
-                            <i class="glyphicon glyphicon-ban-circle"></i>
-                            <span><i class="icofont icofont-ui-remove">&nbsp;</i>Hủy
-                                tất
-                                cả</span>
-                        </button>
                     </div>
                 </div>
                 <div class="col-lg-5">
@@ -317,20 +305,21 @@
                                         <div class="form-group">
                                             <label class="font-weight-bold" for="product_address"> Địa
                                                 chỉ </label>
-                                            <input type="text" value="<%= product.address %>" name="product_address" id="product_address"
-                                                class="form-control" placeholder="Địa chỉ">
+                                            <input type="text" value="<%= product.address %>" name="product_address"
+                                                id="product_address" class="form-control" placeholder="Địa chỉ">
                                         </div>
                                         <div class="form-group">
                                             <label class="font-weight-bold" for="product_square"> Diện
                                                 tích </label>
-                                            <input type="text" value="<%= product.square %>" name="product_square" id="product_square"
-                                                class="form-control" placeholder="Diện tích">
+                                            <input type="text" value="<%= product.square %>" name="product_square"
+                                                id="product_square" class="form-control" placeholder="Diện tích">
                                         </div>
                                         <div class="form-group">
                                             <label class="font-weight-bold" for="product_view"> Mặt bằng
                                             </label>
-                                            <input type="text" value="<%= product.view %>" name="product_view" id="product_view"
-                                                class="form-control" placeholder="Mặt bằng (vd : đường nhựa)">
+                                            <input type="text" value="<%= product.view %>" name="product_view"
+                                                id="product_view" class="form-control"
+                                                placeholder="Mặt bằng (vd : đường nhựa)">
                                         </div>
                                     </div>
                                     <div class="tab-pane" id="describe-details-tab" role="tabpanel"
@@ -363,10 +352,16 @@
 </div>
 </div>
 </div>
+<div class="loading_cc">
+    <div class="spinner-border" role="status">
+        <span class="sr-only">Loading...</span>
+    </div>
+</div>
 <script>
 
-    $(document).ready(function () {
+    
 
+    $(document).ready(function () {
         var imageData = null;
         var ProductAttrArr = [];
         var id_attribues = [];

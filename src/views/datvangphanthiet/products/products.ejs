@@ -37,20 +37,18 @@ breadcrumb -->
                 aria-controls="filter-property"> <i class="fas fa-chevron-down"></i> </a>
             </div>
             <div class="collapse show" id="filter-property">
-              <form class="mt-3">
+              <form action='/san-pham/giam-dan' method="post" class="mt-3">
                 <div class="input-group mb-2 select-border">
-                  <select class="form-control basic-select">
-                    <option>Tất cả</option>
-                    <option>Căn hộ</option>
-                    <option>Đất</option>
-                    <option>Nhà</option>
-                    <option>Mặt bằng</option>
+                  <select name="category_key" class="form-control basic-select">
+                    <% categories.forEach((category) => { %>
+                    <option value="<%= category.id %>"> <%= category.category_name %> </option>
+                    <% }); %>
                   </select>
                 </div>
                 <div class="input-group mb-2 select-border">
-                  <select class="form-control basic-select">
-                    <option>Cũ nhất</option>
-                    <option>Mới nhất</option>
+                  <select name="sort_key" class="form-control basic-select">
+                    <option value="DESC">Cũ nhất</option>
+                    <option value="ASC">Mới nhất</option>
                   </select>
                 </div>
                 <div class="input-group mb-2">
@@ -73,23 +71,6 @@ breadcrumb -->
                     title="<%= location.loction_name %>"><%= location.location_name %><span
                       class="ml-auto"><%- location.location_icon %></span></a></li>
                 <% }); %>
-              </ul>
-            </div>
-          </div>
-          <div class="widget">
-            <div class="widget-title widget-collapse">
-              <h6>Vị trí địa lý</h6>
-              <a class="ml-auto" data-toggle="collapse" href="#type-property" role="button" aria-expanded="false"
-                aria-controls="type-property"> <i class="fas fa-chevron-down"></i> </a>
-            </div>
-            <div class="collapse show" id="type-property">
-              <ul class="list-unstyled mb-0 pt-3">
-                <li><a href="#">Phan thiết<span class="ml-auto">(12)</span></a></li>
-                <li><a href="#">Phong Nẫm<span class="ml-auto">(45)</span></a></li>
-                <li><a href="#">Hàm Thắng<span class="ml-auto">(23)</span></a></li>
-                <li><a href="#">Bắc Phan thiết<span class="ml-auto">(05)</span></a></li>
-                <li><a href="#">Nam Phan Thiết<span class="ml-auto">(47)</span></a></li>
-                <li><a href="#">Lagi<span class="ml-auto">(32)</span></a></li>
               </ul>
             </div>
           </div>
@@ -143,7 +124,7 @@ breadcrumb -->
               <div class="property-details">
                 <div class="property-details-inner">
                   <h5 class="property-title"><a href="/san-pham/<%= product.slug %>.<%= product.id %>"
-                    title="<%= product.name %>"><%= product.name %></a>
+                      title="<%= product.name %>"><%= product.name %></a>
                   </h5>
                   <span class="property-address"><i
                       class="fas fa-map-marker-alt fa-xs"></i><%= product.address %></span>
@@ -194,29 +175,26 @@ breadcrumb -->
 <!--=================================
   Listing – grid view -->
 
-<!--=================================
-  newsletter -->
 <section class="py-5 bg-primary">
   <div class="container">
     <div class="row">
       <div class="col-md-5">
-        <h3 class="text-white mb-0">Sign up to our newsletter to get the latest news and offers.</h3>
+        <h3 class="text-white mb-0">Đăng Ký Bản Tin Của Chúng Tôi Để Nhận Các Tin Tức Và Ưu Đãi Mới Nhất.</h3>
       </div>
       <div class="col-md-7 mt-3 mt-md-0">
         <div class="newsletter">
-          <form>
+          <form action="/lien-he/send-mail" id="contact_form" method="post" class="has-validation-callback">
             <div class="form-group mb-0">
-              <input type="email" class="form-control" placeholder="Enter email">
+              <input type="email" name="customer_email" class="form-control" required placeholder="Nhập Email của bạn">
             </div>
-            <button type="submit" class="btn btn-dark b-radius-left-none">Get notified</button>
+            <button type="button" id="sendmailSubmit" class="btn aloha btn-dark b-radius-left-none">Nhận thông
+              báo</button>
           </form>
         </div>
       </div>
     </div>
   </div>
 </section>
-<!--=================================
-  newsletter -->
 <script>
 
   var product_table = $('#product_table');
@@ -262,7 +240,6 @@ breadcrumb -->
             processData: false,
             success: function (result) {
               page++;
-              console.log(result.products)
               if (result.products.length > 0) {
                 setTimeout(function () {
                   result.products.forEach((value, index) => {
@@ -283,11 +260,8 @@ breadcrumb -->
         }
       });
     };
-
     let observer = new IntersectionObserver(callback);
     observer.observe(footer);
-
     document.querySelectorAll('img').forEach(img => { observer.observe(img) });
-
   });
 </script>

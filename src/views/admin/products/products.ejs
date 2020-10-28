@@ -20,10 +20,6 @@
     <div class="row">
         <div class="col-sm-12">
             <div class="card-box table-responsive">
-                <h4 class="header-title"><b><%= title %></b></h4>
-                <p class="sub-header">
-                    In this example the column index is prefixed to the column title.
-                </p>
                 <% if(errors != ""){%>
                 <% errors.forEach((item) => {%>
                 <script>toastr.error('<%- item %>', 'Lỗi !')</script>
@@ -103,14 +99,14 @@
                     </script>
                     <input type="hidden" id="query_id" name="query" value="<%= query %>">
                 <div class="btn-group">
-                    <button type="button" class="btn btn-teal waves-light waves-effect">Thương hiệu</button>
+                    <button type="button" class="btn btn-teal waves-light waves-effect">Địa điểm</button>
                     <button type="button" class="btn btn-teal waves-light waves-effect" data-toggle="dropdown"
                         aria-haspopup="true" aria-expanded="false">
                         <i class="ti-angle-down"></i>
                     </button>
                     <div class="dropdown-menu">
-                        <% brands.forEach(function(brand, index){ %>
-                        <a class="dropdown-item" href="/admin/product-brand/<%= brand.id %>"><%= brand.name %></a>
+                        <% locations.forEach(function(location, index){ %>
+                        <a class="dropdown-item" href="/admin/product-location/<%= location.id %>"><%= location.location_name %></a>
                         <% }); %>
                     </div>
                 </div>
@@ -195,9 +191,11 @@
                                     <a href="/admin/product/edit-product/<%= product.id %>" type="button"
                                         class="btn hor-grd btn-grd-warning " title="Sửa sản phẩm">
                                         <i class="icofont icofont-edit"></i> </a>
-                                    <a href="/admin/product/delete-product/<%= product.id %>" type="button"
-                                        class="btn hor-grd btn-grd-danger "> <i class="icofont icofont-ui-delete"
-                                            title="Xóa sản phẩm"></i>
+                                    <a href="#slide-delete-modal" type="button"
+                                        class="delete-product-confirm btn hor-grd btn-grd-danger"
+                                        data-url="/admin/product/delete-product/<%= product.id %>" title="Xóa slide"
+                                        data-target="#slide-delete-modal" data-toggle="modal"> <i
+                                            class="icofont icofont-ui-delete" title="Xóa sản phẩm"></i>
                                     </a>
                                 </div>
                             </td>
@@ -216,6 +214,14 @@
 </div>
 <!-- end container-fluid -->
 <script>
+
+
+    $('.delete-product-confirm').on('click', function (e) {
+        e.preventDefault();
+        var url = $(this).attr('data-url');
+        $('#delete-slide-link').attr('href', url);
+    });
+
     var product_table = $('#product_table');
     var trItem = function (value, index) {
         return `<tr>
@@ -291,3 +297,5 @@
         observer.observe(footer);
     });
 </script>
+
+<%- include("../modal/slide-delete-modal.ejs") %>

@@ -1,40 +1,28 @@
-  <!--=================================
+<!--=================================
 testimonial -->
 <section class="testimonial-main bg-holder" style="background-image: url(/public/datvangphanthiet/images/bg/02.jpg);">
-    <div class="container">
-      <div class="row">
-        <div class="col-lg-8">
-          <div class="owl-carousel owl-dots-bottom-left" data-nav-dots="true" data-items="1" data-md-items="1"
-            data-sm-items="1" data-xs-items="1" data-xx-items="1" data-space="0">
-            <div class="item">
-              <div class="testimonial">
-                <div class="testimonial-content">
-                  <p><i class="quotes">"</i>Thank you Martin for selling our apartment. We are delighted with the
-                    result. I can highly recommend Martin to anyone seeking a truly professional Realtor.</p>
-                </div>
-                <div class="testimonial-name">
-                  <h6 class="text-primary mb-1">Lisa & Graeme</h6>
-                  <span>Hamilton Rd. Willoughby</span>
-                </div>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8">
+        <div class="owl-carousel owl-dots-bottom-left" data-nav-dots="true" data-items="1" data-md-items="1"
+          data-sm-items="1" data-xs-items="1" data-xx-items="1" data-space="0">
+          <% customers.forEach(function(customer){ %>
+          <div class="item">
+            <div class="testimonial">
+              <div class="testimonial-content">
+                <p><i class="quotes">"</i><%= customer.customer_evaluate %></p>
               </div>
-            </div>
-            <div class="item">
-              <div class="testimonial">
-                <div class="testimonial-content">
-                  <p><i class="quotes">"</i>Oliver always had a smile and was so quick to answer and get the job done.
-                    I'll definitely suggest you to anyone we know who is selling or wanting to purchase a home. He is
-                    the best!</p>
-                </div>
-                <div class="testimonial-name">
-                  <h6 class="text-primary mb-1">Jessica Alex</h6>
-                  <span>West Division Street</span>
-                </div>
+              <div class="testimonial-name">
+                <h6 class="text-primary mb-1"><%= customer.customer_name %></h6>
+                <span><%= customer.customer_career %></span>
               </div>
             </div>
           </div>
+          <% }); %>
         </div>
       </div>
     </div>
-  </section>
-  <!--=================================
+  </div>
+</section>
+<!--=================================
 testimonial -->

@@ -14,7 +14,7 @@ var { getAllProduct,
     deleteProductController,
     searchData,
     getAllProductCategory,
-    getAllProductBrand,
+    getAllProductLocation,
     getAllProductDesc,
     getPageLoad,
     checkSkuMatch } = require('./productController');
@@ -31,7 +31,10 @@ var { getAllProject,
     editProjectImage,
     updateProjectImagePost,
     addProjectImage,
-    deleteProjectImage } = require('./projectController');
+    deleteProjectImage,
+    deleteProjectController,
+    getProjectPageLoad,
+    getAllProjectDesc } = require('./projectController');
 
 
 var { getAllAttribute,
@@ -158,7 +161,7 @@ module.exports = {
     editProductPost,
     deleteProductController,
     getAllProductCategory,
-    getAllProductBrand,
+    getAllProductLocation,
     getAllProductDesc,
     searchData,
     getPageLoad,
@@ -178,6 +181,9 @@ module.exports = {
     updateProjectImagePost,
     addProjectImage,
     deleteProjectImage,
+    deleteProjectController,
+    getProjectPageLoad,
+    getAllProjectDesc,
 
 
 

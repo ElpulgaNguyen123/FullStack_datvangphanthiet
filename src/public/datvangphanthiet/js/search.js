@@ -15,7 +15,6 @@ $(function () {
         </a>
     </li>`;
     }
-
     var stringAppendAdvance = function (id, sku, price, image, slug, name) {
         return `
         <div class="col-sm-4 col-md-4 item">
@@ -66,7 +65,6 @@ $(function () {
                     $('#products_search').append(`<li class="item">  <span> Không tìm thấy... </span></a>
                 </li>`);
                 }
-
             },
             error: function (error) {
                 notify(error, 'danger');
@@ -85,4 +83,77 @@ $(function () {
             $('#products_search').show();
         }
     });
+    // blog search start =================
+    var stringBlogAppendAdvance = function (id, image, slug, title, short_description, time, author) {
+        return `
+        <div class="blog-post col-lg-6 mb-3">
+            <div class="blog-post-image">
+              <img class="img-fluid" src="/public/uploads/blogs/${image}" alt="${title}">
+            </div>
+            <div class="blog-post-content">
+              <div class="blog-post-details">
+                <div class="blog-post-title">
+                  <h5><a class="line-clamp" href="/blog/${slug}.${id}"
+                      title="${title}">${title}</a></h5>
+                </div>
+                <div class="blog-post-description">
+                  <p class="mb-0 line-clamp">${short_description}</p>
+                </div>
+                <div class="blog-post-link mt-4">
+                  <a class="btn btn-link p-0" href="/blog/${slug}.${id}" title="${title}">
+                    Đọc thêm</a>
+                </div>
+              </div>
+              <div class="blog-post-footer">
+                <div class="blog-post-time">
+                  <span> <i class="far fa-clock"></i>${time}</span>
+                </div>
+                <div class="blog-post-author">
+                  <span> ${author}</span>
+                </div>
+              </div>
+            </div>
+          </div>`;
+    }
+    function getSearchBlogData(name) {
+        string = '';
+        $.ajax({
+            url: '/blog/tim-kiem/' + name,
+            type: 'GET',
+            success: function (result) {
+                // cập nhật ngay lập tức avatar trên giao diện
+                if (result.results.length > 0) {
+                    for (var i = 0; i < result.results.length; i++) {
+                        string += stringBlogAppendAdvance(result.results[i].id,
+                            result.results[i].image,
+                            result.results[i].slug,
+                            result.results[i].title,
+                            result.results[i].short_description,
+                            result.results[i].create_at,
+                            result.results[i].author)
+                    }
+                    $('#blogs_search').append(string);
+                } else {
+                    $('#blogs_search').append(`<li class="blog-post"><span> Không tìm thấy... </span></a>
+                </li>`);
+                }
+            },
+            error: function (error) {
+                notify(error, 'danger');
+                console.log(error);
+            }
+        })
+    }
+    $('#searchBlogInput').on('keyup', function () {
+        $('#blogs_search .blog-post').remove();
+        $('#blogs_search_main').hide();
+        var search_value = $(this).val();
+        if (search_value == '') {
+            $('#blogs_search_main').show();
+        } else {
+            getSearchBlogData(search_value);
+            $('#blogs_search').show();
+        }
+    });
+    // blog search start ===============
 })

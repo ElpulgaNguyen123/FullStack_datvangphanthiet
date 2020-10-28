@@ -7,7 +7,7 @@ let FrProductController = async (req, res, next) => {
         let userInfo = {};
         var queryUser = 'SELECT * FROM user';
         var user = await service.getAllUser(queryUser);
-        if(user[0]){
+        if (user[0]) {
             userInfo = user[0];
         }
         const queryProduct = 'Select * from product';
@@ -18,8 +18,8 @@ let FrProductController = async (req, res, next) => {
 
         let queryPolicies = 'SELECT * FROM policies';
         let policies = await service.getAllPolicies(queryPolicies);
-        if(policies.length > 6){
-            policies = policies.slice(0,6);
+        if (policies.length > 6) {
+            policies = policies.slice(0, 6);
         }
 
         //categories
@@ -28,11 +28,11 @@ let FrProductController = async (req, res, next) => {
 
 
         // locations
-        let queryLocation ='SELECT * FROM locations';
+        let queryLocation = 'SELECT * FROM locations';
         let locations = await service.getAllLocations(queryLocation);
 
         //newest real easte
-        let querynewestPro ='SELECT * FROM product ORDER BY ID DESC LIMIT 4';
+        let querynewestPro = 'SELECT * FROM product ORDER BY ID DESC LIMIT 4';
         let newproducts = await service.getAllProductFr(querynewestPro);
 
 
@@ -44,15 +44,15 @@ let FrProductController = async (req, res, next) => {
         // Lấy tất cả sản phẩm và hiển thị ra table
         res.render('datvangphanthiet/products/products', {
             title: 'Sản phẩm',
-            userInfo : userInfo,
-            products: products.slice(0,9),
-            projects:projects,
+            userInfo: userInfo,
+            products: products.slice(0, 9),
+            projects: projects,
             locations: locations,
-            query : query,
-            policies : policies,
-            blog_categories : blog_categories,
+            query: query,
+            policies: policies,
+            blog_categories: blog_categories,
             categories: categories,
-            newproducts : newproducts,
+            newproducts: newproducts,
             errors: req.flash('Errors'),
             success: req.flash('Success'),
         });
@@ -66,7 +66,7 @@ let getAllProductCategory = async (req, res, next) => {
         let userInfo = {};
         var queryUser = 'SELECT * FROM user';
         var user = await service.getAllUser(queryUser);
-        if(user[0]){
+        if (user[0]) {
             userInfo = user[0];
         }
         // Lấy tất cả sản phẩm và hiển thị ra table
@@ -77,8 +77,8 @@ let getAllProductCategory = async (req, res, next) => {
 
         let queryPolicies = 'SELECT * FROM policies';
         let policies = await service.getAllPolicies(queryPolicies);
-        if(policies.length > 6){
-            policies = policies.slice(0,6);
+        if (policies.length > 6) {
+            policies = policies.slice(0, 6);
         }
         // categories
         let queryBlogCatgories = 'SELECT * FROM blog_categories';
@@ -86,11 +86,11 @@ let getAllProductCategory = async (req, res, next) => {
 
 
         // locations
-        let queryLocation ='SELECT * FROM locations';
+        let queryLocation = 'SELECT * FROM locations';
         let locations = await service.getAllLocations(queryLocation);
 
         //newest real easte
-        let querynewestPro ='SELECT * FROM product ORDER BY ID DESC LIMIT 4';
+        let querynewestPro = 'SELECT * FROM product ORDER BY ID DESC LIMIT 4';
         let newproducts = await service.getAllProductFr(querynewestPro);
 
 
@@ -107,15 +107,15 @@ let getAllProductCategory = async (req, res, next) => {
             }
             res.render('datvangphanthiet/products/products', {
                 title: title,
-                userInfo : userInfo,
-                query : query,
+                userInfo: userInfo,
+                query: query,
                 products: results,
-                projects:projects,
-                policies : policies,
-                categories : categories,
-                blog_categories : blog_categories,
-                locations : locations,
-                newproducts :newproducts,
+                projects: projects,
+                policies: policies,
+                categories: categories,
+                blog_categories: blog_categories,
+                locations: locations,
+                newproducts: newproducts,
                 errors: req.flash('Errors'),
                 success: req.flash('Success'),
             });
@@ -132,7 +132,7 @@ let getAllProductLocation = async (req, res, next) => {
         let userInfo = {};
         var queryUser = 'SELECT * FROM user';
         var user = await service.getAllUser(queryUser);
-        if(user[0]){
+        if (user[0]) {
             userInfo = user[0];
         }
         // Lấy tất cả sản phẩm và hiển thị ra table
@@ -143,18 +143,18 @@ let getAllProductLocation = async (req, res, next) => {
 
         let queryPolicies = 'SELECT * FROM policies';
         let policies = await service.getAllPolicies(queryPolicies);
-        if(policies.length > 6){
-            policies = policies.slice(0,6);
+        if (policies.length > 6) {
+            policies = policies.slice(0, 6);
         }
         //categories
         let queryBlogCatgories = 'SELECT * FROM blog_categories';
         let blog_categories = await service.getAllBlogCategories(queryBlogCatgories);
         // locations
-        let queryLocation ='SELECT * FROM locations';
+        let queryLocation = 'SELECT * FROM locations';
         let locations = await service.getAllLocations(queryLocation);
 
         //newest real easte
-        let querynewestPro ='SELECT * FROM product ORDER BY ID DESC LIMIT 4';
+        let querynewestPro = 'SELECT * FROM product ORDER BY ID DESC LIMIT 4';
         let newproducts = await service.getAllProductFr(querynewestPro);
 
 
@@ -171,15 +171,15 @@ let getAllProductLocation = async (req, res, next) => {
             }
             res.render('datvangphanthiet/products/products', {
                 title: title,
-                userInfo : userInfo,
-                query:query,
+                userInfo: userInfo,
+                query: query,
                 products: results,
-                projects:projects,
+                projects: projects,
                 policies: policies,
-                blog_categories : blog_categories,
+                blog_categories: blog_categories,
                 categories: categories,
-                locations : locations,
-                newproducts : newproducts,
+                locations: locations,
+                newproducts: newproducts,
                 errors: req.flash('Errors'),
                 success: req.flash('Success'),
                 user: req.user
@@ -197,7 +197,7 @@ let FrProductDetailController = async (req, res, next) => {
         let userInfo = {};
         var queryUser = 'SELECT * FROM user';
         var user = await service.getAllUser(queryUser);
-        if(user[0]){
+        if (user[0]) {
             userInfo = user[0];
         }
         const getAllProductFrs = 'SELECT * from product WHERE id = ?';
@@ -208,7 +208,7 @@ let FrProductDetailController = async (req, res, next) => {
         let relateProducts = [];
         if (product[0].category_id) {
             relateProducts = await service.getAllProductFr(queryproductRelate, product[0].category_id);
-        }else {
+        } else {
             relateProducts = [];
         }
         var images = '';
@@ -227,7 +227,7 @@ let FrProductDetailController = async (req, res, next) => {
             policies = policiess.slice(0, 6);
         }
 
-        var queryCategory = 'SELECT * FROM categories';        
+        var queryCategory = 'SELECT * FROM categories';
         const categories = await service.getAllCategoryProduct(queryCategory);
 
         let queryProject = 'SELECT * FROM project';
@@ -237,11 +237,11 @@ let FrProductDetailController = async (req, res, next) => {
         res.render('datvangphanthiet/products/product-detail', {
             title: '',
             product: product[0],
-            userInfo : userInfo,
-            projects:projects,
-            policies : policies,
-            blog_categories : blog_categories,
-            categories : categories,
+            userInfo: userInfo,
+            projects: projects,
+            policies: policies,
+            blog_categories: blog_categories,
+            categories: categories,
             blogFeature: blogFeature,
             images: images,
             relateProducts: relateProducts,
@@ -277,38 +277,58 @@ let searchData = async (req, res, next) => {
     }
 }
 
-let getAllBikeDesc = async (req, res, next) => {
+let getAllProductDesc = async (req, res, next) => {
     try {
 
         let userInfo = {};
         var queryUser = 'SELECT * FROM user';
         var user = await service.getAllUser(queryUser);
-        if(user[0]){
+        if (user[0]) {
             userInfo = user[0];
         }
-        // Lấy tất cả sản phẩm và hiển thị ra table
-        const queryBrands = 'SELECT * FROM brand';
-        const queryCategories = 'SELECT * FROM categories';
-        const brands = await service.getAllBrand(queryBrands);
-        const categories = await service.getAllCategoryProduct(queryCategories);
-        const query = `SELECT * FROM product ORDER BY id DESC`;
-        pool.query(`SELECT * FROM product ORDER BY id DESC`, function (error, results, fields) {
+
+        const querycategories = 'SELECT * FROM categories';
+        const queryproduct = `SELECT * FROM product WHERE location_id = ?`;
+        const categories = await service.getAllCategoryProduct(querycategories);
+        const query = `SELECT * FROM product WHERE location_id = ${req.params.idlocation}`;
+
+        let queryPolicies = 'SELECT * FROM policies';
+        let policies = await service.getAllPolicies(queryPolicies);
+        if (policies.length > 6) {
+            policies = policies.slice(0, 6);
+        }
+        //categories
+        let queryBlogCatgories = 'SELECT * FROM blog_categories';
+        let blog_categories = await service.getAllBlogCategories(queryBlogCatgories);
+        // locations
+        let queryLocation = 'SELECT * FROM locations';
+        let locations = await service.getAllLocations(queryLocation);
+
+        //newest real easte
+        let querynewestPro = 'SELECT * FROM product ORDER BY ID DESC LIMIT 4';
+        let newproducts = await service.getAllProductFr(querynewestPro);
+
+
+        let queryProject = 'SELECT * FROM project';
+        let projects = await service.getAllProject(queryProject);
+
+        const queryFilter = `SELECT * FROM product WHERE category_id = ${req.body.category_key} ORDER BY id ${req.body.sort_key}`;
+
+        pool.query(queryFilter, function (error, results, fields) {
             if (error) throw error;
-            var page = parseInt(req.query.page) || 1; // n
-            var perPage = 10; // x
-            var start = (page - 1) * perPage;
-            var end = page * perPage;
-            var totalPage = Math.ceil(results.length / 10);
-            var pageDistance = page + 3;
             res.render('admin/products/products', {
-                title: 'Sản phẩm',
-                userInfo : userInfo,
-                query : query,
+                title: 'Sắp xếp',
+                userInfo: userInfo,
+                query: queryFilter,
                 products: results.slice(start, end),
-                pages: pageDistance,
-                page: page,
-                brands: brands,
+                userInfo: userInfo,
+                locations : locations,
+                projects: projects,
+                policies: policies,
+                newproducts:newproducts,
+                blog_categories: blog_categories,
                 categories: categories,
+                blogFeature: blogFeature,
                 errors: req.flash('Errors'),
                 success: req.flash('Success'),
                 user: req.user
@@ -358,6 +378,6 @@ module.exports = {
     getAllProductCategory,
     getAllProductLocation,
     searchData,
-    getAllBikeDesc,
+    getAllProductDesc,
     getPageLoad
 };

@@ -204,6 +204,7 @@ $(document).ready(function () {
         $('#dropzoneSubmit').on('click', function (e) {
             //e.preventDefault();
             //console.log('Clicked');
+            $('.loading_cc').css('display','flex !important');
             $("#product_form").validate({
                 rules: {
                     product_name: {
@@ -278,6 +279,7 @@ $(document).ready(function () {
         $('#dropzoneEditProductSubmit').on('click', function (e) {
             //e.preventDefault();
             //console.log('Clicked');
+            $('.loading_cc').css('display','flex !important');
             $("#product-edit-form").validate({
                 rules: {
                     product_name: {
@@ -327,14 +329,12 @@ $(document).ready(function () {
                     myDropzone.processQueue();
                     var imgPathArrr = [];
                     if (myDropzone.files != "") {
-                        console.log(myDropzone.files)
                         for (var index = 0; index < myDropzone.files.length; index++) {
                             imgPathArrr.push(myDropzone.files[index].upload.filename);
                         }
                         var ImageJson = Object.assign({}, imgPathArrr);
                         // thiết lập dữ liệu cho input bên frontend để truyền lên server
                         $('#image_path').val(JSON.stringify(ImageJson));
-                        console.log(ImageJson);
                     }
                     else{
                         alert('Không có sự thay đổi nào')

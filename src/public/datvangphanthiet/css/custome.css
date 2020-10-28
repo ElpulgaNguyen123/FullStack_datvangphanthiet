@@ -50,7 +50,13 @@
   -webkit-line-clamp: 2;
   overflow: hidden;
 }
-
+.blog-post-title a{
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+  text-transform: capitalize;
+}
 
 .owl-carousel .owl-item img {
   width: 100% !important;

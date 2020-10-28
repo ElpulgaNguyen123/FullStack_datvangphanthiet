@@ -53,11 +53,23 @@ let FrContactController = async (req, res, next) => {
 let FrSendmailController = async (req, res, next) => {
     try {
         let customer = {};
-        customer.name = req.body.customer_name;
-        customer.phone = req.body.customer_phone;
+        if(!req.body.customer_name){
+            customer.name = '';
+        }else{
+            customer.name = req.body.customer_name;
+        }
+        if(!req.body.customer_phone){
+            customer.phone = '';
+        }else{
+            customer.phone = req.body.customer_phone;
+        }
         customer.email = req.body.customer_email;
-        customer.content = req.body.customer_content;
 
+        if(!req.body.customer_content){
+            customer.content = ' Nhận email thông báo tin tức ';
+        }else{
+            customer.content = req.body.customer_content;
+        }
         let email = '';
         var queryUser = 'SELECT * FROM user';
         var user = await service.getAllUser(queryUser);
@@ -86,11 +98,9 @@ let FrSendmailController = async (req, res, next) => {
         // Sendmail
         await transporter.sendMail(options)
             .then((success) => {
-                res.redirect('/lien-he');
+                res.redirect('/thanh-cong');
             })
             .catch((error) => {
-                // trường hợp xảy ra xác thực lỗi thì delete user đó
-                //userModel.removeId(user._id);
                 console.log(error);
             });
     } catch (error) {

@@ -232,7 +232,7 @@ let searchDataProject = async (req, res, next) => {
     try {
         var project_name = req.params.name;
         var queryBike = `
-        SELECT * FROM project WHERE project_sku LIKE 
+        SELECT * FROM project WHERE project_name LIKE 
         '%${project_name}%' 
         ORDER BY ID DESC LIMIT 6`;
         var result = {};
@@ -380,6 +380,94 @@ let deleteProjectImage = async (req, res, next) => {
     }
 }
 
+// Xóa dự án
+let deleteProjectController = async (req, res, next) => {
+    let successArr = [];
+    try {
+        var iddelete = req.params.iddelete;
+       
+        const querydeleteProject = `DELETE FROM project where id = ${iddelete}`;
+        const queryImage = `SELECT project_image FROM project WHERE id = ${iddelete}`;
+        const images = await service.queryActionNoParams(queryImage);
+
+        let imagesParse = '';
+        let imagesArr = [];
+        if (images[0].project_image != '') {
+            imagesParse = JSON.parse(images[0].project_image);
+            imagesArr = Object.keys(imagesParse);
+            for (var i = 0; i < imagesArr.length; i++) {
+                await fsExtras.remove(`${app.directory_projects}/${imagesParse[imagesArr[i]]}`);
+            }
+        }
+    
+        await service.queryActionNoParams(querydeleteProject);
+
+        successArr.push(Transuccess.deleteSuccess('dự án'));
+        req.flash('Success', successArr);
+        return res.redirect('/admin/projects');
+
+
+    } catch (error) {
+        arrayError.push('Có lỗi xảy ra');
+        req.flash('errors', arrayError);
+        res.redirect('/admin/projects');
+    }
+}
+
+let getProjectPageLoad = async (req, res, next) => {
+    try {
+        // Lấy tất cả sản phẩm và hiển thị ra table
+        var query = req.body.query;
+        pool.query(query, function (error, results, fields) {
+            if (error) throw error;
+            let count = 0;
+            for (var i = 0; i < results.length; i++) {
+                count++;
+            }
+            let page = parseInt(req.params.page) || 1;
+            // số sản phẩm trên 1 trang.
+            let perPage = 10;
+            let start = (page - 1) * perPage;
+            let end = page * perPage;
+            let result = {};
+            result.products = results.slice(start, end);
+            results.count = req.params.page;
+            result.page = req.params.page;
+            return res.status(200).send(result);
+
+        });
+
+    } catch (error) {
+        arrayError.push('Có lỗi xảy ra');
+        req.flash('errors', arrayError);
+        res.redirect('/admin/products');
+    }
+}
+
+let getAllProjectDesc = async (req, res, next) => {
+    try {
+        // Lấy tất cả sản phẩm và hiển thị ra table  
+        const query = `SELECT * FROM project ORDER BY id DESC`;
+
+        pool.query(`SELECT * FROM project ORDER BY id DESC`, function (error, results, fields) {
+            if (error) throw error;
+            res.render('admin/projects/projects', {
+                title: 'Dự án',
+                projects: results.slice(0, 10),
+                query, query,
+                errors: req.flash('Errors'),
+                success: req.flash('Success'),
+                user: req.user
+            });
+        });
+
+    } catch (error) {
+        arrayError.push('Có lỗi xảy ra');
+        req.flash('errors', arrayError);
+        res.redirect('/admin/products');
+    }
+}
+
 module.exports = {
     getAllProject,
     addProjectGet,
@@ -392,5 +480,8 @@ module.exports = {
     editProjectImage,
     updateProjectImagePost,
     addProjectImage,
-    deleteProjectImage
+    deleteProjectImage,
+    deleteProjectController,
+    getProjectPageLoad,
+    getAllProjectDesc
 };

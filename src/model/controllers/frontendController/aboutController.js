@@ -23,8 +23,6 @@ let FrAboutController = async (req, res, next) => {
         const categories = await service.getAllCategoryProduct(queryCategory);
 
 
-
-
         const company_features = await service.getAllEndow(queryCompanyFeatures);
         const customers = await service.getAllCustomer(queryCustomer);
         const staffs = await service.getAllStaffService(queryStaff);
@@ -33,8 +31,6 @@ let FrAboutController = async (req, res, next) => {
         if(user[0]){
             userInfo = user[0];
         }
-
-
         let queryProject = 'SELECT * FROM project';
         let projects = await service.getAllProject(queryProject);
 

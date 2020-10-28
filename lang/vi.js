@@ -77,8 +77,8 @@ let Transuccess = {
   }
 }
 let tranMail = {
-  subject: "Xe Đạp Phương Đông : Xác nhận tài khoản !",
-  sendmailSubject: 'Gửi xe đạp Phương Đông',
+  subject: "Đất Vàng Phan Thiết : Xác nhận tài khoản !",
+  sendmailSubject: 'Gửi Đất Vàng Phan Thiết',
   template: (linkverify) => {
     return `<h2> Bạn nhận được email này và đã đăng ký tài khoản trên ứng dụng Funny chat. </h2>
         <h3> Vui lòng click vào liên kết bên dưới để kích hoạt tài khoản. </h3>

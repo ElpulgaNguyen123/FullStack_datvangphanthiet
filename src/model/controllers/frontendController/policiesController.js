@@ -9,16 +9,23 @@ const policiesService = require('../../../services/policiesService');
 let FrgetAllPolicy = async (req, res, next) => {
     try {
 
+        let userInfo = {};
+        var queryUser = 'SELECT * FROM user';
+        var user = await service.getAllUser(queryUser);
+        if (user[0]) {
+            userInfo = user[0];
+        }
+
         let queryPolicies = 'SELECT * FROM policies';
         let policies = await service.getAllPolicies(queryPolicies);
-        if(policies.length > 6){
-            policies = policies.slice(0,6);
+        if (policies.length > 6) {
+            policies = policies.slice(0, 6);
         }
         let queryBlogCatgories = 'SELECT * FROM blog_categories';
         let blog_categories = await service.getAllBlogCategories(queryBlogCatgories);
 
 
-        var queryCategory = 'SELECT * FROM categories';        
+        var queryCategory = 'SELECT * FROM categories';
         const categories = await service.getAllCategoryProduct(queryCategory);
 
         let queryProject = 'SELECT * FROM project';
@@ -29,11 +36,12 @@ let FrgetAllPolicy = async (req, res, next) => {
             if (error) throw error;
             res.render('datvangphanthiet/policies/policies', {
                 title: 'Chính sách',
-                projects:projects,
+                userInfo: userInfo,
+                projects: projects,
                 policies: policies,
-                blog_categories : blog_categories,
-                categories : categories,
-                policess : rows,
+                blog_categories: blog_categories,
+                categories: categories,
+                policess: rows,
                 errors: req.flash('Errors'),
                 success: req.flash('Success'),
                 user: req.user
@@ -52,18 +60,26 @@ let FrgetPolicyDetails = async (req, res, next) => {
         var policy_id = req.params.id;
         var arrayError = [],
             successArr = [];
+
+        let userInfo = {};
+        var queryUser = 'SELECT * FROM user';
+        var user = await service.getAllUser(queryUser);
+        if (user[0]) {
+            userInfo = user[0];
+        }
+
         var query = `SELECT * FROM policies WHERE id = ?`;
-        
+
         let queryPolicies = 'SELECT * FROM policies';
         let policies = await service.getAllPolicies(queryPolicies);
-        if(policies.length > 6){
-            policies = policies.slice(0,6);
+        if (policies.length > 6) {
+            policies = policies.slice(0, 6);
         }
         let queryBlogCatgories = 'SELECT * FROM blog_categories';
         let blog_categories = await service.getAllBlogCategories(queryBlogCatgories);
 
 
-        var queryCategory = 'SELECT * FROM categories';        
+        var queryCategory = 'SELECT * FROM categories';
         const categories = await service.getAllCategoryProduct(queryCategory);
 
         let queryProject = 'SELECT * FROM project';
@@ -75,10 +91,11 @@ let FrgetPolicyDetails = async (req, res, next) => {
             res.render('datvangphanthiet/policies/policy', {
                 title: 'Chi tiết chính sách',
                 policy: rows[0],
-                projects:projects,
-                policies : policies,
-                categories : categories,
-                blog_categories : blog_categories,
+                projects: projects,
+                policies: policies,
+                categories: categories,
+                blog_categories: blog_categories,
+                userInfo:userInfo,
                 user: req.user,
                 errors: req.flash('Errors'),
                 success: req.flash('Success'),

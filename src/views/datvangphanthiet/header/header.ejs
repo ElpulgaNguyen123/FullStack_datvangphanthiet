@@ -49,7 +49,7 @@ header -->
                       </div>
                       <div class="media-body">
                         <h6 class="mb-1">Chọn loại bất động sản mà bạn mong muốn</h6>
-                        <p class="mb-0">To browse in your areas of interest, look for properties by location.</p>
+                        <p class="mb-0">Để duyệt qua các khu vực bạn quan tâm, hãy tìm các thuộc tính theo vị trí.</p>
                       </div>
                     </div>
                   </div>
@@ -57,9 +57,9 @@ header -->
                 <div class="row">
                   <% categories.forEach(function(category){ %>
                   <div class="col-sm-4">
-                    <h6 class="mb-3 nav-title"> <a class="d-block text-md-center pd-badge badge badge-danger color-red"
+                    <h6 class="mb-3 nav-title"> <a class="d-block text-md-center pd-badge badge badge-danger"
                         href="/danh-muc/<%= category.category_slug %>.<%= category.id %>"
-                        title="<%= category.category_name %>"><%= category.category_name %></a></h6>
+                        title="<%= category.category_name %>" style="background-color : <%= category.category_color %>;"><%= category.category_name %></a></h6>
                   </div>
                   <% }); %>
                   <div class="col-12 mt-4 d-none d-lg-block">
@@ -89,7 +89,8 @@ header -->
             </a>
             <ul class="dropdown-menu">
               <% projects.forEach(function(project){ %>
-              <li><a class="dropdown-item" href="/du-an/<%= project.project_slug %>.<%= project.id %>" title="<%= project.project_name %>"><%= project.project_name %></a></li>
+              <li><a class="dropdown-item" href="/du-an/<%= project.project_slug %>.<%= project.id %>"
+                  title="<%= project.project_name %>"><%= project.project_name %></a></li>
               <% }); %>
             </ul>
           </li>
@@ -126,7 +127,7 @@ header -->
         </ul>
       </div>
       <div class="add-listing d-none d-sm-block">
-        <a class="btn btn-primary btn-md" href="submit-property.html"> <i class="fa fa-phone"></i>Tư vấn
+        <a class="btn btn-primary btn-md" href="tel:<%= userInfo.phone %>"> <i class="fa fa-phone"></i>Tư vấn
         </a>
       </div>
     </div>
