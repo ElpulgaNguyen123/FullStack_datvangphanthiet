@@ -13,14 +13,13 @@ frontendRouter.get('/blog/blog-category/*.:id', controller.FrBlogCategoryControl
 frontendRouter.get('/blog/*.:id', controller.FrBlogDetailController);
 frontendRouter.post('/blog/get-more/:page',controller.getPageLoadBlog);
 frontendRouter.get('/blog/tim-kiem/:name', controller.searchBlogData);
-
 // blog / end
 
 // product / start
 frontendRouter.get('/san-pham', controller.FrProductController);
 frontendRouter.get('/danh-muc/*.:iddanhmuc', controller.getAllProductCategory);
 frontendRouter.get('/san-pham/dia-diem/*.:idlocation', controller.getAllProductLocation);
-frontendRouter.get('/san-pham/giam-dan', controller.getAllProductDesc);
+frontendRouter.post('/san-pham/giam-dan', controller.getAllProductDesc);
 frontendRouter.get('/san-pham/*.:id', controller.FrProductDetailController);
 frontendRouter.get('/san-pham/search/:name', controller.searchData);
 frontendRouter.post('/san-pham/get-more/:page',controller.getPageLoad);
@@ -34,6 +33,8 @@ frontendRouter.get('/phap-ly/*.:id',controller.FrgetPolicyDetails);
 // chinh sach và phap ly / end
 
 frontendRouter.get('/thanh-cong',controller.successController);
+frontendRouter.get('/khong-thanh-cong',controller.errorController);
+
 
 // not founds page
 frontendRouter.use(controller.notFoundController);

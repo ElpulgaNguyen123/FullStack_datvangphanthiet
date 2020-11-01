@@ -24,7 +24,8 @@ const { FrProductController,
     getPageLoad } = require('./productController');
 
 const {notFoundController,
-    successController } = require('./notFoundController');
+    successController,
+    errorController } = require('./notFoundController');
 
 module.exports = {
     
@@ -59,5 +60,6 @@ module.exports = {
 
 
     notFoundController,
-    successController
+    successController,
+    errorController
 }

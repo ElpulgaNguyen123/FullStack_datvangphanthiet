@@ -9,11 +9,11 @@ header -->
         <div class="col-12">
           <div class="d-block d-md-flex align-items-center text-center">
             <div class="mr-3 d-inline-block">
-              <a href="tel:02526512333"><i class="fa fa-phone mr-2 fa fa-flip-horizontal"></i>0252 6512 333</a>
+              <a href="tel:<%= userInfo.phone %>"><i class="fa fa-phone mr-2 fa fa-flip-horizontal"></i><%= userInfo.phone %></a>
             </div>
             <div class="ml-auto social d-inline-block">
               <ul class="list-unstyled">
-                <li><a href="#"> <i class="fab fa-facebook-f"></i> </a></li>
+                <li><a href="<%= userInfo.facebook %>"> <i class="fab fa-facebook-f"></i> </a></li>
               </ul>
             </div>
           </div>

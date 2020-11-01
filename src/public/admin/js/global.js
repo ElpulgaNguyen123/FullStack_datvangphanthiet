@@ -1,10 +1,9 @@
 
-
 $('.slider-delete a.delete_slider').on('click', function () {
     var urlDeleteSlider = $(this).attr('href');
     $('#delete_slider').attr('href', urlDeleteSlider);
 });
-
+alert(ImageJson);
 // user actions
 var userInfo = {};
 var oringinUserInfo = {};
@@ -23,8 +22,7 @@ function updateUserInfo() {
     $('#profile-address').bind('change', function () {
         userInfo.address = $(this).val();
     })
-}
-
+};
 function notify(message, type) {
     $.growl({
         message: message
@@ -56,12 +54,12 @@ function getUserAvatarUpdate() {
         let limit = 16388608;  // 1 mb 
         // hàm inArray là dùng để check dữ liệu coi có trùng hay không.
         if ($.inArray(fileData.type, math) === -1) {
-            notify('Kiểu ảnh không hợp lệ, chỉ chấp nhận kiểu jpg hoặc png', 'danger');
+            toastr.success(result);
             $(this).val(null);
             return false;
         }
         if (fileData.size > limit) {
-            notify('Dung lượng ảnh quá lớn', 'danger');
+            toastr.error('Dung lượng ảnh quá lớn');
             $(this).val(null);
             return false;
         }
@@ -85,7 +83,6 @@ function getUserAvatarUpdate() {
 
     let images_src = $('#image-avatar-info').attr('src');
 }
-
 function userAvatarUpdate(id) {
     $.ajax({
         url: '/admin/update-avatar/' + id,
@@ -104,7 +101,7 @@ function userAvatarUpdate(id) {
             notify(error, 'danger');
         }
     })
-}
+};
 // ============================================================================================
 // Products action
 let productItem = {};
@@ -121,7 +118,6 @@ function addProduct() {
         productItem.count = $(this).val();
     });
 }
-
 
 $(document).ready(function () {
     // PRODUCT ADD FORM SUBMIT;
@@ -219,6 +215,10 @@ $(document).ready(function () {
                         required: true,
                         number: true
                     },
+                    product_quantity: {
+                        required: true,
+                        number: true
+                    },
                     product_brand: {
                         required: true,
                     },
@@ -239,6 +239,10 @@ $(document).ready(function () {
                         required: "Vui lòng nhập giá sản phẩm",
                         number: 'giá sản phẩm phải là số'
                     },
+                    product_quantity: {
+                        required: "Vui lòng nhập giá sản phẩm",
+                        number: 'Số lượng phải là số'
+                    },
                     product_brand: {
                         required: "Vui lòng chọn hãng sản xuất",
                     },
@@ -248,16 +252,6 @@ $(document).ready(function () {
                 },
                 invalidHandler: function (event, validator) {
                     var errors = validator.numberOfInvalids();
-                    /*Here you will get your errors
-                        if (errors) {
-                          var message = errors == 1
-                                ? 'You missed 1 field. It has been highlighted'
-                                : 'You missed ' + errors + ' fields. They have been highlighted';
-                          $("div.error span").html(message);
-                          $("div.error").show();
-                    } else {
-                      $("div.error").hide();
-                    }*/
                     alert("Vui lòng Validate " + errors);
                 },
                 submitHandler: function (element) {
@@ -294,6 +288,10 @@ $(document).ready(function () {
                         required: true,
                         number: true
                     },
+                    product_quantity: {
+                        required: true,
+                        number: true
+                    },
                     product_brand: {
                         required: true,
                     },
@@ -314,6 +312,10 @@ $(document).ready(function () {
                         required: "Vui lòng nhập giá sản phẩm",
                         number: 'giá sản phẩm phải là số'
                     },
+                    product_quantity: {
+                        required: "Vui lòng nhập giá sản phẩm",
+                        number: 'Số lượng phải là số'
+                    },
                     product_brand: {
                         required: "Vui lòng chọn hãng sản xuất",
                     },
@@ -333,13 +335,14 @@ $(document).ready(function () {
                             imgPathArrr.push(myDropzone.files[index].upload.filename);
                         }
                         var ImageJson = Object.assign({}, imgPathArrr);
+                        
                         // thiết lập dữ liệu cho input bên frontend để truyền lên server
                         $('#image_path').val(JSON.stringify(ImageJson));
                     }
                     else{
                         alert('Không có sự thay đổi nào')
                     }
-                    $('#product-edit-form').submit();
+                    //$('#product-edit-form').submit();
                     $('.start').click();
                 }
             });

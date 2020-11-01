@@ -5,15 +5,15 @@
     <div class="row justify-content-center">
       <div class="col-lg-8">
         <div class="section-title text-center">
-          <h2>Bất Động Sản Mới Nhất</h2>
-          <p>Nhanh tay chọn bất động sản ngay</p>
+          <h2 class="wow fadeInDown" data-wow-delay="0.5" data-wow-duration="2s">Bất Động Sản Mới Nhất</h2>
+          <p class="wow fadeInUp" data-wow-delay="0.5" data-wow-duration="1s">Nhanh tay chọn bất động sản ngay</p>
         </div>
       </div>
     </div>
     <div class="row">
       <% products.forEach((product) => { %>
       <div class="col-sm-6 col-md-4">
-        <div class="property-item">
+        <div class="property-item wow fadeInUp" data-wow-delay="0.5" data-wow-duration="2s">
           <div class="property-image bg-overlay-gradient-04">
             <% if(product.image.length > 0){ %>
             <img class="img-fluid" src="/public/uploads/products/<%=JSON.parse(product.image)[0] %>" alt="">

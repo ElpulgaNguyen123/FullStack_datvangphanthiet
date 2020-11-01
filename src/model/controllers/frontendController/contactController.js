@@ -77,9 +77,9 @@ let FrSendmailController = async (req, res, next) => {
             email = user[0].email;
         }
         var smtpConfig = {
-            host: 'smtp.gmail.com',
-            port: 465,
-            secure: true,
+            service: 'gmail',
+            port: 587,
+            secure: false,
             auth: {
                 user: 'nguyenhoangthang635@gmail.com',
                 pass: 'Leo769183'
@@ -101,11 +101,10 @@ let FrSendmailController = async (req, res, next) => {
                 res.redirect('/thanh-cong');
             })
             .catch((error) => {
-                console.log(error);
+                res.redirect('/khong-thanh-cong');
             });
     } catch (error) {
-        console.log(error);
-        return res.status(500).send(error);
+        res.redirect('/khong-thanh-cong');
     }
 }
 module.exports = { FrContactController, FrSendmailController };

@@ -81,6 +81,7 @@
                                 Ảnh...</span>
                         </span>
                     </div>
+                    <small class="mt-4">Vui lòng không chọn quá 4 ảnh mỗi lần !</small>
                 </div>
                 <div class="col-lg-5">
                     <!-- The global file processing state -->
@@ -114,11 +115,11 @@
                         </div>
                     </div>
                     <div class="flex-3">
-                        <button class="btn btn-primary start">
+                        <button class="btn btn-primary invisible start">
                             <i class="glyphicon glyphicon-upload"></i>
                             <span>Lưu</span>
                         </button>
-                        <button data-dz-remove class="btn btn-warning cancel">
+                        <button data-dz-remove class="btn btn-warning invisible cancel">
                             <i class="glyphicon glyphicon-ban-circle"></i>
                             <span>Hủy</span>
                         </button>
@@ -195,10 +196,37 @@
                             <label class="font-weight-bold required-form" for="product_name">
                                 Tên Sản Phẩm
                             </label>
-                            <input type="text" name="product_name" value="<%= product.name %>" class="form-control"
+                            <input onkeyup="to_slug($(this).val())" type="text" name="product_name" value="<%= product.name %>" class="form-control"
                                 placeholder="Tên sản phẩm">
                         </div>
-
+                        <script>
+                            function to_slug(str) {
+                                // Chuyển hết sang chữ thường
+                                str = str.toLowerCase();
+                                // xóa dấu
+                                str = str.replace(/(à|á|ạ|ả|ã|â|ầ|ấ|ậ|ẩ|ẫ|ă|ằ|ắ|ặ|ẳ|ẵ)/g, 'a');
+                                str = str.replace(/(è|é|ẹ|ẻ|ẽ|ê|ề|ế|ệ|ể|ễ)/g, 'e');
+                                str = str.replace(/(ì|í|ị|ỉ|ĩ)/g, 'i');
+                                str = str.replace(/(ò|ó|ọ|ỏ|õ|ô|ồ|ố|ộ|ổ|ỗ|ơ|ờ|ớ|ợ|ở|ỡ)/g, 'o');
+                                str = str.replace(/(ù|ú|ụ|ủ|ũ|ư|ừ|ứ|ự|ử|ữ)/g, 'u');
+                                str = str.replace(/(ỳ|ý|ỵ|ỷ|ỹ)/g, 'y');
+                                str = str.replace(/(đ)/g, 'd');
+                                // Xóa ký tự đặc biệt
+                                str = str.replace(/([^0-9a-z-\s])/g, '');
+                                // Xóa khoảng trắng thay bằng ký tự -
+                                str = str.replace(/(\s+)/g, '-');
+                                // xóa phần dự - ở đầu
+                                str = str.replace(/^-+/g, '');
+                                // xóa phần dư - ở cuối
+                                str = str.replace(/-+$/g, '');
+                                // return
+                                document.getElementById('product_slug').value = str;
+                                document.getElementById('product_meta_title').value = str;
+                                document.getElementById('product_meta_keyword').value = str;
+                                document.getElementById('product_meta_description').value = str;
+                                return str;
+                            }
+                        </script>
                         <div class="form-group">
                             <label class="font-weight-bold" for="product_slug">
                                 Đường dẫn slug
@@ -358,9 +386,6 @@
     </div>
 </div>
 <script>
-
-    
-
     $(document).ready(function () {
         var imageData = null;
         var ProductAttrArr = [];

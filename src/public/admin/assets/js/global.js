@@ -201,8 +201,6 @@ $(document).ready(function () {
 
         // thực hiện thêm hình ảnh
         $('#dropzoneSubmit').on('click', function (e) {
-
-
             $("#product_form").validate({
                 rules: {
                     product_name: {
@@ -213,8 +211,13 @@ $(document).ready(function () {
                         required: true,
                         minlength: 5
                     },
-                    product_brand: {
+                    product_price: {
                         required: true,
+                        number: true
+                    },
+                    product_quantity: {
+                        required: true,
+                        number: true
                     },
                     product_category: {
                         required: true
@@ -229,8 +232,13 @@ $(document).ready(function () {
                         required: "Vui lòng nhập mã sản phẩm",
                         minlength: "Mã sản phẩm phảo có ít nhất 2 ký tự"
                     },
-                    product_brand: {
-                        required: "Vui lòng chọn hãng sản xuất",
+                    product_price: {
+                        required: "Vui lòng nhập giá sản phẩm",
+                        number: 'giá sản phẩm phải là số'
+                    },
+                    product_quantity: {
+                        required: "Vui lòng nhập giá sản phẩm",
+                        number: 'Số lượng phải là số'
                     },
                     product_category: {
                         required: 'Vui lòng chọn danh mục cho sản phẩm'
@@ -322,8 +330,13 @@ $(document).ready(function () {
                         required: true,
                         minlength: 5
                     },
-                    product_brand: {
+                    product_price: {
                         required: true,
+                        number: true
+                    },
+                    product_quantity: {
+                        required: true,
+                        number: true
                     },
                     product_category: {
                         required: true
@@ -338,8 +351,13 @@ $(document).ready(function () {
                         required: "Vui lòng nhập mã sản phẩm",
                         minlength: "Mã sản phẩm phảo có ít nhất 2 ký tự"
                     },
-                    product_brand: {
-                        required: "Vui lòng chọn hãng sản xuất",
+                    product_price: {
+                        required: "Vui lòng nhập giá sản phẩm",
+                        number: 'giá sản phẩm phải là số'
+                    },
+                    product_quantity: {
+                        required: "Vui lòng nhập giá sản phẩm",
+                        number: 'Số lượng phải là số'
                     },
                     product_category: {
                         required: 'Vui lòng chọn danh mục cho sản phẩm'
@@ -347,17 +365,7 @@ $(document).ready(function () {
                 },
                 invalidHandler: function (event, validator) {
                     var errors = validator.numberOfInvalids();
-                    /*Here you will get your errors
-                        if (errors) {
-                          var message = errors == 1
-                                ? 'You missed 1 field. It has been highlighted'
-                                : 'You missed ' + errors + ' fields. They have been highlighted';
-                          $("div.error span").html(message);
-                          $("div.error").show();
-                    } else {
-                      $("div.error").hide();
-                    }*/
-                    alert("Vui lòng Validate " + errors);
+                    alert("Vui lòng điền đầy đủ thông tin " + errors);
                 },
                 submitHandler: function (element) {
                     myDropzone.processQueue();
@@ -376,7 +384,6 @@ $(document).ready(function () {
                 }
             });
         });
-
         $('#dropzoneEditProjectSubmit').on('click', function (e) {
             // e.preventDefault();
             var dropzoneUrlProject = $(this).attr('data-url');
@@ -389,7 +396,7 @@ $(document).ready(function () {
                     product_price: {
                         required: true,
                     },
-                    poduct_slug: {
+                    product_slug: {
                         required: true
                     },
                     propduct_description: {
@@ -403,7 +410,7 @@ $(document).ready(function () {
                     product_price: {
                         required: "Vui lòng nhập giá dự án",
                     },
-                    poduct_slug: {
+                    product_slug: {
                         required: 'Vui lòng nhập đường dẫn SEO'
                     },
                     propduct_description: {

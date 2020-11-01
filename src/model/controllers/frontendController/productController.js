@@ -316,11 +316,11 @@ let getAllProductDesc = async (req, res, next) => {
 
         pool.query(queryFilter, function (error, results, fields) {
             if (error) throw error;
-            res.render('admin/products/products', {
+            res.render('datvangphanthiet/products/products', {
                 title: 'Sắp xếp',
                 userInfo: userInfo,
                 query: queryFilter,
-                products: results.slice(start, end),
+                products: results.slice(0,9),
                 userInfo: userInfo,
                 locations : locations,
                 projects: projects,
@@ -328,7 +328,6 @@ let getAllProductDesc = async (req, res, next) => {
                 newproducts:newproducts,
                 blog_categories: blog_categories,
                 categories: categories,
-                blogFeature: blogFeature,
                 errors: req.flash('Errors'),
                 success: req.flash('Success'),
                 user: req.user

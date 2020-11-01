@@ -96,14 +96,14 @@
                     <img id="image-avatar-info" class="sp_img_main" src="/public/uploads/auth/<%= user.avatar %>"
                         alt="<%= user.name %>">
                     <input type="hidden" name="auth_old_image" value="<%= user.avatar %>">
-                    <button id="trigger_button" class="btn btn-out-dotted btn-grd-primary mt-4">Chọn
+                    <button id="trigger_button" class="btn btn-out-dotted btn-success mt-4">Chọn
                         hình ảnh...</button>
                     <% }else{ %>
                     <img id="image-avatar-info" class="sp_img_main" src="/admin/images/example.png"
                         alt="<%= user.name %>">
                     <input type="hidden" name="auth_old_image" value="<%= user.avatar %>">
 
-                    <button id="trigger_button" class="btn btn-out-dotted btn-grd-primary mt-4">Chọn
+                    <button id="trigger_button" class="btn btn-out-dotted btn-success mt-4">Chọn
                         hình ảnh...</button>
                     <% } %>
                     <input type="file" name="user_image" id="user_image">

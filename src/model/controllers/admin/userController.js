@@ -36,7 +36,7 @@ let updateUserData = (req, res, next) => {
             if (req.file) {
                 // resize image before uploads.
                 sharp(`${req.file.destination}/${req.file.filename}`)
-                    .resize(300, 200)
+                    .resize(300, 300)
                     .toFile(`${req.file.destination}/${req.file.filename}-${generatecode}.webp`, async (err, info) => {
                         fs.unlinkSync(req.file.path);
                         if (req.body.auth_old_image) {

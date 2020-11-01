@@ -294,7 +294,7 @@ let addProductPost = (req, res, next) => {
             productItem[8] = req.body.product_meta_title;
             productItem[9] = req.body.product_meta_keyword;
             productItem[10] = req.body.product_meta_description;
-            if (req.body.product_quantity <= 0) {
+            if (req.body.product_quantity <= 0 || req.body.product_quantity == '') {
                 productItem[11] = 0;
             }
             productItem[11] = 1;
@@ -335,6 +335,10 @@ let addProductPost = (req, res, next) => {
                 create_at)
             VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)`;
 
+
+            console.log('Danh sách hình ảnh được thêm vào');
+            console.log(req.body.image_path);
+
             // tạo mới sản phẩm
             await service.newProduct(queryNewProduct, productItem);
             // lấy được id sản phẩm vửa tạo.
@@ -359,6 +363,8 @@ let addProductImage = (req, res, next) => {
         try {
             //thực hiện báo về cho protend;
             if (req.files) {
+                console.log('Danh sách hình ảnh mởi được thêm vào');
+                console.log(req.files);
                 req.files.map(async (file) => {
                     try {
                         await sharp(file.path).resize(500, 300).toBuffer(function (err, buffer) {
@@ -443,7 +449,6 @@ let editProductPost = (req, res, next) => {
     productUploadFile(req, res, async (error) => {
         try {
             var product_id = req.params.id;
-          
             var queryUpdate = `UPDATE product
             SET  
             sku = ?, 
@@ -478,6 +483,8 @@ let editProductPost = (req, res, next) => {
             // kiểm tra hình ảnh up lên vào cập nhật vàn danh sách
             if (imageLink[0].image == '' && req.body.image_path != '') {
                 productItem[5] = req.body.image_path;
+                console.log('Danh sách hình ảnh được thêm vào');
+                console.log(req.body.image_path);
             }
             else if (imageLink[0].image != '' && req.body.image_path != '') {
                 var Obj = JSON.parse(imageLink[0].image);
@@ -492,11 +499,15 @@ let editProductPost = (req, res, next) => {
                     Obj[`${count}`] = array[index];
                     count++;
                 }
-                productItem[6] = JSON.stringify(Obj);
+                productItem[5] = JSON.stringify(Obj);
                 console.log('danh sách hình ảnh được up lên');
-                console.log(productItem[6]);
+                console.log(productItem[5]);
+                console.log('Danh sách hình ảnh được thêm vào');
+                console.log(req.body.image_path);
             } else {
                 productItem[5] = imageLink[0].image;
+                console.log('Danh sách hình ảnh được thêm vào');
+                console.log(req.body.image_path);
             }
             productItem[6] = req.body.propduct_description;
             productItem[7] = req.body.short_description;
@@ -523,17 +534,20 @@ let editProductPost = (req, res, next) => {
             productItem[19] = req.params.id;
 
             await pool.query(queryUpdate, productItem, function (error, results, fields) {
-                if (error) throw error;
+                if (error){
+                    arrayError.push('Có lỗi xảy ra, Vui lòng xóa các ký tự icons không định dạng được trong văn bản !');
+                    req.flash('errors', arrayError);
+                    res.redirect('/admin/product/edit-product/' + req.params.id);
+                }
                 successArr.push(Transuccess.createSuccess(' Chỉnh sửa sản phẩm thành công '));
                 req.flash('Success', successArr);
                 return res.redirect('/admin/product/edit-product/' + + req.params.id);
             });
 
         } catch (error) {
-            throw error;
-            // arrayError.push('Có lỗi xảy ra');
-            // req.flash('errors', arrayError);
-            // res.redirect('/admin/product/edit-product/' + req.params.id);
+            arrayError.push('Có lỗi xảy ra, Vui lòng xóa các ký tự icons không định dạng được trong văn bản !');
+            req.flash('errors', arrayError);
+            res.redirect('/admin/product/edit-product/' + req.params.id);
         }
     })
 }
@@ -570,14 +584,15 @@ let updateProductImagePost = (req, res, next) => {
             if (req.file) {
                 var product_id = req.params.id;
                 var index = req.query.index;
+                var dateUpdate = Date.now();
                 await sharp(`${req.file.destination}/${req.file.filename}`)
                     .resize(500, 300)
-                    .toFile(`${req.file.destination}/${Date.now()}-${req.file.filename}`, (err, info) => {
+                    .toFile(`${req.file.destination}/${dateUpdate}-${req.file.filename}`, (err, info) => {
                         fs.unlinkSync(req.file.path);
                     });
                 var filename = '';
                 if (req.file) {
-                    filename = `${Date.now()}-${req.file.filename}`;
+                    filename = `${dateUpdate}-${req.file.filename}`;
                 }
                 var query = `SELECT image from product WHERE id = ${product_id}`
                 var imageLink = await service.getImageProduct(query);

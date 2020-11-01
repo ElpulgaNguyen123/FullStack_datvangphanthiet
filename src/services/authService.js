@@ -111,9 +111,9 @@ let resetpassword_service =  (email, protocol, host) => {
                 }
                 let linkVerify = `${protocol}://${host}/admin/reset-password/${checkUserAvaliable.verifyToken}`;
                 var smtpConfig = {
-                    host: 'smtp.gmail.com',
-                    port: 465,
-                    secure: true, // use SSL
+                    service: 'gmail',
+                    port: 587,
+                    secure: false,
                     auth: {
                         user: 'nguyenhoangthang635@gmail.com',
                         pass: 'Leo769183'

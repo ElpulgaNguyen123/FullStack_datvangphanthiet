@@ -43,7 +43,7 @@
                     </div>
                     <script>
                         var string = '';
-                        var stringAppend = function (id, sku, image, name) {
+                        var stringAppend = function (id, sku, image, name, price) {
                             return `<li> <a href="/admin/product/edit-product/${id}">
                                         <div class="main"> 
                                             <div class="left-side">
@@ -56,6 +56,48 @@
                                     </a>
                                 </li>`;
                         }
+                        var stringAppendAdvanced = function (id, 
+                        sku, 
+                        image, 
+                        name, 
+                        price, 
+                        stock, 
+                        quantity) {
+                            return `
+                                <tr class="item_tr">
+                                <td scope="row">${id}</th>
+                                <th class="product-image">
+                                    <img class="sp_img"
+                                        src="/public/uploads/products/${image}" alt="">
+                                    <p class="mt-2"><span
+                                            class="label label-primary">Sku:</span>&nbsp;${sku}</p>
+                                    </td>
+                                <td class="font-weight-bold">
+                                    <p class="text-break"> ${name} </p>
+                                </td>
+                                <td class="price-show"> <span class="product-price"> ${price}
+                                    </span> <sup> VNĐ </sup>
+                                </td>
+                                <td>
+                                    <label class="label text-center ${stock === 1 ? 'label-success' : 'label-warning'}">
+                                        ${stock === 1 ? 'Còn hàng' : 'Hết hàng'}
+                                    </label>
+                                </td>
+                                <td> ${quantity} </td>
+                                <td>
+                                    <div class="btn-group" role="group" aria-label="Basic example">
+                                        <a href="/admin/product/edit-product/${id}" type="button"
+                                            class="btn hor-grd btn-grd-warning " title="Sửa sản phẩm">
+                                            <i class="icofont icofont-edit"></i> </a>
+                                        <a href="/admin/product/delete-product/${id}" type="button"
+                                            class="btn hor-grd btn-grd-danger "> <i class="icofont icofont-ui-delete"
+                                                title="Xóa sản phẩm"></i>
+                                        </a>
+                                    </div>
+                                </td>
+                            </tr>
+                            `;
+                        }
                         function getSearchData(sku) {
                             string = '';
                             $.ajax({
@@ -63,6 +105,7 @@
                                 type: 'GET',
                                 success: function (result) {
                                     // cập nhật ngay lập tức avatar trên giao diện
+                                    console.log(result.results);
                                     if (result.results.length > 0) {
                                         for (var i = 0; i < result.results.length; i++) {
                                             var image = {};
@@ -71,29 +114,45 @@
                                             } else {
                                                 image = '';
                                             }
-                                            string += stringAppend(result.results[i].id, result.results[i].sku, image[0], result.results[i].name)
+                                            string += stringAppendAdvanced(
+                                            result.results[i].id,
+                                            result.results[i].sku,
+                                            image[0],
+                                            result.results[i].name,
+                                            result.results[i].price,
+                                            result.results[i].stock,
+                                            result.results[i].quantity)
                                         }
-                                        $('.result_rows').append(string);
+                                        $('#product_table_search').append(string);
                                     } else {
-                                        $('.result_rows').append(`<li>  <span> Không tìm thấy... </span></a>
-                                            </li>`);
+                                        $('#product_table_search').append(`<p class="item_tr"> Không tìm thấy... </p>`);
                                     }
-
                                 },
                                 error: function (error) {
-                                    notify(error, 'danger');
-                                    console.log(error);
+                                    toastr.error('Có lỗi xảy ra');
+                                    return false;
                                 }
                             })
                         }
+                        $('#product_table_search').hide();
                         $('#search_value').on('keyup', function () {
-                            $('.result_rows li').remove();
+                            // $('.result_rows li').remove();
+                            // var search_value = $(this).val();
+                            // if (search_value == '') {
+                            //     $('.result_rows').css('display', 'none');
+                            // } else {
+                            //     getSearchData(search_value);
+                            //     $('.result_rows').css('display', 'block');
+                            // }
+                            $('#product_table_search .item_tr').remove();
                             var search_value = $(this).val();
                             if (search_value == '') {
-                                $('.result_rows').css('display', 'none');
+                                $('#product_table_search').hide();
+                                $('#product_table').show();
                             } else {
+                                $('#product_table').hide();
+                                $('#product_table_search').show();
                                 getSearchData(search_value);
-                                $('.result_rows').css('display', 'block');
                             }
                         });
                     </script>
@@ -106,7 +165,8 @@
                     </button>
                     <div class="dropdown-menu">
                         <% locations.forEach(function(location, index){ %>
-                        <a class="dropdown-item" href="/admin/product-location/<%= location.id %>"><%= location.location_name %></a>
+                        <a class="dropdown-item"
+                            href="/admin/product-location/<%= location.id %>"><%= location.location_name %></a>
                         <% }); %>
                     </div>
                 </div>
@@ -157,7 +217,7 @@
                     </thead>
                     <tbody id="product_table">
                         <% products.forEach(function(product, index){ %>
-                        <tr>
+                        <tr class="item_tr">
                             <td scope="row"><%= product.id %></th>
                                 <% if(product.image.length > 0){ %>
                             <th class="product-image">
@@ -202,6 +262,8 @@
                         </tr>
                         <% }); %>
                     </tbody>
+                    <tbody id="product_table_search">
+                    </tbody>
                 </table>
             </div>
             <button class="buttonload">
@@ -214,14 +276,11 @@
 </div>
 <!-- end container-fluid -->
 <script>
-
-
     $('.delete-product-confirm').on('click', function (e) {
         e.preventDefault();
         var url = $(this).attr('data-url');
         $('#delete-slide-link').attr('href', url);
     });
-
     var product_table = $('#product_table');
     var trItem = function (value, index) {
         return `<tr>

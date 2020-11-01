@@ -143,14 +143,15 @@ let updateProjectImagePost = (req, res, next) => {
             if (req.file) {
                 var product_id = req.params.id;
                 var index = req.query.index;
+                var dateUpdate = Date.now();
                 await sharp(`${req.file.destination}/${req.file.filename}`)
                     .resize(800, 600)
-                    .toFile(`${req.file.destination}/${Date.now()}-${req.file.filename}`, (err, info) => {
+                    .toFile(`${req.file.destination}/${dateUpdate}-${req.file.filename}`, (err, info) => {
                         fs.unlinkSync(req.file.path);
                     });
                 var filename = '';
                 if (req.file) {
-                    filename = `${Date.now()}-${req.file.filename}`;
+                    filename = `${dateUpdate}-${req.file.filename}`;
                 }
                 var query = `SELECT project_image from project WHERE id = ${product_id}`
                 var imageLink = await service.getImageProduct(query);

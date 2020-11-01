@@ -7,9 +7,9 @@ let sendMailAdmin = (mailOptions ) => {
     let adminPort = process.env.MAILER_PORT;
 
     var smtpConfig = {
-        host: 'smtp.gmail.com',
-        port: 465,
-        secure: true, // use SSL
+        host:'smtp.gmail.com',
+        port: 587,
+        secure: false, // use SSL
         auth: {
             user: 'nguyenhoangthang635@gmail.com',
             pass: 'Leo769183'
@@ -24,4 +24,4 @@ let sendMailAdmin = (mailOptions ) => {
     return  transporter.sendMail(mailOptions);
 }
 
-module.exports = sendMailAdmin
+module.exports = sendMailAdmin  

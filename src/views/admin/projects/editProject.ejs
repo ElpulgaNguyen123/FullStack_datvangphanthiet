@@ -81,6 +81,7 @@
                                 Ảnh...</span>
                         </span>
                     </div>
+                    <small class="mt-4">Vui lòng không chọn quá 4 ảnh mỗi lần !</small>
                 </div>
                 <div class="col-lg-5">
                     <!-- The global file processing state -->
@@ -231,7 +232,7 @@
                         $(this).remove();
                     });
                     setTimeout(function () {
-                        img.attr('src', `/public/uploads/products/${result.imageSrc}`);
+                        img.attr('src', `/public/uploads/projects/${result.imageSrc}`);
                     }, 2000);
                     console.log('Cập nhật ảnh thành công', 'Thành công !');
                     imageData = null;

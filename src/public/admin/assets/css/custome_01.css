@@ -1,0 +1,90 @@
+*{margin: 0px; padding: 0px;}
+
+/* login page / start */
+
+.thanks-box {
+    padding: 15px;
+    background: white;
+    margin-top: 47px;
+}
+
+a {
+    color: #39b54a;
+}
+
+.mb-1 {
+    margin-bottom: 5px;
+}
+/* login page / end */
+
+/* hompage / start */
+
+.price-show {
+    font-size: 16px;
+}
+
+td.font-weight-bold {
+    word-break: break-all;
+    line-height: unset;
+    margin-right: 0px;
+    white-space: inherit;
+    white-space: -moz-pre-wrap;
+    white-space: -pre-wrap;
+    white-space: -o-pre-wrap;
+    word-wrap: break-word;
+}
+
+.two-line {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    overflow: hidden;
+}
+
+/* hompage / end */
+
+
+/* icons, button start */
+a.btn.hor-grd {
+    color: white;
+    color: var(--primary);
+    padding: 8px;
+    font-weight: 400;
+}
+
+a.btn.hor-grd {
+    color: white;
+    color: #cbcbcb;
+    padding: 8px;
+    font-weight: 400;
+}
+
+a.btn.hor-grd:hover {
+    color: #67b929;
+}
+/* icons, button end */
+
+/* card start*/
+.card-header {
+    background-color: var(--secondary);
+}
+/* cart end */
+
+/* button start*/
+.btn-grey {
+    color: #cbcbcb;
+}
+/* button end*/
+
+/* footer css start */
+.footer {
+    padding: 21px 15px 20px;
+    right: 0;
+    color: #6c757d;
+    left: 230px;
+    position: relative;
+    bottom: 0px;
+    left: 0;
+    background-color: #f3f3f3;
+}
+/* footer css end */
