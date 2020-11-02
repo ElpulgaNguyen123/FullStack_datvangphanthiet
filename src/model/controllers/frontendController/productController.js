@@ -356,11 +356,13 @@ let getPageLoad = async (req, res, next) => {
             let start = (page - 1) * perPage;
             let end = page * perPage;
             let result = {};
-
-            result.products = results.slice(start, end);
-            results.count = req.params.page;
-            result.page = req.params.page;
-
+            if(end > count){
+                result.status = 0;
+            }else {
+                result.products = results.slice(start, end);
+                result.page = req.params.page + 1;
+                result.status = 1;
+            }
             return res.status(200).send(result);
 
         });

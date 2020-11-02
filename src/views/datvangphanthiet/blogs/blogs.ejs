@@ -169,7 +169,6 @@ newsletter -->
 <!--=================================
 newsletter -->
 <script>
-
   var product_table = $('#product_table');
   var trItem = function (value, index) {
     return `<div class="col-6 col-sm-6 col-md-4">
@@ -214,17 +213,16 @@ newsletter -->
             success: function (result) {
               page++;
               console.log(result.products)
-              if (result.products.length > 0) {
+              if (result.status == 0) {
+                $('.buttonload').css('display', 'none');
+              }
+              if (result.products) {
                 setTimeout(function () {
                   result.products.forEach((value, index) => {
-                    product_table.append(trItem(value, index));
-                    entry.target.src = entry.target.dataset.src;
-                    observer.unobserve(entry.target);
+                    product_table.append(stringAppendAdvance(value, index));
                   });
                 }, 1500);
-              }
-              if (result.products.length == 0) {
-                $('.buttonload').css('display', 'none');
+                page++;
               }
             },
             error: function (error) {

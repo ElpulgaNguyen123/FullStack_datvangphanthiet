@@ -197,7 +197,7 @@ breadcrumb -->
 </section>
 <script>
 
-  var product_table = $('#product_table');
+  var product_table = $('#products_search_main');
   var trItem = function (value, index) {
     return `<div class="col-6 col-sm-6 col-md-4">
     <div class="soph__it">
@@ -222,6 +222,7 @@ breadcrumb -->
     </div>
 </div>`;
   }
+
   $(function () {
     const footer = document.querySelector('#loaddata');
     var page = 2;
@@ -239,18 +240,18 @@ breadcrumb -->
             contentType: 'application/json',
             processData: false,
             success: function (result) {
-              page++;
+              if (result.status == 0) {
+                $('.buttonload').css('display', 'none');
+                console.log(result.status);
+              }
               if (result.products.length > 0) {
                 setTimeout(function () {
                   result.products.forEach((value, index) => {
-                    product_table.append(trItem(value, index));
-                    entry.target.src = entry.target.dataset.src;
-                    observer.unobserve(entry.target);
+                    product_table.append(stringAppendAdvance(value, index));
                   });
                 }, 1500);
-              }
-              if (result.products.length == 0) {
-                $('.buttonload').css('display', 'none');
+                page++;
+                console.log(page);
               }
             },
             error: function (error) {
@@ -262,6 +263,5 @@ breadcrumb -->
     };
     let observer = new IntersectionObserver(callback);
     observer.observe(footer);
-    document.querySelectorAll('img').forEach(img => { observer.observe(img) });
   });
 </script>

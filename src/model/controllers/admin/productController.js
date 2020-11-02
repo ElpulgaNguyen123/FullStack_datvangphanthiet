@@ -403,10 +403,7 @@ let editProductGet = async (req, res, next) => {
                 title: 'Trang Không tìm thấy'
             });
         }
-
         var query = `SELECT * FROM product where id= ${product_id}`;
-
-
         var querycategories = 'SELECT * FROM categories';
         // danh sách dữ liệu thuộc tính sản phẩm
         var categories = await service.queryActionNoParams(querycategories);
@@ -532,6 +529,8 @@ let editProductPost = (req, res, next) => {
                 getFullYear();
             productItem[18] = formatted_date;
             productItem[19] = req.params.id;
+
+            console.log(req.body);
 
             await pool.query(queryUpdate, productItem, function (error, results, fields) {
                 if (error){
