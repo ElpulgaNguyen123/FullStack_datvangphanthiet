@@ -43,7 +43,6 @@ let updateUserData = (req, res, next) => {
                             await fsExtras.remove(`${app.directory_auth}/${req.body.auth_old_image}`);
                         }
                     });
-
                 filename = `${req.file.filename}-${generatecode}.webp`;
             }
             else if (req.body.auth_old_image) {
@@ -67,7 +66,7 @@ let updateUserData = (req, res, next) => {
                 req.body.email,
                 req.body.email_main,
                 req.body.address,
-                req.body.address_main,
+                req.body.address_02,
                 req.body.profile_facebook,
                 req.body.profile_instagram,
                 filename,
@@ -99,10 +98,22 @@ let updateUserAvatar = async (req, res, next) => {
         userItem.phone = req.body.phone || '';
         userItem.email = req.body.email || '';
         userItem.address = req.body.address || '';
+        userItem.address_02 = req.body.address_02 || '';
         userItem.facebook = req.body.profile_facebook || '';
         userItem.instagram = req.body.profile_instagram || '';
-        var queryUser = `UPDATE user SET name = ?, phone = ?, email = ?, address = ? WHERE user_id = '${req.params.id}'`;
-        pool.query(queryUser, [userItem.name, userItem.phone, userItem.email, userItem.address, userItem.profile_facebook,
+        var queryUser = `UPDATE user SET name = ?, 
+        phone = ?, 
+        email = ?, 
+        address = ?, 
+        address_02 = ? 
+        WHERE user_id = '${req.params.id}'`;
+        pool.query(queryUser, [
+            userItem.name, 
+            userItem.phone, 
+            userItem.email, 
+            userItem.address, 
+            userItem.address_02, 
+            userItem.profile_facebook,
         userItem.profile_instagram
         ], async function (error, rows, fields) {
             if (error) {

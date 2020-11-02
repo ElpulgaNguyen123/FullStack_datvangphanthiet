@@ -357,6 +357,7 @@ let getPageLoad = async (req, res, next) => {
             let end = page * perPage;
             let result = {};
             if(end > count){
+                result.products = results.slice(start, end);
                 result.status = 0;
             }else {
                 result.products = results.slice(start, end);

@@ -48,7 +48,16 @@ let FrhomeController = async (req, res, next) => {
         const customers = await service.getAllCustomer(queryCustomer);
 
         //query new blog 
-        let queryNewBlog =`SELECT * 
+        let queryNewBlog =`
+        SELECT blog.id,
+        blog.title, 
+        blog.slug,
+        blog.image,
+        blog.create_at,
+        blog.author,
+        blog_categories.id as category_id,
+        blog_categories.blog_category_name,
+        blog_categories.blog_category_slug
         FROM blog 
         INNER JOIN blog_categories 
         ON blog.blog_category_id = blog_categories.id
@@ -62,7 +71,7 @@ let FrhomeController = async (req, res, next) => {
                 title: 'Trang chủ',
                 slides: slide,
                 products : products,
-                newBlogs:newBlogs,
+                newBlogs:newBlogs.slice(0,3),
                 locations:locations,
                 customers:customers,
                 projects : projects,

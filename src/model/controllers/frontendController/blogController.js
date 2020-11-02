@@ -73,9 +73,18 @@ let FrBlogCategoryController = async (req, res, next) => {
 
         let queryBlogCatgories = 'SELECT * FROM blog_categories';
         let blog_categories = await service.getAllBlogCategories(queryBlogCatgories);
-        const queryBlog = `SELECT * FROM blog 
+        const queryBlog = `SELECT blog.id,
+        blog.title, 
+        blog.slug,
+        blog.image,
+        blog.create_at,
+        blog.author,
+        blog_categories.id as category_id,
+        blog_categories.blog_category_name,
+        blog_categories.blog_category_slug
+        FROM blog 
         INNER JOIN blog_categories 
-        ON blog.blog_category_id = blog_categories.id WHERE blog.blog_category_id = ?
+        ON blog.blog_category_id = category_id = ?
         `;
         const blogs = await service.getBlog(queryBlog, req.params.id);
         // Lấy tất cả sản phẩm và hiển thị ra table
@@ -99,7 +108,6 @@ let FrBlogCategoryController = async (req, res, next) => {
 }
 let FrBlogDetailController = async (req, res, next) => {
     try {
-
         let userInfo = {};
         var queryUser = 'SELECT * FROM user';
         var user = await service.getAllUser(queryUser);
@@ -111,6 +119,9 @@ let FrBlogDetailController = async (req, res, next) => {
         const queryFeature = `SELECT * FROM blog ORDER BY id DESC LIMIT 4`;
         const blogFeature = await service.getAllBlog(queryFeature);
         const blog = await service.getBlog(queryBlogDetail, req.params.id);
+        console.log('Đường dẫn');
+        console.log(blog[0].id);
+        console.log(blog);
 
         var queryRelateBlog = '';
 
@@ -119,8 +130,6 @@ let FrBlogDetailController = async (req, res, next) => {
         }else{
             queryRelateBlog = `SELECT * FROM blog WHERE blog_category_id = ${blog[0].blog_category_id} ORDER BY id DESC LIMIT 8`
         }
-
-
         let queryPolicies = 'SELECT * FROM policies';
         let policies = await service.getAllPolicies(queryPolicies);
         if (policies.length > 6) {
