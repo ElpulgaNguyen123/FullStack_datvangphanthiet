@@ -126,7 +126,6 @@ let getAllProductCategory = async (req, res, next) => {
         return res.status(500).send(error);
     }
 }
-
 let getAllProductLocation = async (req, res, next) => {
     try {
         let userInfo = {};
@@ -224,7 +223,7 @@ let FrProductDetailController = async (req, res, next) => {
         let blog_categories = await service.getAllBlogCategories(queryBlogCatgories);
 
         if (policies.length > 6) {
-            policies = policiess.slice(0, 6);
+            policies = policies.slice(0, 6);
         }
 
         var queryCategory = 'SELECT * FROM categories';
@@ -251,7 +250,7 @@ let FrProductDetailController = async (req, res, next) => {
         });
 
     } catch (error) {
-        throw error;
+        console.log(error);
         return res.status(500).send(error);
     }
 }

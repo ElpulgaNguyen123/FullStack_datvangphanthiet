@@ -62,6 +62,7 @@ let FrhomeController = async (req, res, next) => {
         INNER JOIN blog_categories 
         ON blog.blog_category_id = blog_categories.id
         ORDER BY blog.id DESC LIMIT 3`;
+        
         let newBlogs = await service.getAllBlog(queryNewBlog);
 
         products = await service.queryActionNoParams(queyProduct);

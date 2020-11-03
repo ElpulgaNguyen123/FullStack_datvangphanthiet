@@ -4,7 +4,7 @@ var options = {
     host     : 'localhost',
     user     : 'root',
     password : '',
-    database : 'xedapphanthiet'
+    database : 'dat41860_datvangphanthiet'
 }
 var sessionStore = new MySqlStore(options);
 let configSession = (app) => {

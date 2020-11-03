@@ -10,7 +10,6 @@ let FrProjectController = async (req, res, next) => {
         if(user[0]){
             userInfo = user[0];
         }
-
         let queryPolicies = 'SELECT * FROM policies';
         let policies = await service.getAllPolicies(queryPolicies);
         if(policies.length > 6){
@@ -68,7 +67,7 @@ let FrProjectDetailController = async (req, res, next) => {
         let blog_categories = await service.getAllBlogCategories(queryBlogCatgories);
 
         if (policies.length > 6) {
-            policies = policiess.slice(0, 6);
+            policies = policies.slice(0, 6);
         }
 
         var queryCategory = 'SELECT * FROM categories';        

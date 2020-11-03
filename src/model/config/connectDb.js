@@ -12,7 +12,7 @@ var pool  = mysql.createPool({
   host     : 'localhost',
   user     : 'root',
   password : '',
-  database : 'datvangphanthiet'
+  database : 'dat41860_datvangphanthiet'
 });
 
 module.exports = pool;
